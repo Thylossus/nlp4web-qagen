@@ -1,0 +1,20 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>de.tudarmstadt.nlp</groupId>
+  <artifactId>qagen</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>QA Gen</name>
+  <repositories>
+  	<repository>
+  		<id>jitpack.io</id>
+  		<url>https://jitpack.io</url>
+  	</repository>
+  </repositories>
+  <dependencies>
+  	<dependency>
+  		<groupId>com.github.dkpro</groupId>
+  		<artifactId>dkpro-lsr</artifactId>
+  		<version>8a5822e08da627011db5a77084ec3c33cbca7672</version>
+  	</dependency>
+  </dependencies>
+</project>

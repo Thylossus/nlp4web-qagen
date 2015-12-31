@@ -16,5 +16,33 @@
   		<artifactId>dkpro-lsr</artifactId>
   		<version>8a5822e08da627011db5a77084ec3c33cbca7672</version>
   	</dependency>
+  	<dependency>
+  		<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+  		<artifactId>
+  			de.tudarmstadt.ukp.dkpro.core.tokit-asl
+  		</artifactId>
+  		<version>1.7.0</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+  		<artifactId>
+  			de.tudarmstadt.ukp.dkpro.core.api.parameter-asl
+  		</artifactId>
+  		<version>1.7.0</version>
+  	</dependency>
   </dependencies>
+  <issueManagement>
+  	<system>GitHub Issues</system>
+  	<url>https://github.com/Thylossus/nlp4web-qagen/issues</url>
+  </issueManagement>
+  <dependencyManagement>
+  	<dependencies>
+  		<dependency>
+  			<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+  			<artifactId>de.tudarmstadt.ukp.dkpro.core-asl</artifactId>
+  			<version>1.7.0</version>
+  			<type>pom</type>
+  		</dependency>
+  	</dependencies>
+  </dependencyManagement>
 </project>

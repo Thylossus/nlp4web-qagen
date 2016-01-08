@@ -11,21 +11,6 @@
       <supertypeName>uima.tcas.Annotation</supertypeName>
       <features>
         <featureDescription>
-          <name>Keywords</name>
-          <description/>
-          <rangeTypeName>uima.cas.StringList</rangeTypeName>
-        </featureDescription>
-        <featureDescription>
-          <name>Categories</name>
-          <description/>
-          <rangeTypeName>uima.cas.StringList</rangeTypeName>
-        </featureDescription>
-        <featureDescription>
-          <name>Hypernyms</name>
-          <description/>
-          <rangeTypeName>uima.cas.StringList</rangeTypeName>
-        </featureDescription>
-        <featureDescription>
           <name>AnswerType</name>
           <description/>
           <rangeTypeName>uima.cas.String</rangeTypeName>

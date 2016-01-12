@@ -7,7 +7,7 @@ Project: generate multiplie choice answers for given question and answer.
   - [ ] Set 1 [Frank]
   - [ ] Set 2 [Max]
   - [ ] Set 3 [Tobias K.]
-  - [ ] Set 4 [Tobais R.]
+  - [ ] Set 4 [Tobias R.]
 - [ ] Implementation
   - [ ] Answer candidate UIMA type with tag cloud feature (see [#1](https://github.com/Thylossus/nlp4web-qagen/issues/1))
   - [ ] [Open Trivia QA parser](https://github.com/Thylossus/nlp4web-qagen/blob/master/qagen/src/main/java/input/OpenTriviaQAParser.java)

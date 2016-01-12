@@ -21,3 +21,7 @@ Project: generate multiplie choice answers for given question and answer.
   - [ ] [Similarity detection](https://github.com/Thylossus/nlp4web-qagen/blob/master/qagen/src/main/java/similarity/detection/SimilarityDetection.java)
   - [ ] [Candidate selection](https://github.com/Thylossus/nlp4web-qagen/blob/master/qagen/src/main/java/consumer/CandidateSelection.java)
   - [ ] The pipeline
+- [ ] Devlop evaluation formula for tests results
+- [ ] Analyze and summarize test results
+- [ ] Write final report
+- [ ] Create final presentation

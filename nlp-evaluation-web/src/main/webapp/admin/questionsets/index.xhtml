@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+ 
+    
+    <h:body>
+   	 	<ui:composition template="/templates/admin.xhtml">
+ 			<ui:param name="pageTitle" value="Question Sets" />
+ 
+			<ui:define name="content">
+				<p:panel>
+					<f:facet name="header">Question Sets</f:facet>
+					<p>The following question sets have been defined. There is exactly one Individual Baseline (IB) that is presented
+					to every test person to determine his or her specific error rate. This baseline set cannot be deleted.<br />
+					The other question sets are created pairwise, consisting of a Difficulty Baseline set (DB) and an Evaluation Set (ES).
+					Both sets share the same questions but with different answers (apart from the correct one, evidently). The DB set is
+					used to measure the error rate for editorial answers to the question while the ES is used to measure the error rate
+					for the system-generated answers.</p>
+					<p:panel>
+						<f:facet name="header">Existing Question Sets</f:facet>
+						<p>The following question sets are already defined in the system. Please note that they don't take part in the evaluation
+						process until they are locked.</p>
+						<p:dataTable value="#{questionSetBean.questionSets}" var="qs" id="dtQuestionSets">
+							<p:column>
+								<f:facet name="header">Type / ID</f:facet>
+								<h:outputText rendered="#{qs.type == 'IB'}" value="#{qs.type}" />
+								<h:outputText rendered="#{qs.type != 'IB'}" value="#{qs.type}[#{qs.id}]" />
+							</p:column>
+							<p:column>
+								<f:facet name="header">Name</f:facet>
+								#{qs.name}
+							</p:column>
+							<p:column>
+								<f:facet name="header">No. of completed* questions</f:facet>
+								#{qs.answeredQuestionCount} of #{qs.questionCount}
+							</p:column>
+							<p:column>
+								<f:facet name="header">Status**</f:facet>
+								#{qs.locked ? 'Locked' : 'Open'}
+							</p:column>
+							<p:column>
+								<f:facet name="header"></f:facet>
+								<p:button value="Edit" outcome="/admin/questionsets/edit.xhtml">
+									<f:param name="id" value="#{qs.id}" />
+								</p:button>
+								<p:commandButton rendered="#{not qs.locked}" value="Lock" process="@this"
+									update="dtQuestionSets,growl" action="#{questionSetBean.lock(qs.id,qs.type)}" />
+							</p:column>
+						</p:dataTable>
+						<p>* In this case, a completed question is a question that has at least one wrong answer specified.</p>
+						<p>** Only locked question sets will be used for evaluation but they should not be altered after being locked.</p>
+					</p:panel>
+					<p:panel>
+						<f:facet name="header">Create Question Set</f:facet>
+						<p>You can create a new DB/ES-combination:</p>
+						<p:commandButton value="New Question Set" action="#{questionSetBean.addQuestionset()}" process="@this" update="growl,dtQuestionSets" />
+					</p:panel>
+				</p:panel>
+			</ui:define>
+    	</ui:composition>
+	</h:body>
+</html>

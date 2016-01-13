@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+ 
+ 	<ui:param name="pageTitle" value="Welcome" />
+    
+    <h:body>
+   	 	<ui:composition template="/templates/basic.xhtml">
+ 
+			<ui:define name="content">
+				<p:panel>
+					<h1>Your quiz has been paused</h1>
+					<p>We are looking forward to see you soon.</p>
+					<p>Your state has been saved and is accessible through the following link:</p>
+					<p>#{evaluationBean.resumeLink}</p>
+					<p>If you'd like to resume the quiz, save this link so that you don't have to answer all questions again.</p>
+				</p:panel>
+			</ui:define>
+    	</ui:composition>
+	</h:body>
+</html>

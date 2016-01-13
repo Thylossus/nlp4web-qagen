@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+ 
+ 	<f:metadata>
+ 		<f:viewParam name="id" value="#{questionSetDetailsBean.urlId}" />
+		<f:event type="preRenderView" listener="#{questionSetDetailsBean.preRenderView}"/>
+	</f:metadata>
+    
+    <h:body>
+   	 	<ui:composition template="/templates/admin.xhtml">
+ 			<ui:param name="pageTitle" value="Edit Question Set" />
+ 
+			<ui:define name="content">
+				<p:panel rendered="#{questionSetDetailsBean.qsId != 0}">
+					<f:facet name="header">Edit Question Set #{questionSetDetailsBean.qsId}</f:facet>
+					<p>Here, you can edit the question set and its questions.</p>
+					<p>If there are already evaluations containing this set, be careful when editing.</p>
+					<p:panel>
+						<f:facet name="header">Metadata</f:facet>
+						<p>This data is used for organizational purposes:</p>
+						<p:panelGrid columns="2">
+							<p:outputLabel value="ID" />
+							<h:outputText value="#{questionSetDetailsBean.idString}" />
+							
+							<p:outputLabel for="qsName" value="Question Set Name" />
+							<p:inputText id="qsName" value="#{questionSetDetailsBean.qsName}" />
+							
+							<p:outputLabel for="qsComment" value="Comment" />
+							<p:inputTextarea id="qsComment" value="#{questionSetDetailsBean.qsComment}" />
+						</p:panelGrid>
+						<p:commandButton value="Save Metadata" action="#{questionSetDetailsBean.saveMetadata()}" process="@this,qsName,qsComment" update="@form,growl" />
+					</p:panel>
+					<p:panel>
+						<f:facet name="header">Question List</f:facet>
+						<p>The following questions have been defined for this question set:</p>
+						<p:dataTable value="#{questionSetDetailsBean.questions}" var="question">
+							<p:column sortBy="#{question.id}">
+								<f:facet name="header">ID</f:facet>
+								#{question.id}
+							</p:column>
+							<p:column>
+								<f:facet name="header">Question</f:facet>
+								#{question.text}
+							</p:column>
+							<p:column sortBy="#{question.ibAnswerCount}" rendered="#{not empty questionSetDetailsBean.ibQuestionSet}">
+								<f:facet name="header">No. of answers (IB)</f:facet>
+								#{question.ibAnswerCount}
+							</p:column>
+							<p:column sortBy="#{question.dbAnswerCount}" rendered="#{empty questionSetDetailsBean.ibQuestionSet}">
+								<f:facet name="header">No. of answers (DB)</f:facet>
+								#{question.dbAnswerCount}
+							</p:column>
+							<p:column sortBy="#{question.esAnswerCount}" rendered="#{empty questionSetDetailsBean.ibQuestionSet}">
+								<f:facet name="header">No. of answers (ES)</f:facet>
+								#{question.esAnswerCount}
+							</p:column>
+							<p:column>
+								<p:button value="Edit" outcome="/admin/question/edit.xhtml">
+									<f:param name="id" value="#{question.id}" />
+								</p:button>
+							</p:column>
+						</p:dataTable>
+						<p:commandButton value="Add new Question" action="#{questionSetDetailsBean.addQuestion()}" />
+					</p:panel>
+				</p:panel>
+			</ui:define>
+    	</ui:composition>
+	</h:body>
+</html>

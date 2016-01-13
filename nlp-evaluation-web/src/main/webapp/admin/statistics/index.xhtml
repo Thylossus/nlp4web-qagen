@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+ 
+    
+    <h:body>
+   	 	<ui:composition template="/templates/admin.xhtml">
+		 	<ui:param name="pageTitle" value="Statistics" />
+ 
+			<ui:define name="content">
+				<p:panel>
+					<f:facet name="header">Statistics</f:facet>
+					
+					
+					
+					<p:panel>
+						<f:facet name="header">Evaluation Sessions</f:facet>
+						<p>The following sessions are stored in the system:</p>
+						<p:dataTable var="evalSession" value="#{statisticsBean.sessions}">
+							<p:column>
+								<f:facet name="header">ID</f:facet>
+								#{evalSession.id}
+							</p:column>
+							<p:column>
+								<f:facet name="header">Status</f:facet>
+								#{not empty evalSession.endDate ? 'finished' : 'todo: timeout / in progress'}
+							</p:column>
+							<p:column>
+								<f:facet name="header">Time started</f:facet>
+								#{evalSession.startDate}
+							</p:column>
+							<p:column>
+								<f:facet name="header">Time finished</f:facet>
+								#{empty evalSession.endDate ? 'not yet' : evalSession.endDate} 
+							</p:column>
+							<p:column>
+								<f:facet name="header">Remaining Questions</f:facet>
+								#{evalSession.remainingQuestionCount} / #{evalSession.questionCount}
+							</p:column>
+							<p:column>
+								<f:facet name="header">Question Sets</f:facet>
+								#{evalSession.questionSetString}
+							</p:column>
+							
+						</p:dataTable>
+					</p:panel>
+					
+					<p:panel>
+						<f:facet name="header">Evaluations per Question Set</f:facet>
+						<p:dataTable var="qsInfo" value="#{statisticsBean.questionSetInformation}">
+							<p:column sortable="true" sortBy="#{qsInfo.name}">
+								<f:facet name="header">Question Set</f:facet>
+								#{qsInfo.name}
+							</p:column>
+							<p:column sortable="true" sortBy="#{qsInfo.completedEvaluationCount}">
+								<f:facet name="header">Completed Evaluations</f:facet>
+								#{qsInfo.completedEvaluationCount}
+							</p:column>
+							<p:column sortable="true" sortBy="#{qsInfo.pendingEvaluationCount}">
+								<f:facet name="header">Pending Evaluations*</f:facet>
+								#{qsInfo.pendingEvaluationCount}
+							</p:column>
+							<p:column sortable="true" sortBy="#{qsInfo.overallEvaluationCount}">
+								<f:facet name="header">Overall Evaluation Count**</f:facet>
+								#{qsInfo.overallEvaluationCount}
+							</p:column>
+							
+						</p:dataTable>
+						<p>* Pending evaluations are the number of sessions that contain this question set but that have not been completed yet</p>
+						<p>** Overall evaluation count is sum of completed and pending evaluation count.</p>
+					</p:panel>
+				</p:panel>
+			</ui:define>
+    	</ui:composition>
+	</h:body>
+</html>

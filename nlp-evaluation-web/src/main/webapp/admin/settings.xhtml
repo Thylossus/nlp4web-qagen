@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+ 
+    
+    <h:body>
+   	 	<ui:composition template="/templates/admin.xhtml">
+ 			<ui:param name="pageTitle" value="Settings" />
+ 
+			<ui:define name="content">
+				<p:panel>
+					<f:facet name="header">Settings</f:facet>
+					<p>These settings define how the evaluation is done. <strong>Handle with care</strong>, especially if there are already evaluated data sets.</p>
+					<p:dataTable value="#{settingsBean.settings}" var="setting">
+						<p:column>
+							<f:facet name="header">
+								Key
+							</f:facet>
+							#{setting.key}
+						</p:column>
+						
+						<p:column>
+							<f:facet name="header">
+								Description
+							</f:facet>
+							#{setting.description}
+						</p:column>
+						
+						<p:column>
+							<f:facet name="header">
+								Value
+							</f:facet>
+							<p:inputText value="#{setting.rawValue}" id="settingInput" />
+							<p:commandButton value="Save changes" action="#{settingsBean.update(setting.key)}" process="@this,settingInput" update="growl" />
+						</p:column>
+					</p:dataTable>
+				</p:panel>
+			</ui:define>
+    	</ui:composition>
+	</h:body>
+</html>

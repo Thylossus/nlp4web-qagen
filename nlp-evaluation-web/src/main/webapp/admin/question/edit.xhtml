@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+ 
+ 	<f:metadata>
+ 		<f:viewParam name="id" value="#{questionDetailsBean.urlId}" />
+		<f:event type="preRenderView" listener="#{questionDetailsBean.preRenderView}"/>
+	</f:metadata>
+    
+    <h:body>
+   	 	<ui:composition template="/templates/admin.xhtml">
+ 			<ui:param name="pageTitle" value="Edit Question" />
+ 
+			<ui:define name="content">
+				<p:panel rendered="#{questionDetailsBean.questionId != 0}">
+					<f:facet name="header">Edit Question #{questionDetailsBean.questionId}</f:facet>
+					<p>The text and comment for the question are used for every representation of the question regardless of the question set.</p>
+					
+					<p:panel>
+						<f:facet name="header">Question</f:facet>
+						<p:panelGrid columns="2">
+							<p:outputLabel value="Question text" for="questiontext" />
+							<p:inputTextarea value="#{questionDetailsBean.questionText}" id="questiontext" />
+	
+							<p:outputLabel value="Comment (internal)" for="comment" />
+							<p:inputTextarea value="#{questionDetailsBean.comment}" id="comment" />
+						</p:panelGrid>
+					</p:panel>
+					
+					<p:panel>
+						<f:facet name="header">Answers</f:facet>
+						<p:dataTable var="row" value="#{questionDetailsBean.answerRows}">
+							<p:column>
+								<f:facet name="header">Question Set Type</f:facet>
+								#{row.type}
+							</p:column>
+						
+							<p:column>
+								<f:facet name="header">Correct answer</f:facet>
+								<p:inputText value="#{row.correctAnswer.text}" />
+							</p:column>
+						
+							<p:column>
+								<f:facet name="header">Alternative 1</f:facet>
+								<p:inputText value="#{row.otherAnswers[0].text}" />
+							</p:column>
+							<p:column>
+								<f:facet name="header">Alternative 2</f:facet>
+								<p:inputText value="#{row.otherAnswers[1].text}" />
+							</p:column>
+							<p:column>
+								<f:facet name="header">Alternative 3</f:facet>
+								<p:inputText value="#{row.otherAnswers[2].text}" />
+							</p:column>
+						
+						</p:dataTable>
+						<p>Please note: The order of the answers is shuffled whenever a new evaluation takes place.</p>
+					</p:panel>
+					
+					<p:panel toggleable="true" collapsed="true">
+						<f:facet name="header">Import OpenTriviaQA</f:facet>
+						<p>Here, you can import a question from OpenTriviaQA by posting the raw data in the following text field:</p>
+						<p:inputTextarea id="triviainput" value="#{questionDetailsBean.openTriviaInput}" />
+						<p>Please note that clicking the following button will override all fields above!</p>
+						<p:commandButton value="Import" update="@form,growl" process="triviainput,@this" action="#{questionDetailsBean.importOpenTrivia}" />
+					</p:panel>
+					
+					<p:commandButton value="Save" action="#{questionDetailsBean.save}" update="growl" />
+					<p:commandButton value="Cancel" action="#{questionDetailsBean.cancel}" />
+				</p:panel>
+			</ui:define>
+    	</ui:composition>
+	</h:body>
+</html>

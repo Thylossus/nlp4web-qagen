@@ -1,0 +1,52 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.tud.nlp4web.project.evaluation</groupId>
+		<artifactId>nlp-evaluation-parent</artifactId>
+		<version>0.9.0</version>
+		<relativePath>../nlp-evaluation-parent/pom.xml</relativePath>
+	</parent>
+	<artifactId>nlp-evaluation-ear</artifactId>
+	<packaging>ear</packaging>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-ear-plugin</artifactId>
+				<version>2.8</version>
+				<configuration>
+					<version>6</version>
+					<defaultLibBundleDir>lib</defaultLibBundleDir>
+					<skinnyWars>true</skinnyWars>
+					<modules>
+						<ejbModule>
+							<groupId>de.tud.nlp4web.project.evaluation</groupId>
+							<artifactId>nlp-evaluation-provider</artifactId>
+						</ejbModule>
+						<webModule>
+							<groupId>de.tud.nlp4web.project.evaluation</groupId>
+							<artifactId>nlp-evaluation-web</artifactId>
+							<contextRoot>/</contextRoot>
+						</webModule>
+					</modules>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>de.tud.nlp4web.project.evaluation</groupId>
+			<artifactId>nlp-evaluation-provider</artifactId>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>de.tud.nlp4web.project.evaluation</groupId>
+			<artifactId>nlp-evaluation-web</artifactId>
+			<type>war</type>
+		</dependency>
+	</dependencies>
+
+</project>

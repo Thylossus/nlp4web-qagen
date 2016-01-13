@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+ 
+    <h:head>
+        <title><h:outputText value="#{not empty pageTitle ? 'nlp4web project: '.concat(pageTitle) : 'nlp4web project'}" /></title>
+    </h:head>
+    
+	<h:body>
+       	<h:outputStylesheet library="default" name="css/base.css" />
+				
+		<h:form id="growl">
+			<p:growl id="growler" showDetail="false" sticky="true" />
+		</h:form>
+		
+		<h:form id="menubar">
+			<p:menubar autoDisplay="false">
+				<p:submenu label="Evaluation">
+					<p:menuitem value="Start new..." outcome="/evaluation/index.xhtml" />
+					<p:separator />
+					<p:menuitem value="Settings" outcome="/admin/settings.xhtml" />
+				</p:submenu>
+				
+				<p:submenu label="Question Sets">
+					<p:menuitem value="Overview" outcome="/admin/questionsets/index.xhtml" />
+				</p:submenu>
+			
+				<p:submenu label="Statistics">
+					<p:menuitem value="Overview" outcome="/admin/statistics/index.xhtml" />
+					<p:separator />
+					<p:menuitem value="Download raw data" outcome="/admin/statistics/raw.xhtml" />
+				</p:submenu>
+			</p:menubar>
+		</h:form>
+
+		<h:panelGroup rendered="#{empty disableContentForm || disableContentForm == 'false'}">
+
+			<h:form id="content">
+				<ui:insert name="content">
+				
+				</ui:insert>
+			</h:form>
+		
+		</h:panelGroup>
+		
+		<h:panelGroup rendered="#{disableContentForm == 'true'}">
+
+			<div id="content">
+				<ui:insert name="content">
+				
+				</ui:insert>
+			</div>
+		
+		</h:panelGroup>
+		
+		<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+		    Please wait...
+		</p:dialog>
+	</h:body>
+</html>

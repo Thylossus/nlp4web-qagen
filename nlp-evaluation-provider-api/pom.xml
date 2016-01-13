@@ -1,0 +1,20 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.tud.nlp4web.project.evaluation</groupId>
+		<artifactId>nlp-evaluation-parent</artifactId>
+		<version>0.9.0</version>
+		<relativePath>../nlp-evaluation-parent/pom.xml</relativePath>
+	</parent>
+	<artifactId>nlp-evaluation-provider-api</artifactId>
+	
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+	</dependencies>
+	
+</project>

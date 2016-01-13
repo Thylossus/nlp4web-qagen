@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <h:body>
+   	 	<ui:composition template="/templates/basic.xhtml">
+ 
+			<ui:define name="content">
+				<h:panelGroup rendered="#{evaluationBean.validSession and evaluationBean.hasNextQuestion()}">
+					<p:panel>
+						<f:facet name="header">
+							<h:outputText value="Question #{evaluationBean.answeredQuestionCount + 1} of #{evaluationBean.totalQuestionCount}" />
+						</f:facet>
+						<p>#{questionBean.currentQuestion.text}</p>
+						
+						<p:dataGrid columns="2" var="answer" value="#{questionBean.currentQuestion.answers}">
+							<p:commandButton value="#{answer.text}" action="#{questionBean.answer(answer.id)}" />
+						</p:dataGrid>
+						
+					</p:panel>
+					<p:commandButton value="Resume later" action="#{evaluationBean.resumeLater()}" />
+				</h:panelGroup>
+				<h:panelGroup rendered="#{not evaluationBean.validSession or not evaluationBean.hasNextQuestion()}">
+					<p:panel>
+						<f:facet name="header">
+							Fehler
+						</f:facet>
+						<p>There is no evaluation in progress. Please use a resume link or click the button below to start a new session:</p>
+						
+					</p:panel>
+					<p:commandButton value="Start Evaluation" action="START_EVALUATION" />
+				</h:panelGroup>
+			</ui:define>
+    	</ui:composition>
+	</h:body>
+</html>

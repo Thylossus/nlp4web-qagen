@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+ 
+ 	<f:metadata>
+		<f:event type="preRenderView" listener="#{resumeBean.preRenderView(param['key'])}"/>
+	</f:metadata>
+    
+    <h:body>
+   	 	<ui:composition template="/templates/basic.xhtml">
+ 			
+ 			<ui:param name="pageTitle" value="Welcome back" />
+ 			
+			<ui:define name="content">
+				<p:panel rendered="#{resumeBean.validSession}">
+					<h1>Welcome back!</h1>
+					<h:panelGroup rendered="#{resumeBean.closed}">
+						<p>You've answered all questions already. If you want, you can see your results again.</p>
+					</h:panelGroup>
+					<h:panelGroup rendered="#{not resumeBean.closed}">
+						<p>Thank you for resuming the evaluation.</p>
+						<p>You have #{resumeBean.session.remainingQuestionCount} of #{resumeBean.session.questionCount} questions left to answer. This will take you
+						about #{resumeBean.remainingTimeString} to complete.</p>
+					</h:panelGroup>
+					<p:commandButton value="#{resumeBean.closed ? 'Show results' : 'Next question'}" action="#{resumeBean.resume()}" />
+				</p:panel>
+			</ui:define>
+    	</ui:composition>
+	</h:body>
+</html>

@@ -1,0 +1,37 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.tud.nlp4web.project.evaluation</groupId>
+		<artifactId>nlp-evaluation-parent</artifactId>
+		<version>0.9.0</version>
+		<relativePath>../nlp-evaluation-parent/pom.xml</relativePath>
+	</parent>
+	<artifactId>nlp-evaluation-provider</artifactId>
+	<packaging>ejb</packaging>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-ejb-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<ejbVersion>3.1</ejbVersion>
+				</configuration>
+			</plugin>
+		</plugins>
+
+	</build>
+	
+	<dependencies>
+		<dependency>
+			<groupId>de.tud.nlp4web.project.evaluation</groupId>
+			<artifactId>nlp-evaluation-provider-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+	</dependencies>
+	
+</project>

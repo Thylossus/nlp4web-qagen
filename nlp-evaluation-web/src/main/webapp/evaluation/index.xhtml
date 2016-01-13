@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+ 
+    
+    <h:body>
+   	 	<ui:composition template="/templates/basic.xhtml">
+ 	<ui:param name="pageTitle" value="Welcome" />
+ 
+			<ui:define name="content">
+				<p:panel>
+					<h1>Welcome...</h1>
+					<p>...to our user study for the <a href="https://www.ukp.tu-darmstadt.de/teaching/?L=qobpvoujdcjhvtxt" target="_BLANK">Natural Language Processing and the Web</a> project in the winter term 2015/16 at TU Darmstadt.</p>
+					<p>After clicking the "Start Quiz" Button below, you will be presented a collection of questions with four possible answers to each question,
+					just like in "Who wants to be a millionaire" (but without the jokers ;-) ).</p>
+					<p>Your task is to <strong>answer the questions</strong> by clicking the answer of that you think that it is correct. <strong>Please don't use
+					Google</strong> or other aids to answer the questions as it is important for us
+					to see wich questions are more difficult than other ones.</p>
+					<p>Your results will be presented to you after answering all questions, including the correct solution for every question (only if it differs from your solution, evidently).</p>
+					<h2>Privacy Information</h2>
+					<p>While participating in this user study we store the collection of questions that are presented to you as well as the answer selected by you. Together with that we
+					measure some performance parameters.</p>
+					<p>In general: We do not store any personal information about you. Parameters that are needed for technical reasons but could possibly be used to identify you (like your
+					IP address) are stored for the time you are using this website but are deleted within 30 minutes after that. Cookies are used to track your progress while answering the
+					questions but are also invalidated as soon as you close your browser window.</p>
+					<p>If there are any questions left, or if you are facing techincal problems, you can <a href="mailto:frankphilipp.hessel@stud.tu-darmstadt.de?subject=NLP+User+study">send us an E-Mail</a>.</p>
+					<p>Thank you in advance for participating in this user study!</p>
+					<p style="text-align:right;font-style:italic">Max Glockner, Frank Hessel, Tobias Kahse and Tobias Röding</p>
+				</p:panel>
+				<p:commandButton value="Start Quiz" action="#{evaluationBean.startEvaluation}" process="@this" update="growl" />
+			</ui:define>
+    	</ui:composition>
+	</h:body>
+</html>

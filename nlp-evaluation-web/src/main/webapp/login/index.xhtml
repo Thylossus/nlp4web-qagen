@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+ 
+	<h:body>
+	
+ 	
+		<ui:composition template="/templates/admin.xhtml">
+		 	<ui:param name="pageTitle" value="Login" />
+		 	<ui:param name="disableContentForm" value="true" />
+		
+			<ui:define name="content">
+				<p:panel>
+					<form name="loginForm" method="post" action="/j_security_check">
+						<h1>Login</h1>
+						<p>Please provide your login name and password</p>
+						<h:panelGroup rendered="#{param['error'] == 'true'}">
+							<p style="font-weight:bold">Wrong login data!</p>
+						</h:panelGroup>
+			            <h:panelGrid columns="2">
+			            	<h:panelGroup><label for="j_username" class="ui-outputlabel ui-widget">User name</label></h:panelGroup>
+			                <h:panelGroup><input id="j_username" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"
+			                		type="text" name="j_username" size="25" /></h:panelGroup>
+			                
+			            	<h:panelGroup><label for="j_password" class="ui-outputlabel ui-widget">Password</label></h:panelGroup>
+			                <h:panelGroup><input class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"
+			                		type="password" size="25" name="j_password" id="j_password" /></h:panelGroup>
+			            </h:panelGrid>
+			            <div class="button-row">
+			                <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-right">
+								<span class="ui-button-text ui-c">Login</span>
+							</button>
+			            </div>
+			        </form>
+		        </p:panel>
+	        </ui:define>
+		</ui:composition>	
+	</h:body>
+</html>

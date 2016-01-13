@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+ 
+ 	<ui:param name="pageTitle" value="Welcome" />
+    
+    <h:body>
+   	 	<ui:composition template="/templates/basic.xhtml">
+ 
+			<ui:define name="content">
+				<h:panelGroup rendered="#{evaluationBean.validSession}">
+					<p:panel>
+						<f:facet name="header">
+							Thank you!
+						</f:facet>
+						<p>Congratulations, you've answered <strong>#{resultsBean.solvedQuestionCount} of #{resultsBean.totalQuestionCount} questions</strong>
+						correctly! On this page you can see details of your result.</p>
+						<p>And again, thank you for participating. If you want to share any feedback with us, feel free to
+						<a href="mailto:frankphilipp.hessel@stud.tu-darmstadt.de?subject=NLP+User+study">send us an E-Mail</a>.</p>
+					</p:panel>
+					
+					<p:panel>
+						<f:facet name="header">
+							Your answers in detail
+						</f:facet>
+						<p>Here you can see all questions with the correct answer and the answer you've chosen:</p>
+						<p:dataTable var="question" value="#{resultsBean.results}">
+							<ui:remove><!-- This won't work with more or less than 4 answers --></ui:remove>
+							
+							<p:column>
+								<f:facet name="header">Question</f:facet>
+								#{question.question}
+							</p:column>
+							
+							<p:column style="#{question.answers[0].correct ? ' background:#dfd' : ' '};#{question.answers[0].chosen ? 'border:3px solid #'.concat(question.answers[0].correct ? '8f8' : 'f88') : ' '}">
+								<f:facet name="header">A</f:facet>
+								#{question.answers[0].answer}
+							</p:column>
+							
+							<p:column style="#{question.answers[1].correct ? ' background:#dfd' : ' '};#{question.answers[1].chosen ? 'border:3px solid #'.concat(question.answers[1].correct ? '8f8' : 'f88') : ' '}">
+								<f:facet name="header">B</f:facet>
+								#{question.answers[1].answer}
+							</p:column>
+							
+							<p:column style="#{question.answers[2].correct ? ' background:#dfd' : ' '};#{question.answers[2].chosen ? 'border:3px solid #'.concat(question.answers[2].correct ? '8f8' : 'f88') : ' '}">
+								<f:facet name="header">C</f:facet>
+								#{question.answers[2].answer}
+							</p:column>
+							
+							<p:column style="#{question.answers[3].correct ? ' background:#dfd' : ' '};#{question.answers[3].chosen ? 'border:3px solid #'.concat(question.answers[3].correct ? '8f8' : 'f88') : ' '}">
+								<f:facet name="header">D</f:facet>
+								#{question.answers[3].answer}
+							</p:column>
+							
+						</p:dataTable>
+					</p:panel>
+				</h:panelGroup>
+				<h:panelGroup rendered="#{not evaluationBean.validSession}">
+					<p:panel>
+						<f:facet name="header">
+							Fehler
+						</f:facet>
+						<p>There is no evaluation in progress. Please use a resume link or click the button below to start a new session:</p>
+						
+					</p:panel>
+					<p:commandButton value="Start Evaluation" action="START_EVALUATION" />
+				</h:panelGroup>
+			</ui:define>
+    	</ui:composition>
+	</h:body>
+</html>

@@ -6,7 +6,7 @@ Project: generate multiplie choice answers for given question and answer.
 - [ ] Create question sets
   - [ ] Set 1 [Frank]
   - [ ] Set 2 [Max]
-  - [x] Set 3 [Tobias K.] (see quagen/src/main/resources/questions)
+  - [x] [Set 3](https://github.com/Thylossus/nlp4web-qagen/blob/master/qagen/src/main/resources/questions/questions-tobiask.txt) [Tobias K.]
   - [ ] Set 4 [Tobias R.]
 - [ ] Implementation
   - [ ] Answer candidate UIMA type with tag cloud feature (see [#1](https://github.com/Thylossus/nlp4web-qagen/issues/1))

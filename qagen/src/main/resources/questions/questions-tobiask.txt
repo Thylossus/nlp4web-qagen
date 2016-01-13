@@ -54,16 +54,9 @@ B 1984
 C Dr. Caligari
 D All Quiet on the Western Front
 
-#Q He was the most loyal friend of Al Capone. He was Capones treasurer and financial wizard. Because he was incapable of using a gun or killing a person, Al Capone protected him.
-^ Jake Gizuk
-A Ralph Capone
-B Meyer Lansky
-C Jimmy Hoffa
-D Jake Gizuk
-
-#Q What was the first team to put players names on their uniforms?
-^ White Sox
-A Dodgers
-B Indians
-C Yankees
-D White Sox
+#Q Which German soccer star was voted European Soccer Player of the Year in both 1972 and 1976?
+^ Franz Beckenbauer
+A Lev Yashin
+B Franz Beckenbauer
+C Ferenc Puskas
+D Michael Balack

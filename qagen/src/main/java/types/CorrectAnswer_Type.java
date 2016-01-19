@@ -11,7 +11,7 @@ import org.apache.uima.cas.impl.TypeImpl;
 import org.apache.uima.cas.Type;
 
 /** 
- * Updated by JCasGen Tue Jan 19 19:12:17 CET 2016
+ * Updated by JCasGen Tue Jan 19 19:32:27 CET 2016
  * @generated */
 public class CorrectAnswer_Type extends Answer_Type {
   /** @generated 

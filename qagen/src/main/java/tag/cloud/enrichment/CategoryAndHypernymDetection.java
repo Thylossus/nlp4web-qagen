@@ -9,6 +9,8 @@ public class CategoryAndHypernymDetection extends JCasAnnotator_ImplBase {
 	@Override
 	public void process(JCas arg0) throws AnalysisEngineProcessException {
 		// TODO Auto-generated method stub
+		
+		
 
 	}
 

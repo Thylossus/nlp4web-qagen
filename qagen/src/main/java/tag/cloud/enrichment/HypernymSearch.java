@@ -2,9 +2,9 @@ package tag.cloud.enrichment;
 
 public class HypernymSearch implements Search {
 
-	public void run() {
+	public Result call() throws Exception {
 		// TODO Auto-generated method stub
-
+		return null;
 	}
 
 }

@@ -6,102 +6,51 @@
     <vendor/>
   <types>
     <typeDescription>
-      <name>types.answer</name>
+      <name>types.Question</name>
+      <description/>
+      <supertypeName>uima.tcas.Annotation</supertypeName>
+    </typeDescription>
+    <typeDescription>
+      <name>types.Answer</name>
       <description/>
       <supertypeName>uima.tcas.Annotation</supertypeName>
       <features>
         <featureDescription>
-          <name>AnswerType</name>
+          <name>keywords</name>
           <description/>
-          <rangeTypeName>uima.cas.String</rangeTypeName>
+          <rangeTypeName>uima.cas.StringList</rangeTypeName>
         </featureDescription>
-      <featureDescription>
-          <name>TagCloud</name>
+        <featureDescription>
+          <name>categories</name>
           <description/>
-          <rangeTypeName>types.tagCloud</rangeTypeName>
+          <rangeTypeName>uima.cas.IntegerList</rangeTypeName>
+        </featureDescription>
+        <featureDescription>
+          <name>articles</name>
+          <description/>
+          <rangeTypeName>uima.cas.IntegerList</rangeTypeName>
         </featureDescription>
       </features>
     </typeDescription>
     <typeDescription>
-      <name>types.correctAnswer</name>
+      <name>types.CorrectAnswer</name>
       <description/>
-      <supertypeName>types.answer</supertypeName>
+      <supertypeName>types.Answer</supertypeName>
     </typeDescription>
     <typeDescription>
-      <name>types.candidateAnswer</name>
+      <name>types.CandidateAnswer</name>
       <description/>
-      <supertypeName>types.answer</supertypeName>
+      <supertypeName>types.Answer</supertypeName>
       <features>
         <featureDescription>
-          <name>SimilarityScore</name>
+          <name>wikipediaPageId</name>
           <description/>
-          <rangeTypeName>uima.cas.Float</rangeTypeName>
-        </featureDescription>
-      <featureDescription>
-          <name>WikipediaPageId</name>
-          <description>Reference to a wikipedia page in a hash map or database.</description>
           <rangeTypeName>uima.cas.Integer</rangeTypeName>
         </featureDescription>
-      </features>
-    </typeDescription>
-  <typeDescription>
-      <name>types.tagCloud</name>
-      <description/>
-      <supertypeName>uima.tcas.Annotation</supertypeName>
-      <features>
         <featureDescription>
-          <name>Keywords</name>
+          <name>similarityScore</name>
           <description/>
-          <rangeTypeName>uima.cas.FSList</rangeTypeName>
-          <elementType>types.Keyword</elementType>
-        </featureDescription>
-      </features>
-    </typeDescription>
-    <typeDescription>
-      <name>types.Keyword</name>
-      <description/>
-      <supertypeName>uima.tcas.Annotation</supertypeName>
-      <features>
-        <featureDescription>
-          <name>Value</name>
-          <description/>
-          <rangeTypeName>uima.cas.String</rangeTypeName>
-        </featureDescription>
-        <featureDescription>
-          <name>Categories</name>
-          <description/>
-          <rangeTypeName>uima.cas.FSList</rangeTypeName>
-          <elementType>types.Category</elementType>
-        </featureDescription>
-        <featureDescription>
-          <name>Hypernyms</name>
-          <description/>
-          <rangeTypeName>uima.cas.FSList</rangeTypeName>
-          <elementType>types.Hypernym</elementType>
-        </featureDescription>
-      </features>
-    </typeDescription>
-    <typeDescription>
-      <name>types.Category</name>
-      <description/>
-      <supertypeName>uima.tcas.Annotation</supertypeName>
-      <features>
-        <featureDescription>
-          <name>Value</name>
-          <description/>
-          <rangeTypeName>uima.cas.String</rangeTypeName>
-        </featureDescription>
-      </features>
-    </typeDescription>
-    <typeDescription>
-      <name>types.Hypernym</name>
-      <description/>
-      <supertypeName>uima.tcas.Annotation</supertypeName>
-      <features>
-        <featureDescription>
-          <name>Value</name>
-          <description/>
-          <rangeTypeName>uima.cas.String</rangeTypeName>
+          <rangeTypeName>uima.cas.Float</rangeTypeName>
         </featureDescription>
       </features>
     </typeDescription>

@@ -1,5 +1,5 @@
 
-/* First created by JCasGen Sat Jan 09 10:39:33 CET 2016 */
+/* First created by JCasGen Tue Jan 19 19:11:02 CET 2016 */
 package types;
 
 import org.apache.uima.jcas.JCas;
@@ -11,9 +11,9 @@ import org.apache.uima.cas.impl.TypeImpl;
 import org.apache.uima.cas.Type;
 
 /** 
- * Updated by JCasGen Sat Jan 09 10:39:47 CET 2016
+ * Updated by JCasGen Tue Jan 19 19:12:17 CET 2016
  * @generated */
-public class correctAnswer_Type extends answer_Type {
+public class CorrectAnswer_Type extends Answer_Type {
   /** @generated 
    * @return the generator for this type
    */
@@ -23,25 +23,25 @@ public class correctAnswer_Type extends answer_Type {
   private final FSGenerator fsGenerator = 
     new FSGenerator() {
       public FeatureStructure createFS(int addr, CASImpl cas) {
-  			 if (correctAnswer_Type.this.useExistingInstance) {
+  			 if (CorrectAnswer_Type.this.useExistingInstance) {
   			   // Return eq fs instance if already created
-  		     FeatureStructure fs = correctAnswer_Type.this.jcas.getJfsFromCaddr(addr);
+  		     FeatureStructure fs = CorrectAnswer_Type.this.jcas.getJfsFromCaddr(addr);
   		     if (null == fs) {
-  		       fs = new correctAnswer(addr, correctAnswer_Type.this);
-  			   correctAnswer_Type.this.jcas.putJfsFromCaddr(addr, fs);
+  		       fs = new CorrectAnswer(addr, CorrectAnswer_Type.this);
+  			   CorrectAnswer_Type.this.jcas.putJfsFromCaddr(addr, fs);
   			   return fs;
   		     }
   		     return fs;
-        } else return new correctAnswer(addr, correctAnswer_Type.this);
+        } else return new CorrectAnswer(addr, CorrectAnswer_Type.this);
   	  }
     };
   /** @generated */
   @SuppressWarnings ("hiding")
-  public final static int typeIndexID = correctAnswer.typeIndexID;
+  public final static int typeIndexID = CorrectAnswer.typeIndexID;
   /** @generated 
      @modifiable */
   @SuppressWarnings ("hiding")
-  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("types.correctAnswer");
+  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("types.CorrectAnswer");
 
 
 
@@ -50,7 +50,7 @@ public class correctAnswer_Type extends answer_Type {
 	 * @param jcas JCas
 	 * @param casType Type 
 	 */
-  public correctAnswer_Type(JCas jcas, Type casType) {
+  public CorrectAnswer_Type(JCas jcas, Type casType) {
     super(jcas, casType);
     casImpl.getFSClassRegistry().addGeneratorForType((TypeImpl)this.casType, getFSGenerator());
 

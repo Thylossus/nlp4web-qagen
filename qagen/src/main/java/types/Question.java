@@ -1,6 +1,6 @@
 
 
-/* First created by JCasGen Sat Jan 09 10:39:33 CET 2016 */
+/* First created by JCasGen Tue Jan 19 19:11:02 CET 2016 */
 package types;
 
 import org.apache.uima.jcas.JCas; 
@@ -11,15 +11,15 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Sat Jan 09 10:39:47 CET 2016
+ * Updated by JCasGen Tue Jan 19 19:12:17 CET 2016
  * XML source: C:/Users/t-kah_000/Documents/Programming/Java/NLP/nlp4web-qagen/qagen/src/main/resources/desc/types.xml
  * @generated */
-public class Hypernym extends Annotation {
+public class Question extends Annotation {
   /** @generated
    * @ordered 
    */
   @SuppressWarnings ("hiding")
-  public final static int typeIndexID = JCasRegistry.register(Hypernym.class);
+  public final static int typeIndexID = JCasRegistry.register(Question.class);
   /** @generated
    * @ordered 
    */
@@ -33,14 +33,14 @@ public class Hypernym extends Annotation {
  
   /** Never called.  Disable default constructor
    * @generated */
-  protected Hypernym() {/* intentionally empty block */}
+  protected Question() {/* intentionally empty block */}
     
   /** Internal - constructor used by generator 
    * @generated
    * @param addr low level Feature Structure reference
    * @param type the type of this Feature Structure 
    */
-  public Hypernym(int addr, TOP_Type type) {
+  public Question(int addr, TOP_Type type) {
     super(addr, type);
     readObject();
   }
@@ -48,7 +48,7 @@ public class Hypernym extends Annotation {
   /** @generated
    * @param jcas JCas to which this Feature Structure belongs 
    */
-  public Hypernym(JCas jcas) {
+  public Question(JCas jcas) {
     super(jcas);
     readObject();   
   } 
@@ -58,7 +58,7 @@ public class Hypernym extends Annotation {
    * @param begin offset to the begin spot in the SofA
    * @param end offset to the end spot in the SofA 
   */  
-  public Hypernym(JCas jcas, int begin, int end) {
+  public Question(JCas jcas, int begin, int end) {
     super(jcas);
     setBegin(begin);
     setEnd(end);
@@ -74,28 +74,6 @@ public class Hypernym extends Annotation {
    */
   private void readObject() {/*default - does nothing empty block */}
      
- 
-    
-  //*--------------*
-  //* Feature: Value
-
-  /** getter for Value - gets 
-   * @generated
-   * @return value of the feature 
-   */
-  public String getValue() {
-    if (Hypernym_Type.featOkTst && ((Hypernym_Type)jcasType).casFeat_Value == null)
-      jcasType.jcas.throwFeatMissing("Value", "types.Hypernym");
-    return jcasType.ll_cas.ll_getStringValue(addr, ((Hypernym_Type)jcasType).casFeatCode_Value);}
-    
-  /** setter for Value - sets  
-   * @generated
-   * @param v value to set into the feature 
-   */
-  public void setValue(String v) {
-    if (Hypernym_Type.featOkTst && ((Hypernym_Type)jcasType).casFeat_Value == null)
-      jcasType.jcas.throwFeatMissing("Value", "types.Hypernym");
-    jcasType.ll_cas.ll_setStringValue(addr, ((Hypernym_Type)jcasType).casFeatCode_Value, v);}    
-  }
+}
 
     

@@ -1,6 +1,6 @@
 
 
-/* First created by JCasGen Sat Jan 09 10:39:33 CET 2016 */
+/* First created by JCasGen Tue Jan 19 19:11:02 CET 2016 */
 package types;
 
 import org.apache.uima.jcas.JCas; 
@@ -10,15 +10,15 @@ import org.apache.uima.jcas.cas.TOP_Type;
 
 
 /** 
- * Updated by JCasGen Sat Jan 09 10:39:47 CET 2016
+ * Updated by JCasGen Tue Jan 19 19:12:17 CET 2016
  * XML source: C:/Users/t-kah_000/Documents/Programming/Java/NLP/nlp4web-qagen/qagen/src/main/resources/desc/types.xml
  * @generated */
-public class correctAnswer extends answer {
+public class CorrectAnswer extends Answer {
   /** @generated
    * @ordered 
    */
   @SuppressWarnings ("hiding")
-  public final static int typeIndexID = JCasRegistry.register(correctAnswer.class);
+  public final static int typeIndexID = JCasRegistry.register(CorrectAnswer.class);
   /** @generated
    * @ordered 
    */
@@ -32,14 +32,14 @@ public class correctAnswer extends answer {
  
   /** Never called.  Disable default constructor
    * @generated */
-  protected correctAnswer() {/* intentionally empty block */}
+  protected CorrectAnswer() {/* intentionally empty block */}
     
   /** Internal - constructor used by generator 
    * @generated
    * @param addr low level Feature Structure reference
    * @param type the type of this Feature Structure 
    */
-  public correctAnswer(int addr, TOP_Type type) {
+  public CorrectAnswer(int addr, TOP_Type type) {
     super(addr, type);
     readObject();
   }
@@ -47,7 +47,7 @@ public class correctAnswer extends answer {
   /** @generated
    * @param jcas JCas to which this Feature Structure belongs 
    */
-  public correctAnswer(JCas jcas) {
+  public CorrectAnswer(JCas jcas) {
     super(jcas);
     readObject();   
   } 
@@ -57,7 +57,7 @@ public class correctAnswer extends answer {
    * @param begin offset to the begin spot in the SofA
    * @param end offset to the end spot in the SofA 
   */  
-  public correctAnswer(JCas jcas, int begin, int end) {
+  public CorrectAnswer(JCas jcas, int begin, int end) {
     super(jcas);
     setBegin(begin);
     setEnd(end);

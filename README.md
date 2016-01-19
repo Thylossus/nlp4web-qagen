@@ -1,6 +1,9 @@
 # nlp4web-qagen
 Project: generate multiplie choice answers for given question and answer.
 
+## Important Messages
+An updated [pipeline description](https://github.com/Thylossus/nlp4web-qagen/blob/master/documents/pipeline.md) was added to the documentation.
+
 ## Tasks
 - [ ] Create configuration system for specifying paths and user accounts (e.g. for the database)
 - [ ] Create question sets
@@ -11,6 +14,7 @@ Project: generate multiplie choice answers for given question and answer.
 - [ ] Implementation
   - [ ] Answer candidate UIMA type with tag cloud feature (see [#1](https://github.com/Thylossus/nlp4web-qagen/issues/1))
   - [ ] [Open Trivia QA parser](https://github.com/Thylossus/nlp4web-qagen/blob/master/qagen/src/main/java/input/OpenTriviaQAParser.java)
+  - [ ] [QA annotator](https://github.com/Thylossus/nlp4web-qagen/blob/master/qagen/src/main/java/input/QAAnnotator.java)
   - [ ] [Keyword extraction](https://github.com/Thylossus/nlp4web-qagen/blob/master/qagen/src/main/java/question/processing/KeywordExtraction.java) for parsed questions
   - [ ] [Category and hypernym detection](https://github.com/Thylossus/nlp4web-qagen/blob/master/qagen/src/main/java/tag/cloud/enrichment/CategoryAndHypernymDetection.java) [Tobias R.]
     - [ ] [Category search](https://github.com/Thylossus/nlp4web-qagen/blob/master/qagen/src/main/java/tag/cloud/enrichment/CategorySearch.java) using [JWPL](https://dkpro.github.io/dkpro-jwpl/)

@@ -30,17 +30,19 @@
           <description/>
           <rangeTypeName>uima.cas.IntegerList</rangeTypeName>
         </featureDescription>
-        <featureDescription>
-          <name>mostRelevantCategories</name>
-          <description/>
-          <rangeTypeName>uima.cas.IntegerList</rangeTypeName>
-        </featureDescription>
       </features>
     </typeDescription>
     <typeDescription>
       <name>types.CorrectAnswer</name>
       <description/>
       <supertypeName>types.Answer</supertypeName>
+      <features>
+        <featureDescription>
+          <name>mostRelevantCategories</name>
+          <description/>
+          <rangeTypeName>uima.cas.IntegerList</rangeTypeName>
+        </featureDescription>
+      </features>
     </typeDescription>
     <typeDescription>
       <name>types.CandidateAnswer</name>

@@ -13,7 +13,7 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Tue Jan 19 19:32:27 CET 2016
+ * Updated by JCasGen Tue Jan 19 19:39:14 CET 2016
  * XML source: C:/Users/t-kah_000/Documents/Programming/Java/NLP/nlp4web-qagen/qagen/src/main/resources/desc/types.xml
  * @generated */
 public class Answer extends Annotation {
@@ -142,28 +142,6 @@ public class Answer extends Annotation {
     if (Answer_Type.featOkTst && ((Answer_Type)jcasType).casFeat_articles == null)
       jcasType.jcas.throwFeatMissing("articles", "types.Answer");
     jcasType.ll_cas.ll_setRefValue(addr, ((Answer_Type)jcasType).casFeatCode_articles, jcasType.ll_cas.ll_getFSRef(v));}    
-   
-    
-  //*--------------*
-  //* Feature: mostRelevantCategories
-
-  /** getter for mostRelevantCategories - gets 
-   * @generated
-   * @return value of the feature 
-   */
-  public IntegerList getMostRelevantCategories() {
-    if (Answer_Type.featOkTst && ((Answer_Type)jcasType).casFeat_mostRelevantCategories == null)
-      jcasType.jcas.throwFeatMissing("mostRelevantCategories", "types.Answer");
-    return (IntegerList)(jcasType.ll_cas.ll_getFSForRef(jcasType.ll_cas.ll_getRefValue(addr, ((Answer_Type)jcasType).casFeatCode_mostRelevantCategories)));}
-    
-  /** setter for mostRelevantCategories - sets  
-   * @generated
-   * @param v value to set into the feature 
-   */
-  public void setMostRelevantCategories(IntegerList v) {
-    if (Answer_Type.featOkTst && ((Answer_Type)jcasType).casFeat_mostRelevantCategories == null)
-      jcasType.jcas.throwFeatMissing("mostRelevantCategories", "types.Answer");
-    jcasType.ll_cas.ll_setRefValue(addr, ((Answer_Type)jcasType).casFeatCode_mostRelevantCategories, jcasType.ll_cas.ll_getFSRef(v));}    
   }
 
     

@@ -9,8 +9,11 @@ import org.apache.uima.jcas.cas.TOP_Type;
 
 
 
+import org.apache.uima.jcas.cas.IntegerList;
+
+
 /** 
- * Updated by JCasGen Tue Jan 19 19:32:27 CET 2016
+ * Updated by JCasGen Tue Jan 19 19:39:14 CET 2016
  * XML source: C:/Users/t-kah_000/Documents/Programming/Java/NLP/nlp4web-qagen/qagen/src/main/resources/desc/types.xml
  * @generated */
 public class CorrectAnswer extends Answer {
@@ -73,6 +76,26 @@ public class CorrectAnswer extends Answer {
    */
   private void readObject() {/*default - does nothing empty block */}
      
-}
+  //*--------------*
+  //* Feature: mostRelevantCategories
+
+  /** getter for mostRelevantCategories - gets 
+   * @generated
+   * @return value of the feature 
+   */
+  public IntegerList getMostRelevantCategories() {
+    if (CorrectAnswer_Type.featOkTst && ((CorrectAnswer_Type)jcasType).casFeat_mostRelevantCategories == null)
+      jcasType.jcas.throwFeatMissing("mostRelevantCategories", "types.CorrectAnswer");
+    return (IntegerList)(jcasType.ll_cas.ll_getFSForRef(jcasType.ll_cas.ll_getRefValue(addr, ((CorrectAnswer_Type)jcasType).casFeatCode_mostRelevantCategories)));}
+    
+  /** setter for mostRelevantCategories - sets  
+   * @generated
+   * @param v value to set into the feature 
+   */
+  public void setMostRelevantCategories(IntegerList v) {
+    if (CorrectAnswer_Type.featOkTst && ((CorrectAnswer_Type)jcasType).casFeat_mostRelevantCategories == null)
+      jcasType.jcas.throwFeatMissing("mostRelevantCategories", "types.CorrectAnswer");
+    jcasType.ll_cas.ll_setRefValue(addr, ((CorrectAnswer_Type)jcasType).casFeatCode_mostRelevantCategories, jcasType.ll_cas.ll_getFSRef(v));}    
+  }
 
     

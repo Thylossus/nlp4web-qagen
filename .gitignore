@@ -1,6 +1,7 @@
 *.class
 *.properties
-!*.default.properties
+*.default.properties
+.recommenders/
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
@@ -55,3 +56,6 @@ local.properties
 
 # STS (Spring Tool Suite)
 .springBeans
+
+# Mac Shit
+.DS_Store

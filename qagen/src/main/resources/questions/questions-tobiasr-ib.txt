@@ -33,12 +33,12 @@ B James Buchanan
 C Millard Fillmore
 D Theodore Roosevelt
 
-#Q What is the official language in the Principality of Monaco?
-^ French
-A Monegasque
-B Italian
-C French
-D English
+#Q Which of these players have never won the Super Bowl MVP?
+^ Dan Marino
+A Richard Dent
+B Jake Scott
+C Dan Marino
+D Chuck Howley
 
 #Q What is the name of the first woman to be awarded the Nobel Peace Prize in 1905?
 ^ Bertha von Suttner
@@ -54,16 +54,16 @@ B Gerald Ford
 C Bill Clinton
 D Ronald Reagan
 
-#Q What is the capital and the largest city of the U.S. state of Arizona?
-^ Phoenix
-A Phoenix
-B Tucson
-C Salt Lake City
-D Carson City
+#Q This person was expelled from the Socialist party on the grounds that he advocated Italys involvement in the Great War.  Following the war, he organized the Italian Fascist Party.
+^ Benito Mussolini
+A Benito Mussolini
+B Nicolae Ceaucescu
+C George Papadopulos
+D Augusto Pinochet
 
-#Q What year did congress approve the Declaration of Independence, making the 13 colonies a land of a sovereign nation?
-^ 1776
-A 1777
-B 1876
-C 1677
-D 1776
+#Q This musician, who was only 57 (1,7 m) tall, was lead singer, songwriter, and guitarist of Nirvana and author of songs such as Come as You Are, In Bloom, Lithium, Heart-Shaped Box.
+^ Kurt Cobain
+A Eric Clapton
+B Dave Grohl
+C Krist Novoselic
+D Kurt Cobain

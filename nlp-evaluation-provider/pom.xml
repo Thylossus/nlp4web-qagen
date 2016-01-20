@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>de.tud.nlp4web.project.evaluation</groupId>
 		<artifactId>nlp-evaluation-parent</artifactId>
-		<version>0.9.0</version>
+		<version>0.9.1</version>
 		<relativePath>../nlp-evaluation-parent/pom.xml</relativePath>
 	</parent>
 	<artifactId>nlp-evaluation-provider</artifactId>

@@ -58,6 +58,7 @@ public class EvaluationSessionManager extends AbstractDatabaseBean {
 				QuestionSetStats stats = questionSetMgnr.getStats(nextSet);
 				if (stats.getEvaluationCount() < evaluationsPerDb) { // if further evaluation is needed
 					questionSets.add(nextSet);
+					remainingSets -= 1;
 				}
 			}
 			dbQuestionSets.remove(0);

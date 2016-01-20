@@ -2,6 +2,7 @@ package tag.cloud.enrichment;
 
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.Callable;
 
 import config.DBConfig;
 import de.tudarmstadt.ukp.wikipedia.api.Category;
@@ -9,7 +10,7 @@ import de.tudarmstadt.ukp.wikipedia.api.Page;
 import de.tudarmstadt.ukp.wikipedia.api.Wikipedia;
 import de.tudarmstadt.ukp.wikipedia.api.exception.WikiInitializationException;
 
-public class CategorySearch implements Search {
+public class CategorySearch implements Callable<Result> {
 
 	Wikipedia wiki;
 	String searchterm;
@@ -31,6 +32,11 @@ public class CategorySearch implements Search {
 		this.keywords = keywords;
 	}
 
+	public CategorySearch(String searchterm) {
+		init();
+		this.searchterm = searchterm;
+	}
+
 	public Result call() throws Exception {
 
 		Page page = wiki.getPage(searchterm);
@@ -40,12 +46,12 @@ public class CategorySearch implements Search {
 
 		for (Category category : page.getCategories()) {
 			String categoryTitle = category.getTitle().getPlainTitle().toLowerCase();
-			boolean check = false;
+			boolean check = true;
 
 			// check if category contains at least one of the keywords
 			for (String keyword : keywords) {
-				if (categoryTitle.contains(keyword)) {
-					check = true;
+				if (!categoryTitle.contains(keyword)) {
+					check = false;
 					break;
 				}
 			}
@@ -58,14 +64,11 @@ public class CategorySearch implements Search {
 
 			if (check) {
 				categoryIds.add(category.getPageId());
-
-				System.out.println(category.getTitle().getPlainTitle() + " - Size: " + size);
+				//System.out.println(category.getTitle().getPlainTitle() + " - Size: " + size);
 				articleIds.addAll(category.getArticleIds());
 			}
 		}
 
-		Result result = new Result(categoryIds, articleIds);
-
-		return result;
+		return new Result(categoryIds, articleIds);
 	}
 }

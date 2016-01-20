@@ -20,7 +20,7 @@ import consumer.CandidateSelection;
 import input.OpenTriviaQAParser;
 import question.processing.KeywordExtraction;
 import similarity.detection.SimilarityDetection;
-import tag.cloud.enrichment.CategoryAndHypernymDetection;
+import tag.cloud.enrichment.CategoryDetection;
 
 /**
  * 
@@ -31,24 +31,25 @@ public class Main {
 		CollectionReader questionParser = createReader(OpenTriviaQAParser.class);
 		
 		AnalysisEngine keywordExtraction = createEngine(KeywordExtraction.class);
-		AnalysisEngine correctAnswerCategoryAndHypernymDetection = createEngine(CategoryAndHypernymDetection.class);
+		AnalysisEngine correctAnswerCategoryDetection = createEngine(CategoryDetection.class, CategoryDetection.PARAM_SEARCH_TYPE, "correctAnswer");
 		AnalysisEngine categoryRanking = createEngine(CategoryRanking.class);
 		AnalysisEngine candidateExtraction = createEngine(CandidateExtraction.class);
 		AnalysisEngine synonymResolution = createEngine(SynonymResolution.class);
-		AnalysisEngine candidateAnswerCategoryAndHypernymDetection = createEngine(CategoryAndHypernymDetection.class);
+		AnalysisEngine candidateAnswerCategoryDetection = createEngine(CategoryDetection.class, CategoryDetection.PARAM_SEARCH_TYPE, "candidateAnswer");
 		AnalysisEngine similarityDetection = createEngine(SimilarityDetection.class);
 		AnalysisEngine candidateSelection = createEngine(CandidateSelection.class);
-		
+				
 		SimplePipeline.runPipeline(
 				questionParser,
 				keywordExtraction,
-				correctAnswerCategoryAndHypernymDetection,
+				correctAnswerCategoryDetection,
 				categoryRanking,
 				candidateExtraction,
 				synonymResolution,
-				candidateAnswerCategoryAndHypernymDetection,
+				candidateAnswerCategoryDetection,
 				similarityDetection,
 				candidateSelection);
+		
 	}
 	
 }

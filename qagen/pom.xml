@@ -34,6 +34,13 @@
   		<artifactId>jwi</artifactId>
   		<version>2.2.3</version>
   	</dependency>
+  	<dependency>
+  		<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+  		<artifactId>
+  			de.tudarmstadt.ukp.dkpro.core.stanfordnlp-gpl
+  		</artifactId>
+  		<version>1.7.0</version>
+  	</dependency>
   </dependencies>
   <issueManagement>
   	<system>GitHub Issues</system>

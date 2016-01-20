@@ -7,13 +7,15 @@ import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.JCasRegistry;
 import org.apache.uima.jcas.cas.TOP_Type;
 
+import org.apache.uima.jcas.cas.NonEmptyStringList;
+import org.apache.uima.jcas.cas.NonEmptyIntegerList;
 import org.apache.uima.jcas.cas.StringList;
 import org.apache.uima.jcas.cas.IntegerList;
 import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Tue Jan 19 19:39:14 CET 2016
+ * Updated by JCasGen Wed Jan 20 13:11:39 CET 2016
  * XML source: C:/Users/t-kah_000/Documents/Programming/Java/NLP/nlp4web-qagen/qagen/src/main/resources/desc/types.xml
  * @generated */
 public class Answer extends Annotation {
@@ -85,16 +87,16 @@ public class Answer extends Annotation {
    * @generated
    * @return value of the feature 
    */
-  public StringList getKeywords() {
+  public NonEmptyStringList getKeywords() {
     if (Answer_Type.featOkTst && ((Answer_Type)jcasType).casFeat_keywords == null)
       jcasType.jcas.throwFeatMissing("keywords", "types.Answer");
-    return (StringList)(jcasType.ll_cas.ll_getFSForRef(jcasType.ll_cas.ll_getRefValue(addr, ((Answer_Type)jcasType).casFeatCode_keywords)));}
+    return (NonEmptyStringList)(jcasType.ll_cas.ll_getFSForRef(jcasType.ll_cas.ll_getRefValue(addr, ((Answer_Type)jcasType).casFeatCode_keywords)));}
     
   /** setter for keywords - sets  
    * @generated
    * @param v value to set into the feature 
    */
-  public void setKeywords(StringList v) {
+  public void setKeywords(NonEmptyStringList v) {
     if (Answer_Type.featOkTst && ((Answer_Type)jcasType).casFeat_keywords == null)
       jcasType.jcas.throwFeatMissing("keywords", "types.Answer");
     jcasType.ll_cas.ll_setRefValue(addr, ((Answer_Type)jcasType).casFeatCode_keywords, jcasType.ll_cas.ll_getFSRef(v));}    
@@ -107,16 +109,16 @@ public class Answer extends Annotation {
    * @generated
    * @return value of the feature 
    */
-  public IntegerList getCategories() {
+  public NonEmptyIntegerList getCategories() {
     if (Answer_Type.featOkTst && ((Answer_Type)jcasType).casFeat_categories == null)
       jcasType.jcas.throwFeatMissing("categories", "types.Answer");
-    return (IntegerList)(jcasType.ll_cas.ll_getFSForRef(jcasType.ll_cas.ll_getRefValue(addr, ((Answer_Type)jcasType).casFeatCode_categories)));}
+    return (NonEmptyIntegerList)(jcasType.ll_cas.ll_getFSForRef(jcasType.ll_cas.ll_getRefValue(addr, ((Answer_Type)jcasType).casFeatCode_categories)));}
     
   /** setter for categories - sets  
    * @generated
    * @param v value to set into the feature 
    */
-  public void setCategories(IntegerList v) {
+  public void setCategories(NonEmptyIntegerList v) {
     if (Answer_Type.featOkTst && ((Answer_Type)jcasType).casFeat_categories == null)
       jcasType.jcas.throwFeatMissing("categories", "types.Answer");
     jcasType.ll_cas.ll_setRefValue(addr, ((Answer_Type)jcasType).casFeatCode_categories, jcasType.ll_cas.ll_getFSRef(v));}    
@@ -129,16 +131,16 @@ public class Answer extends Annotation {
    * @generated
    * @return value of the feature 
    */
-  public IntegerList getArticles() {
+  public NonEmptyIntegerList getArticles() {
     if (Answer_Type.featOkTst && ((Answer_Type)jcasType).casFeat_articles == null)
       jcasType.jcas.throwFeatMissing("articles", "types.Answer");
-    return (IntegerList)(jcasType.ll_cas.ll_getFSForRef(jcasType.ll_cas.ll_getRefValue(addr, ((Answer_Type)jcasType).casFeatCode_articles)));}
+    return (NonEmptyIntegerList)(jcasType.ll_cas.ll_getFSForRef(jcasType.ll_cas.ll_getRefValue(addr, ((Answer_Type)jcasType).casFeatCode_articles)));}
     
   /** setter for articles - sets  
    * @generated
    * @param v value to set into the feature 
    */
-  public void setArticles(IntegerList v) {
+  public void setArticles(NonEmptyIntegerList v) {
     if (Answer_Type.featOkTst && ((Answer_Type)jcasType).casFeat_articles == null)
       jcasType.jcas.throwFeatMissing("articles", "types.Answer");
     jcasType.ll_cas.ll_setRefValue(addr, ((Answer_Type)jcasType).casFeatCode_articles, jcasType.ll_cas.ll_getFSRef(v));}    

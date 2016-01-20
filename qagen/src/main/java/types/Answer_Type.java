@@ -14,7 +14,7 @@ import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** 
- * Updated by JCasGen Tue Jan 19 19:39:14 CET 2016
+ * Updated by JCasGen Wed Jan 20 13:11:39 CET 2016
  * @generated */
 public class Answer_Type extends Annotation_Type {
   /** @generated 
@@ -130,15 +130,15 @@ public class Answer_Type extends Annotation_Type {
     casImpl.getFSClassRegistry().addGeneratorForType((TypeImpl)this.casType, getFSGenerator());
 
  
-    casFeat_keywords = jcas.getRequiredFeatureDE(casType, "keywords", "uima.cas.StringList", featOkTst);
+    casFeat_keywords = jcas.getRequiredFeatureDE(casType, "keywords", "uima.cas.NonEmptyStringList", featOkTst);
     casFeatCode_keywords  = (null == casFeat_keywords) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_keywords).getCode();
 
  
-    casFeat_categories = jcas.getRequiredFeatureDE(casType, "categories", "uima.cas.IntegerList", featOkTst);
+    casFeat_categories = jcas.getRequiredFeatureDE(casType, "categories", "uima.cas.NonEmptyIntegerList", featOkTst);
     casFeatCode_categories  = (null == casFeat_categories) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_categories).getCode();
 
  
-    casFeat_articles = jcas.getRequiredFeatureDE(casType, "articles", "uima.cas.IntegerList", featOkTst);
+    casFeat_articles = jcas.getRequiredFeatureDE(casType, "articles", "uima.cas.NonEmptyIntegerList", featOkTst);
     casFeatCode_articles  = (null == casFeat_articles) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_articles).getCode();
 
   }

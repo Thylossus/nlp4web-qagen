@@ -14,7 +14,7 @@ import org.apache.uima.cas.impl.FeatureImpl;
 import org.apache.uima.cas.Feature;
 
 /** 
- * Updated by JCasGen Tue Jan 19 19:39:14 CET 2016
+ * Updated by JCasGen Wed Jan 20 13:11:39 CET 2016
  * @generated */
 public class CorrectAnswer_Type extends Answer_Type {
   /** @generated 
@@ -84,7 +84,7 @@ public class CorrectAnswer_Type extends Answer_Type {
     casImpl.getFSClassRegistry().addGeneratorForType((TypeImpl)this.casType, getFSGenerator());
 
  
-    casFeat_mostRelevantCategories = jcas.getRequiredFeatureDE(casType, "mostRelevantCategories", "uima.cas.IntegerList", featOkTst);
+    casFeat_mostRelevantCategories = jcas.getRequiredFeatureDE(casType, "mostRelevantCategories", "uima.cas.NonEmptyIntegerList", featOkTst);
     casFeatCode_mostRelevantCategories  = (null == casFeat_mostRelevantCategories) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_mostRelevantCategories).getCode();
 
   }

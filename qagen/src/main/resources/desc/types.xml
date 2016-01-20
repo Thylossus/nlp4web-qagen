@@ -18,17 +18,17 @@
         <featureDescription>
           <name>keywords</name>
           <description/>
-          <rangeTypeName>uima.cas.StringList</rangeTypeName>
+          <rangeTypeName>uima.cas.NonEmptyStringList</rangeTypeName>
         </featureDescription>
         <featureDescription>
           <name>categories</name>
           <description/>
-          <rangeTypeName>uima.cas.IntegerList</rangeTypeName>
+          <rangeTypeName>uima.cas.NonEmptyIntegerList</rangeTypeName>
         </featureDescription>
         <featureDescription>
           <name>articles</name>
           <description/>
-          <rangeTypeName>uima.cas.IntegerList</rangeTypeName>
+          <rangeTypeName>uima.cas.NonEmptyIntegerList</rangeTypeName>
         </featureDescription>
       </features>
     </typeDescription>
@@ -40,7 +40,7 @@
         <featureDescription>
           <name>mostRelevantCategories</name>
           <description/>
-          <rangeTypeName>uima.cas.IntegerList</rangeTypeName>
+          <rangeTypeName>uima.cas.NonEmptyIntegerList</rangeTypeName>
         </featureDescription>
       </features>
     </typeDescription>

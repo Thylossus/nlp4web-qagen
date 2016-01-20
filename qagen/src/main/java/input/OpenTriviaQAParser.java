@@ -17,6 +17,7 @@ import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.util.Progress;
 import org.apache.uima.util.ProgressImpl;
 
+import types.Answer;
 import types.Question;
 
 /**
@@ -171,7 +172,7 @@ public class OpenTriviaQAParser extends JCasCollectionReader_ImplBase {
             questionAnnotation.addToIndexes();
             
             // Add answer annotation
-            Question answerAnnotation = new Question(jcas);
+            Answer answerAnnotation = new Answer(jcas);
             answerAnnotation.setBegin(question.getAnswerIndex()[0]);
             answerAnnotation.setEnd(question.getAnswerIndex()[1]);
             answerAnnotation.addToIndexes();

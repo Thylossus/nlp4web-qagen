@@ -22,26 +22,15 @@ public class UimaListHandler {
 	 */
 	public static String listToString(NonEmptyStringList list) {
 		StringBuilder sb = new StringBuilder();
+		StringList iter = list;
 		
-		String head = list.getHead();
-		StringList tail = list.getTail();
-		
-		while (head != null) {
-			sb.append(head);
+		while (iter instanceof NonEmptyStringList) {
+			sb.append(((NonEmptyStringList) iter).getHead());
+			iter = ((NonEmptyStringList) iter).getTail();
 			
-			if (tail instanceof NonEmptyStringList) {
-				tail = ((NonEmptyStringList) tail).getTail();
-				
-				if (tail instanceof NonEmptyStringList) {
-					sb.append(", ");
-					head = ((NonEmptyStringList) tail).getHead();
-				} else {
-					head = null;
-				}
-			} else {
-				head = null;
+			if (iter instanceof NonEmptyStringList) {
+				sb.append(", ");
 			}
-			
 		}
 		
 		return sb.toString();
@@ -54,26 +43,15 @@ public class UimaListHandler {
 	 */
 	public static String listToString(NonEmptyIntegerList list) {
 		StringBuilder sb = new StringBuilder();
+		IntegerList iter = list;
 		
-		Integer head = list.getHead();
-		IntegerList tail = list.getTail();
-		
-		while (head != null) {
-			sb.append(head);
+		while (iter instanceof NonEmptyIntegerList) {
+			sb.append(((NonEmptyIntegerList) iter).getHead());
+			iter = ((NonEmptyIntegerList) iter).getTail();
 			
-			if (tail instanceof NonEmptyIntegerList) {
-				tail = ((NonEmptyIntegerList) tail).getTail();
-				
-				if (tail instanceof NonEmptyIntegerList) {
-					sb.append(", ");
-					head = ((NonEmptyIntegerList) tail).getHead();
-				} else {
-					head = null;
-				}
-			} else {
-				head = null;
+			if (iter instanceof NonEmptyIntegerList) {
+				sb.append(", ");
 			}
-			
 		}
 		
 		return sb.toString();
@@ -81,7 +59,7 @@ public class UimaListHandler {
 	
 	/**
 	 * Creates a non empty string list from a collection of strings.
-	 * See http://www.programcreek.com/java-api-examples/index.php?api=org.apache.uima.jcas.cas.NonEmptyStringList.
+	 * See http://massapi.com/class/org/apache/uima/jcas/cas/NonEmptyStringList.html
 	 * 
 	 * The provided collection must not be empty.
 	 * 
@@ -115,7 +93,7 @@ public class UimaListHandler {
 	
 	/**
 	 * Creates a non empty integer list from a collection of integers.
-	 * See http://www.programcreek.com/java-api-examples/index.php?api=org.apache.uima.jcas.cas.NonEmptyStringList.
+	 * See http://massapi.com/class/org/apache/uima/jcas/cas/NonEmptyStringList.html
 	 * 
 	 * The provided collection must not be empty.
 	 * 
@@ -154,25 +132,11 @@ public class UimaListHandler {
 	 */
 	public static List<String> listToJavaStringList(NonEmptyStringList list) {
 		LinkedList<String> jList = new LinkedList<String>();
+		StringList iter = list;
 		
-		String head = list.getHead();
-		StringList tail = list.getTail();
-		
-		while (head != null) {
-			jList.add(head);
-			
-			if (tail instanceof NonEmptyStringList) {
-				tail = ((NonEmptyStringList) tail).getTail();
-				
-				if (tail instanceof NonEmptyStringList) {
-					head = ((NonEmptyStringList) tail).getHead();
-				} else {
-					head = null;
-				}
-			} else {
-				head = null;
-			}
-			
+		while (iter instanceof NonEmptyStringList) {
+			jList.add(((NonEmptyStringList) iter).getHead());
+			iter = ((NonEmptyStringList) iter).getTail();
 		}
 		
 		return jList;
@@ -185,25 +149,11 @@ public class UimaListHandler {
 	 */
 	public static List<Integer> listToJavaIntegerList(NonEmptyIntegerList list) {
 		LinkedList<Integer> jList = new LinkedList<Integer>();
+		IntegerList iter = list;
 		
-		Integer head = list.getHead();
-		IntegerList tail = list.getTail();
-		
-		while (head != null) {
-			jList.add(head);
-			
-			if (tail instanceof NonEmptyIntegerList) {
-				tail = ((NonEmptyIntegerList) tail).getTail();
-				
-				if (tail instanceof NonEmptyIntegerList) {
-					head = ((NonEmptyIntegerList) tail).getHead();
-				} else {
-					head = null;
-				}
-			} else {
-				head = null;
-			}
-			
+		while (iter instanceof NonEmptyIntegerList) {
+			jList.add(((NonEmptyIntegerList) iter).getHead());
+			iter = ((NonEmptyIntegerList) iter).getTail();
 		}
 		
 		return jList;

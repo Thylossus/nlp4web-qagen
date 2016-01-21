@@ -6,7 +6,6 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import java.util.Set;
 
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
@@ -23,6 +22,7 @@ import de.tudarmstadt.ukp.wikipedia.api.DatabaseConfiguration;
 import de.tudarmstadt.ukp.wikipedia.api.Wikipedia;
 import de.tudarmstadt.ukp.wikipedia.api.exception.WikiApiException;
 import types.CorrectAnswer;
+import util.PageRankLoader;
 import util.UimaListHandler;
 
 public class CategoryRanking extends JCasAnnotator_ImplBase {
@@ -43,7 +43,6 @@ public class CategoryRanking extends JCasAnnotator_ImplBase {
 		Wikipedia wiki;
 		Category cat;
 		List<Integer> categories;
-		Set<Integer> articles = new HashSet<>();
 		Logger logger = this.getContext().getLogger();
 		List<PageRankTuple> categoryArticleMapping = new LinkedList<>();
 		
@@ -58,8 +57,6 @@ public class CategoryRanking extends JCasAnnotator_ImplBase {
 					cat = wiki.getCategory(id);
 					categoryArticleMapping.add(new PageRankTuple(id, this.getAllArticles(cat)));
 				}
-				
-				// TODO: calculate score
 				
 				// Update annotation
 				ca.setMostRelevantCategories(UimaListHandler.integerCollectionToList(jcas, this.getMostRelevantCategories(categoryArticleMapping)));
@@ -92,23 +89,36 @@ public class CategoryRanking extends JCasAnnotator_ImplBase {
 		return articles;
 	}
 	
+	/**
+	 * Selects the most relevant categories from the list of provided categories based on their scores.
+	 * The number of selected categories depends on the numCategories parameter (analysis engine parameter).
+	 * The categories with the highest scores are selected.
+	 * 
+	 * @param categories A list of category tuples.
+	 * @return The IDs of the most relevant categories according to the measure in {@link PageRankTuple#getScore(PageRankLoader)}.
+	 */
 	private List<Integer> getMostRelevantCategories(List<PageRankTuple> categories) {
 		List<Integer> mostRelevantCategories = new ArrayList<>(this.numCategories);
+		final PageRankLoader prl = new PageRankLoader();
 		
+		// Sort in descending order
 		Collections.sort(categories, new Comparator<PageRankTuple>() {
 
 			@Override
 			public int compare(PageRankTuple o1, PageRankTuple o2) {
-				if (o1.getScore() > o2.getScore()) {
-					return 1;
-				} else if (o1.getScore() < o2.getScore()) {
+				if (o1.getScore(prl) > o2.getScore(prl)) {
 					return -1;
+				} else if (o1.getScore(prl) < o2.getScore(prl)) {
+					return 1;
 				} else {
 					return 0;
 				}
 			}
 		});
 		
+		prl.closeConnection();
+		
+		// Select the first n (n = this.numCategories) category IDs
 		for (int i = 0; i < this.numCategories; i++) {
 			mostRelevantCategories.add(categories.get(i).getCategoryId());
 		}
@@ -116,6 +126,10 @@ public class CategoryRanking extends JCasAnnotator_ImplBase {
 		return mostRelevantCategories;
 	}
 	
+	/**
+	 * Wrapper for a tuple consisting of a category's id, articles, and score.
+	 * The score is calculated based on the articles' page ranks.
+	 */
 	private class PageRankTuple {
 		private final int catId;
 		private final Set<Integer> articles;
@@ -127,12 +141,25 @@ public class CategoryRanking extends JCasAnnotator_ImplBase {
 			this.score = null;
 		}
 		
-		public double getScore() {
+		/**
+		 * Retrieve the category's score.
+		 * If the score has not been calculated yet, it will be calculated on the fly.
+		 * @param prl Reference to the shared page rank loader instance.
+		 * @return The category's score.
+		 */
+		public double getScore(PageRankLoader prl) {
 			if (this.score != null) {
 				return this.score;
 			}
 			
-			// TODO: calculate the score
+			this.score = 0.0;
+			
+			for (int artId : this.articles) {
+				this.score += prl.getPageRank(artId);
+			}
+			
+			// Normalize score to remove bias for categories with lots of articles
+			this.score = this.articles.isEmpty() ? 0.0 : this.score / this.articles.size();
 			
 			return this.score;
 		}

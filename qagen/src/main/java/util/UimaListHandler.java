@@ -153,7 +153,7 @@ public class UimaListHandler {
 	 * @return A Java list.
 	 */
 	public static List<String> listToJavaStringList(NonEmptyStringList list) {
-		LinkedList<String> jList = new LinkedList<>();
+		LinkedList<String> jList = new LinkedList<String>();
 		
 		String head = list.getHead();
 		StringList tail = list.getTail();
@@ -184,7 +184,7 @@ public class UimaListHandler {
 	 * @return A Java list.
 	 */
 	public static List<Integer> listToJavaIntegerList(NonEmptyIntegerList list) {
-		LinkedList<Integer> jList = new LinkedList<>();
+		LinkedList<Integer> jList = new LinkedList<Integer>();
 		
 		Integer head = list.getHead();
 		IntegerList tail = list.getTail();

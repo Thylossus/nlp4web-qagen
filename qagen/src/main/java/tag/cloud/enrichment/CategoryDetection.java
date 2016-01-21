@@ -1,7 +1,10 @@
 package tag.cloud.enrichment;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -12,11 +15,11 @@ import org.apache.uima.fit.component.JCasAnnotator_ImplBase;
 import org.apache.uima.fit.descriptor.ConfigurationParameter;
 import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
-import org.apache.uima.jcas.cas.NonEmptyIntegerList;
-import org.apache.uima.jcas.cas.NonEmptyStringList;
+import org.apache.uima.util.Level;
 
 import types.CandidateAnswer;
 import types.CorrectAnswer;
+import util.UimaListHandler;
 
 public class CategoryDetection extends JCasAnnotator_ImplBase {
 
@@ -32,52 +35,35 @@ public class CategoryDetection extends JCasAnnotator_ImplBase {
 		if (searchType == "correctAnswer") {
 			List<Future<Result>> tasks = new ArrayList<Future<Result>>();
 
-			List<CorrectAnswer> answers = (List<CorrectAnswer>) JCasUtil.select(jcas, CorrectAnswer.class);
-			for (int i = 0; i < answers.size(); i++) {
-				CorrectAnswer answer = answers.get(i);
+			for (CorrectAnswer answer : JCasUtil.select(jcas, CorrectAnswer.class)) {
 				String searchTerm = answer.getCoveredText();
-
-				List<String> keywordArrayList = new ArrayList<String>();
-				NonEmptyStringList keywordList = answer.getKeywords();
-				while (keywordList instanceof NonEmptyStringList) {
-					keywordArrayList.add(keywordList.getHead());
-					keywordList = (NonEmptyStringList) keywordList.getTail();
-				}
-				String[] keywords = (String[]) keywordArrayList.toArray();
-
+				this.getContext().getLogger().log(Level.INFO, "Search Term: " + searchTerm);
+				List<String> keywordList = UimaListHandler.listToJavaStringList(answer.getKeywords());
+				String[] keywords = keywordList.toArray(new String[0]);
+				this.getContext().getLogger().log(Level.INFO, "Keywords: " + Arrays.toString(keywords));
 				tasks.add(service.submit(new CategorySearch(searchTerm, keywords)));
 			}
 
-			for (int i = 0; i < answers.size(); i++) {
-				CorrectAnswer answer = answers.get(i);
-				Future<Result> task = tasks.get(i);
+			Iterator<Future<Result>> it = tasks.iterator();
+			for (CorrectAnswer answer : JCasUtil.select(jcas, CorrectAnswer.class)) {
+				Future<Result> task = null;
+				if (it.hasNext()) {
+					task = it.next();
 
-				try {
-					Result searchResult = task.get();
-					List<Integer> categoryList = new ArrayList<Integer>();
-					categoryList.addAll(searchResult.getCategoryIds());
-
-					NonEmptyIntegerList categoryIds = new NonEmptyIntegerList(jcas);
-					for (int id : categoryList) {
-						categoryIds.setHead(id);
-						categoryIds.setTail(categoryIds);
+					try {
+						Result searchResult = task.get();
+						Set<Integer> categorySet = searchResult.getCategoryIds();
+						this.getContext().getLogger().log(Level.INFO, "Search Term: " + Arrays.toString(categorySet.toArray()));
+						answer.setCategories(
+								UimaListHandler.integerCollectionToList(jcas, categorySet));
+						Set<Integer> answerSet = searchResult.getArticleIds();
+						this.getContext().getLogger().log(Level.INFO, "Search Term: " + Arrays.toString(answerSet.toArray()));
+						answer.setArticles(UimaListHandler.integerCollectionToList(jcas, answerSet));
+					} catch (final InterruptedException ex) {
+						ex.printStackTrace();
+					} catch (final ExecutionException ex) {
+						ex.printStackTrace();
 					}
-
-					List<Integer> articleList = new ArrayList<Integer>();
-					articleList.addAll(searchResult.getArticleIds());
-
-					NonEmptyIntegerList articleIds = new NonEmptyIntegerList(jcas);
-					for (int id : articleList) {
-						articleIds.setHead(id);
-						articleIds.setTail(articleIds);
-					}
-					answer.setCategories(categoryIds);
-					answer.setArticles(articleIds);
-
-				} catch (final InterruptedException ex) {
-					ex.printStackTrace();
-				} catch (final ExecutionException ex) {
-					ex.printStackTrace();
 				}
 			}
 
@@ -85,43 +71,32 @@ public class CategoryDetection extends JCasAnnotator_ImplBase {
 		} else if (searchType == "candidateAnswer") {
 			List<Future<Result>> tasks = new ArrayList<Future<Result>>();
 
-			List<CandidateAnswer> answers = (List<CandidateAnswer>) JCasUtil.select(jcas, CandidateAnswer.class);
-			for (int i = 0; i < answers.size(); i++) {
-				CandidateAnswer answer = answers.get(i);
+			for (CandidateAnswer answer : JCasUtil.select(jcas, CandidateAnswer.class)) {
 				String searchTerm = answer.getCoveredText();
+				this.getContext().getLogger().log(Level.INFO, "Search Term: " + searchTerm);
 				tasks.add(service.submit(new CategorySearch(searchTerm)));
 			}
 
-			for (int i = 0; i < answers.size(); i++) {
-				CandidateAnswer answer = answers.get(i);
-				Future<Result> task = tasks.get(i);
-
-				try {
-					Result searchResult = task.get();
-					List<Integer> categoryList = new ArrayList<Integer>();
-					categoryList.addAll(searchResult.getCategoryIds());
-
-					NonEmptyIntegerList categoryIds = new NonEmptyIntegerList(jcas);
-					for (int id : categoryList) {
-						categoryIds.setHead(id);
-						categoryIds.setTail(categoryIds);
+			Iterator<Future<Result>> it = tasks.iterator();
+			for (CandidateAnswer answer : JCasUtil.select(jcas, CandidateAnswer.class)) {
+				Future<Result> task = null;
+				if (it.hasNext()) {
+					task = it.next();
+					
+					try {
+						Result searchResult = task.get();
+						Set<Integer> categorySet = searchResult.getCategoryIds();
+						this.getContext().getLogger().log(Level.INFO, "Search Term: " + Arrays.toString(categorySet.toArray()));
+						answer.setCategories(
+								UimaListHandler.integerCollectionToList(jcas, categorySet));
+						Set<Integer> answerSet = searchResult.getArticleIds();
+						this.getContext().getLogger().log(Level.INFO, "Search Term: " + Arrays.toString(answerSet.toArray()));
+						answer.setArticles(UimaListHandler.integerCollectionToList(jcas, answerSet));
+					} catch (final InterruptedException ex) {
+						ex.printStackTrace();
+					} catch (final ExecutionException ex) {
+						ex.printStackTrace();
 					}
-
-					List<Integer> articleList = new ArrayList<Integer>();
-					articleList.addAll(searchResult.getArticleIds());
-
-					NonEmptyIntegerList articleIds = new NonEmptyIntegerList(jcas);
-					for (int id : articleList) {
-						articleIds.setHead(id);
-						articleIds.setTail(articleIds);
-					}
-					answer.setCategories(categoryIds);
-					answer.setArticles(articleIds);
-
-				} catch (final InterruptedException ex) {
-					ex.printStackTrace();
-				} catch (final ExecutionException ex) {
-					ex.printStackTrace();
 				}
 			}
 

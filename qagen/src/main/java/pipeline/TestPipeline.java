@@ -16,6 +16,7 @@ import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordPosTagger;
 import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordSegmenter;
 import input.OpenTriviaQAParser;
 import question.processing.KeywordExtraction;
+import tag.cloud.enrichment.CategoryDetection;
 
 public class TestPipeline {
 
@@ -27,6 +28,7 @@ public class TestPipeline {
 		AnalysisEngine nerTagger = createEngine(StanfordNamedEntityRecognizer.class);
 		AnalysisEngine keywordExtraction = createEngine(KeywordExtraction.class);
 		AnalysisEngine output = createEngine(DebuggingOutput.class);
+		AnalysisEngine correctAnswerCategoryDetection = createEngine(CategoryDetection.class, CategoryDetection.PARAM_SEARCH_TYPE, "correctAnswer");
 		
 		SimplePipeline.runPipeline(
 				questionParser,
@@ -34,7 +36,8 @@ public class TestPipeline {
 				posTagger,
 				nerTagger,
 				keywordExtraction,
-				output
+				output,
+				correctAnswerCategoryDetection
 		);
 	}
 

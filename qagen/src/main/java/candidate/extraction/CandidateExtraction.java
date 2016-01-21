@@ -28,7 +28,7 @@ public class CandidateExtraction extends JCasAnnotator_ImplBase {
 		Wikipedia wiki;
 		Category cat;
 		List<Integer> categories;
-		Set<Integer> articles = new HashSet<>();
+		Set<Integer> articles = new HashSet<Integer>();
 		Logger logger = this.getContext().getLogger();
 		CandidateAnswer candidate;
 		
@@ -66,7 +66,7 @@ public class CandidateExtraction extends JCasAnnotator_ImplBase {
 	 * @throws WikiApiException
 	 */
 	private Set<Integer> getAllArticles(Category cat) throws WikiApiException {
-		Set<Integer> articles = new HashSet<>();
+		Set<Integer> articles = new HashSet<Integer>();
 		
 		// Add articles of this category
 		articles.addAll(cat.getArticleIds());

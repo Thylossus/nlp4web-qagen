@@ -19,7 +19,7 @@ public class KeywordExtraction extends JCasAnnotator_ImplBase {
 
 	@Override
 	public void process(JCas jcas) throws AnalysisEngineProcessException {
-		Set<String> keywords = new HashSet<>();
+		Set<String> keywords = new HashSet<String>();
 		
 		// Gather all keywords (use set to prevent saving duplicates)
 		for (Question question : JCasUtil.select(jcas, Question.class)) {

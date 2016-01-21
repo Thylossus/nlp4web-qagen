@@ -50,7 +50,7 @@ public class CategorySearch implements Callable<Result> {
 
 			// check if category contains at least one of the keywords
 			for (String keyword : keywords) {
-				if (!categoryTitle.contains(keyword)) {
+				if (!categoryTitle.contains(keyword.toLowerCase())) {
 					check = false;
 					break;
 				}
@@ -58,13 +58,15 @@ public class CategorySearch implements Callable<Result> {
 
 			// check size of category
 			int size = category.getNumberOfPages();
+			/*
 			if (size > maxSize) {
 				check = false;
 			}
+			*/
 
 			if (check) {
 				categoryIds.add(category.getPageId());
-				//System.out.println(category.getTitle().getPlainTitle() + " - Size: " + size);
+				System.out.println(category.getTitle().getPlainTitle() + " - Size: " + size);
 				articleIds.addAll(category.getArticleIds());
 			}
 		}

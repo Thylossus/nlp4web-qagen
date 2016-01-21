@@ -2,6 +2,8 @@ package util;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.cas.EmptyIntegerList;
@@ -145,4 +147,65 @@ public class UimaListHandler {
 		return list;
 	}
 	
+	/**
+	 * Convert a UIMA non empty list to a java list.
+	 * @param list A UIMA list.
+	 * @return A Java list.
+	 */
+	public static List<String> listToJavaStringList(NonEmptyStringList list) {
+		LinkedList<String> jList = new LinkedList<>();
+		
+		String head = list.getHead();
+		StringList tail = list.getTail();
+		
+		while (head != null) {
+			jList.add(head);
+			
+			if (tail instanceof NonEmptyStringList) {
+				tail = ((NonEmptyStringList) tail).getTail();
+				
+				if (tail instanceof NonEmptyStringList) {
+					head = ((NonEmptyStringList) tail).getHead();
+				} else {
+					head = null;
+				}
+			} else {
+				head = null;
+			}
+			
+		}
+		
+		return jList;
+	}
+	
+	/**
+	 * Convert a UIMA non empty list to a java list.
+	 * @param list A UIMA list.
+	 * @return A Java list.
+	 */
+	public static List<Integer> listToJavaIntegerList(NonEmptyIntegerList list) {
+		LinkedList<Integer> jList = new LinkedList<>();
+		
+		Integer head = list.getHead();
+		IntegerList tail = list.getTail();
+		
+		while (head != null) {
+			jList.add(head);
+			
+			if (tail instanceof NonEmptyIntegerList) {
+				tail = ((NonEmptyIntegerList) tail).getTail();
+				
+				if (tail instanceof NonEmptyIntegerList) {
+					head = ((NonEmptyIntegerList) tail).getHead();
+				} else {
+					head = null;
+				}
+			} else {
+				head = null;
+			}
+			
+		}
+		
+		return jList;
+	}
 }

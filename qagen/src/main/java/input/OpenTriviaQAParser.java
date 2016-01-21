@@ -17,7 +17,7 @@ import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.util.Progress;
 import org.apache.uima.util.ProgressImpl;
 
-import types.Answer;
+import types.CorrectAnswer;
 import types.Question;
 
 /**
@@ -67,7 +67,7 @@ public class OpenTriviaQAParser extends JCasCollectionReader_ImplBase {
 
 		// FIXME: Mit Java 8 könnte man hier try-with-resources benutzen
 		try {
-			InputStream inStream = getClass().getResourceAsStream(inputFile);
+			InputStream inStream = getClass().getClassLoader().getResourceAsStream(inputFile);
 			parse(inStream);
 		} catch (IOException ex) {
 			throw new ResourceInitializationException(new IOException("Could not read OpenTrivia QA input file", ex));
@@ -164,6 +164,7 @@ public class OpenTriviaQAParser extends JCasCollectionReader_ImplBase {
 			// Fetch new document and shorten the list
 			ParsedQuestion question = questions.remove(0);
 			jcas.setDocumentText(question.getDocumentText());
+			jcas.setDocumentLanguage("en");
 			
 			// Add the question annotation
 			Question questionAnnotation = new Question(jcas);
@@ -172,7 +173,7 @@ public class OpenTriviaQAParser extends JCasCollectionReader_ImplBase {
             questionAnnotation.addToIndexes();
             
             // Add answer annotation
-            Answer answerAnnotation = new Answer(jcas);
+            CorrectAnswer answerAnnotation = new CorrectAnswer(jcas);
             answerAnnotation.setBegin(question.getAnswerIndex()[0]);
             answerAnnotation.setEnd(question.getAnswerIndex()[1]);
             answerAnnotation.addToIndexes();

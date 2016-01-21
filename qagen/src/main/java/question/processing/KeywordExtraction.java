@@ -9,6 +9,7 @@ import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.cas.NonEmptyStringList;
 
+import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.NN;
 import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.NP;
 import de.tudarmstadt.ukp.dkpro.core.api.ner.type.NamedEntity;
 import types.CorrectAnswer;
@@ -25,6 +26,10 @@ public class KeywordExtraction extends JCasAnnotator_ImplBase {
 		for (Question question : JCasUtil.select(jcas, Question.class)) {
 			
 			for (NP np : JCasUtil.selectCovered(jcas, NP.class, question)) {
+				keywords.add(np.getCoveredText());
+			}
+			
+			for (NN np : JCasUtil.selectCovered(jcas, NN.class, question)) {
 				keywords.add(np.getCoveredText());
 			}
 			

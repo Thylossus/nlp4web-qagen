@@ -22,6 +22,8 @@ import util.UimaListHandler;
 
 public class CandidateExtraction extends JCasAnnotator_ImplBase {
 
+	private static final String LF = System.getProperty("line.separator");
+	
 	@Override
 	public void process(JCas jcas) throws AnalysisEngineProcessException {
 		DatabaseConfiguration dbconfig = DBConfig.getJwplDbConfig();
@@ -31,6 +33,7 @@ public class CandidateExtraction extends JCasAnnotator_ImplBase {
 		Set<Integer> articles = new HashSet<Integer>();
 		Logger logger = this.getContext().getLogger();
 		CandidateAnswer candidate;
+		StringBuilder sb;
 		
 		try {
 			wiki = new Wikipedia(dbconfig);
@@ -40,18 +43,29 @@ public class CandidateExtraction extends JCasAnnotator_ImplBase {
 				
 				for (int id : categories) {
 					cat = wiki.getCategory(id);
-					System.out.println(cat.getPageId() + " " + cat.getTitle());
 					articles.addAll(this.getAllArticles(cat));
 				}
 				
 				// Add candidate answer annotations
+				sb = new StringBuilder();
+				sb.append("Answer Candidates: ");
+				sb.append(LF);
+				
 				for (int articleid : articles) {
 					candidate = new CandidateAnswer(jcas);
 					candidate.setBegin(ca.getBegin());
 					candidate.setEnd(ca.getEnd());
 					candidate.setWikipediaPageId(articleid);
 					candidate.addToIndexes();
+				
+					sb.append(articleid);
+					// TODO remove due to performance considerations
+					// sb.append(wiki.getPage(articleid).getTitle());
+					
+					sb.append(LF);
 				}
+				
+				this.getContext().getLogger().log(Level.INFO, sb.toString());
 			}
 			
 		} catch (WikiApiException e) {

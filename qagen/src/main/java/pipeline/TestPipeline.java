@@ -10,6 +10,8 @@ import org.apache.uima.analysis_engine.AnalysisEngine;
 import org.apache.uima.collection.CollectionReader;
 import org.apache.uima.fit.pipeline.SimplePipeline;
 
+import candidate.extraction.CandidateExtraction;
+import candidate.extraction.CategoryRanking;
 import consumer.DebuggingOutput;
 import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordNamedEntityRecognizer;
 import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordPosTagger;
@@ -29,6 +31,8 @@ public class TestPipeline {
 		AnalysisEngine keywordExtraction = createEngine(KeywordExtraction.class);
 		AnalysisEngine output = createEngine(DebuggingOutput.class);
 		AnalysisEngine correctAnswerCategoryDetection = createEngine(CategoryDetection.class, CategoryDetection.PARAM_SEARCH_TYPE, "correctAnswer");
+		AnalysisEngine categoryRanking = createEngine(CategoryRanking.class, CategoryRanking.PARAM_NUM_CATEGORIES, 3);
+		AnalysisEngine candidateExtraction = createEngine(CandidateExtraction.class);
 		
 		SimplePipeline.runPipeline(
 				questionParser,
@@ -36,8 +40,10 @@ public class TestPipeline {
 				posTagger,
 				nerTagger,
 				keywordExtraction,
-				output,
-				correctAnswerCategoryDetection
+				correctAnswerCategoryDetection,
+				categoryRanking,
+				candidateExtraction,
+				output
 		);
 	}
 

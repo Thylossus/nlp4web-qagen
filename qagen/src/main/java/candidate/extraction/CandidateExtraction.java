@@ -40,6 +40,7 @@ public class CandidateExtraction extends JCasAnnotator_ImplBase {
 				
 				for (int id : categories) {
 					cat = wiki.getCategory(id);
+					System.out.println(cat.getPageId() + " " + cat.getTitle());
 					articles.addAll(this.getAllArticles(cat));
 				}
 				

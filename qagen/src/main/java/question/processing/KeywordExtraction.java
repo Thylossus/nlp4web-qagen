@@ -29,8 +29,8 @@ public class KeywordExtraction extends JCasAnnotator_ImplBase {
 				keywords.add(np.getCoveredText());
 			}
 			
-			for (NN np : JCasUtil.selectCovered(jcas, NN.class, question)) {
-				keywords.add(np.getCoveredText());
+			for (NN nn : JCasUtil.selectCovered(jcas, NN.class, question)) {
+				keywords.add(nn.getCoveredText());
 			}
 			
 			for (NamedEntity ne : JCasUtil.selectCovered(jcas, NamedEntity.class, question)) {
@@ -45,8 +45,6 @@ public class KeywordExtraction extends JCasAnnotator_ImplBase {
 		for (CorrectAnswer ca : JCasUtil.select(jcas, CorrectAnswer.class)) {
 			ca.setKeywords(neslKeywords);
 		}
-		
-//		System.out.println(UimaListHandler.listToString(neslKeywords));
 		
 	}
 	

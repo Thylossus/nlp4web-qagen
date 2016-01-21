@@ -53,11 +53,11 @@ public class CategoryDetection extends JCasAnnotator_ImplBase {
 					try {
 						Result searchResult = task.get();
 						Set<Integer> categorySet = searchResult.getCategoryIds();
-						this.getContext().getLogger().log(Level.INFO, "Search Term: " + Arrays.toString(categorySet.toArray()));
+						this.getContext().getLogger().log(Level.INFO, "Category Set: " + categorySet.size() + "\n");
 						answer.setCategories(
 								UimaListHandler.integerCollectionToList(jcas, categorySet));
 						Set<Integer> answerSet = searchResult.getArticleIds();
-						this.getContext().getLogger().log(Level.INFO, "Search Term: " + Arrays.toString(answerSet.toArray()));
+						this.getContext().getLogger().log(Level.INFO, "Answer Set: " + answerSet.size() + "\n");
 						answer.setArticles(UimaListHandler.integerCollectionToList(jcas, answerSet));
 					} catch (final InterruptedException ex) {
 						ex.printStackTrace();
@@ -86,11 +86,11 @@ public class CategoryDetection extends JCasAnnotator_ImplBase {
 					try {
 						Result searchResult = task.get();
 						Set<Integer> categorySet = searchResult.getCategoryIds();
-						this.getContext().getLogger().log(Level.INFO, "Search Term: " + Arrays.toString(categorySet.toArray()));
+						this.getContext().getLogger().log(Level.INFO, "Category Set: " + Arrays.toString(categorySet.toArray()) + "\n");
 						answer.setCategories(
 								UimaListHandler.integerCollectionToList(jcas, categorySet));
 						Set<Integer> answerSet = searchResult.getArticleIds();
-						this.getContext().getLogger().log(Level.INFO, "Search Term: " + Arrays.toString(answerSet.toArray()));
+						this.getContext().getLogger().log(Level.INFO, "Answer Set: " + Arrays.toString(answerSet.toArray()) + "\n");
 						answer.setArticles(UimaListHandler.integerCollectionToList(jcas, answerSet));
 					} catch (final InterruptedException ex) {
 						ex.printStackTrace();

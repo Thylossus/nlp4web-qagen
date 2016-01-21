@@ -1,5 +1,6 @@
 package tag.cloud.enrichment;
 
+import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.Callable;
@@ -15,7 +16,7 @@ public class CategorySearch implements Callable<Result> {
 	Wikipedia wiki;
 	String searchterm;
 	String[] keywords;
-	int maxSize = 100;
+	int maxSize = 1000;
 
 	private void init() {
 		DBConfig dbConfig = DBConfig.getInstance();
@@ -46,24 +47,22 @@ public class CategorySearch implements Callable<Result> {
 
 		for (Category category : page.getCategories()) {
 			String categoryTitle = category.getTitle().getPlainTitle().toLowerCase();
-			boolean check = true;
+			boolean check = false;
 
 			// check if category contains at least one of the keywords
 			for (String keyword : keywords) {
-				if (!categoryTitle.contains(keyword.toLowerCase())) {
-					check = false;
+				if (categoryTitle.contains(keyword.toLowerCase())) {
+					check = true;
 					break;
 				}
 			}
 
 			// check size of category
 			int size = category.getNumberOfPages();
-			/*
 			if (size > maxSize) {
 				check = false;
 			}
-			*/
-
+			
 			if (check) {
 				categoryIds.add(category.getPageId());
 				System.out.println(category.getTitle().getPlainTitle() + " - Size: " + size);

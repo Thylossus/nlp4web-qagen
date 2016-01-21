@@ -1,5 +1,5 @@
 
-/* First created by JCasGen Tue Jan 19 19:11:02 CET 2016 */
+/* First created by JCasGen Thu Jan 21 09:18:08 CET 2016 */
 package types;
 
 import org.apache.uima.jcas.JCas;
@@ -9,12 +9,12 @@ import org.apache.uima.cas.impl.FSGenerator;
 import org.apache.uima.cas.FeatureStructure;
 import org.apache.uima.cas.impl.TypeImpl;
 import org.apache.uima.cas.Type;
-
 import org.apache.uima.cas.impl.FeatureImpl;
 import org.apache.uima.cas.Feature;
+import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** 
- * Updated by JCasGen Wed Jan 20 13:11:39 CET 2016
+ * Updated by JCasGen Thu Jan 21 09:19:20 CET 2016
  * @generated */
 public class CorrectAnswer_Type extends Answer_Type {
   /** @generated 
@@ -45,9 +45,7 @@ public class CorrectAnswer_Type extends Answer_Type {
      @modifiable */
   @SuppressWarnings ("hiding")
   public final static boolean featOkTst = JCasRegistry.getFeatOkTst("types.CorrectAnswer");
-
-
-
+ 
   /** @generated */
   final Feature casFeat_mostRelevantCategories;
   /** @generated */

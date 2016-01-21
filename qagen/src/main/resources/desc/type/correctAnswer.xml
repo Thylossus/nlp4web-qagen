@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>correctAnswer</name>
+    <description/>
+    <version>1.0</version>
+    <vendor/>
+  <imports>
+    <import location="answer.xml"/>
+  </imports>
+  <types>
+    <typeDescription>
+      <name>types.CorrectAnswer</name>
+      <description/>
+      <supertypeName>types.Answer</supertypeName>
+      <features>
+        <featureDescription>
+          <name>mostRelevantCategories</name>
+          <description/>
+          <rangeTypeName>uima.cas.NonEmptyIntegerList</rangeTypeName>
+        </featureDescription>
+      </features>
+    </typeDescription>
+  </types>
+</typeSystemDescription>

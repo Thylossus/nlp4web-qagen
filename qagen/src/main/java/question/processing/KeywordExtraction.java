@@ -25,12 +25,10 @@ public class KeywordExtraction extends JCasAnnotator_ImplBase {
 		for (Question question : JCasUtil.select(jcas, Question.class)) {
 			
 			for (NP np : JCasUtil.selectCovered(jcas, NP.class, question)) {
-				System.out.println(np.getType().getShortName() + " " + np.getCoveredText());
 				keywords.add(np.getCoveredText());
 			}
 			
 			for (NamedEntity ne : JCasUtil.selectCovered(jcas, NamedEntity.class, question)) {
-				System.out.println(ne.getType().getShortName() + " " + ne.getCoveredText());
 				keywords.add(ne.getCoveredText());
 			}
 		}

@@ -48,7 +48,9 @@ public class CandidateExtraction extends JCasAnnotator_ImplBase {
 				
 				// Add candidate answer annotations
 				sb = new StringBuilder();
-				sb.append("Answer Candidates: ");
+				sb.append("Answer Candidates (");
+				sb.append(articles.size());
+				sb.append("): ");
 				sb.append(LF);
 				
 				for (int articleid : articles) {

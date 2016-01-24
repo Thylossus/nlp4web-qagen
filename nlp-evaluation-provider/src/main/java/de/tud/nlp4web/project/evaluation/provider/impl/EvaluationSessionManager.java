@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -52,16 +54,30 @@ public class EvaluationSessionManager extends AbstractDatabaseBean {
 			
 		// Add difficulty baselines as long as there are some that have to be evaluated
 		List<QuestionSet> dbQuestionSets = questionSetMgnr.getAllQuestionSets(QuestionSetType.DB);
-		while(remainingSets > 0 && dbQuestionSets.size() > 0) {
-			QuestionSet nextSet = dbQuestionSets.get(0);
+		List<QuestionSetStats> dbQuestionSetStats = new LinkedList<>();
+		for (QuestionSet qs : dbQuestionSets) {
+			dbQuestionSetStats.add(questionSetMgnr.getStats(qs));
+		}
+		
+		// Sort the sets by the amount of complete evaluations to prefer seldomly-evaluated sets
+		Collections.sort(dbQuestionSetStats, new Comparator<QuestionSetStats>() {
+			@Override
+			public int compare(QuestionSetStats qs1, QuestionSetStats qs2) {
+				return qs1.getEvaluationCount() - qs2.getEvaluationCount();
+			}
+		});
+		
+		// Now add the sets to the session...
+		while(remainingSets > 0 && dbQuestionSetStats.size() > 0) {
+			QuestionSetStats stats = dbQuestionSetStats.get(0);
+			QuestionSet nextSet = stats.getQuestionSet();
 			if (nextSet.isLocked()) {
-				QuestionSetStats stats = questionSetMgnr.getStats(nextSet);
 				if (stats.getEvaluationCount() < evaluationsPerDb) { // if further evaluation is needed
 					questionSets.add(nextSet);
 					remainingSets -= 1;
 				}
 			}
-			dbQuestionSets.remove(0);
+			dbQuestionSetStats.remove(0);
 		}
 		
 		// Finally, add ES sets to the evaluation session

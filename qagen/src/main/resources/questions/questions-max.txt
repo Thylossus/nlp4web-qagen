@@ -1,0 +1,69 @@
+﻿#Q Which US General became the Thirty-Fourth US President?
+^ Dwight D. Eisenhower
+A Calvin Coolidge
+B Douglas MacArthur
+C Dwight D. Eisenhower
+D George S. Patton
+
+#Q Which of these was the tallest U.S. President?
+^ Abraham Lincoln
+A Millard Fillmore
+B Abraham Lincoln
+C James Garfield
+D William Henry Harrison
+
+#Q George Washington was related to which other US President?
+^ James Madison
+A John Adams
+B William Henry Harrison
+C Thomas Jefferson
+D James Madison
+
+#Q Who delivered the eulogy at Senator Ted Kennedy funeral?
+^ President Obama
+A Joseph Patrick Kennedy
+B President Obama
+C Caroline Kennedy
+D Christopher Dodd
+
+#Q Who portrayed Jesse James in the 2007 movie The Assassination of Jesse James by the Coward Bob Ford?
+^ Brad Pitt
+A Keifer Sutherland
+B Brad Pitt
+C John Travolta
+D Charlie Sheen
+
+#Q The travels of what famous sailor are described in a 13th century travel book known as The Million?
+^ Marco Polo
+A Christopher Columbus
+B Jan Kalvin
+C Fernando Magellan
+D Marco Polo
+
+#Q What European director created the 1984 movie Paris, Texas which was named after a US city of the same name?
+^ Wim Wenders
+A Wim Wenders
+B Emir Kusturica
+C Michelangelo Antonioni
+D Pedro Almodóvar
+
+#Q Which President of the United States wrote, Rules of Civility and Decent Behavior in Company and Conversation?
+^ George Washington
+A John Quincy Adams
+B Chester B. Arthur
+C James Madison
+D George Washington
+
+#Q He won the Triple Crown in 2006 and was traded after the next season.
+^ Johan Santana
+A Jake Peavy
+B Roger Clemens
+C Johan Santana
+D John Clarkson
+
+#Q He was the first World Series Most Valuable Player.
+^ Johnny Podres
+A Don Larsen
+B Johnny Podres
+C Sandy  Amoros
+D Yogi Berra

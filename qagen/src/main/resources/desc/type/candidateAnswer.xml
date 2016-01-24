@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>candidateAnswer</name>
+    <description/>
+    <version>1.0</version>
+    <vendor/>
+  <imports>
+    <import location="answer.xml"/>
+  </imports>
+  <types>
+    <typeDescription>
+      <name>types.CandidateAnswer</name>
+      <description/>
+      <supertypeName>types.Answer</supertypeName>
+      <features>
+        <featureDescription>
+          <name>wikipediaPageId</name>
+          <description/>
+          <rangeTypeName>uima.cas.Integer</rangeTypeName>
+        </featureDescription>
+        <featureDescription>
+          <name>similarityScore</name>
+          <description/>
+          <rangeTypeName>uima.cas.Float</rangeTypeName>
+        </featureDescription>
+      </features>
+    </typeDescription>
+  </types>
+</typeSystemDescription>

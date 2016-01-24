@@ -1,5 +1,5 @@
 
-/* First created by JCasGen Tue Jan 19 19:11:02 CET 2016 */
+/* First created by JCasGen Thu Jan 21 09:16:11 CET 2016 */
 package types;
 
 import org.apache.uima.jcas.JCas;
@@ -12,7 +12,7 @@ import org.apache.uima.cas.Type;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** 
- * Updated by JCasGen Tue Jan 19 19:39:14 CET 2016
+ * Updated by JCasGen Thu Jan 21 09:16:11 CET 2016
  * @generated */
 public class Question_Type extends Annotation_Type {
   /** @generated 

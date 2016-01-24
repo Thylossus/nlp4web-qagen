@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>answer</name>
+    <description/>
+    <version>1.0</version>
+    <vendor/>
+  <types>
+    <typeDescription>
+      <name>types.Answer</name>
+      <description/>
+      <supertypeName>uima.tcas.Annotation</supertypeName>
+      <features>
+        <featureDescription>
+          <name>keywords</name>
+          <description/>
+          <rangeTypeName>uima.cas.NonEmptyStringList</rangeTypeName>
+        </featureDescription>
+        <featureDescription>
+          <name>categories</name>
+          <description/>
+          <rangeTypeName>uima.cas.NonEmptyIntegerList</rangeTypeName>
+        </featureDescription>
+        <featureDescription>
+          <name>articles</name>
+          <description/>
+          <rangeTypeName>uima.cas.NonEmptyIntegerList</rangeTypeName>
+        </featureDescription>
+      </features>
+    </typeDescription>
+  </types>
+</typeSystemDescription>

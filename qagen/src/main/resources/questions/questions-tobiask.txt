@@ -12,33 +12,33 @@ B Matt Damon
 C Ben Affleck
 D John Stamos
 
-#Q The longest river in Europe is Volga. But do you know which is the second longest one? It flows through several major European cities, such as Ulm, Vienna, Bratislava, Budapest and Belgrade. The river empties in the Black Sea on the terrirories of Romania and Ukraine.
-^ Danube
-A Don
-B Dniepr
-C Danube
-D Emba
+#Q Who was the Giants running back in Super Bowl XXI?
+^ Joe Morris
+A Tiki Barber
+B Joe Morris
+C Otis Anderson
+D Rodney Hampton
 
-#Q Pico da Bandeira, Pico do Cruzeiro and Pedra da Mina are three of the numerous mountains located in this South American country.
-^ Brazil
-A Argentina
-B Chili
-C Brazil
-D Peru
+#Q What is the real name of the professional wrestler known as the Boogeyman?
+^ Martin Wright
+A James Gibson
+B Brian Myers
+C Cliff Compton
+D Martin Wright
 
-#Q The British evacuation from which French port was codenamed Operation Dynamo, in 1940?
-^ Dunkirk
-A Brest
-B Cherbourg
-C Dunkirk
-D Toulon
+#Q Pvt. Lester Hummel was played by which of these actors in the Gomer Pyle show?
+^ William Christopher
+A Ted Bessell
+B William Christopher
+C Allan Melvin
+D Ronnie Schell
 
-#Q On July 1, 1997, the former British colony of Hong Kong reunified with the Peoples Republic of China. This man was the last governor of Hong Kong.
-^ Chris Patten
-A Henry Tang
-B Chris Patten
-C Tung Chee Hwa
-D Donald Tsang
+#Q Which of the following composers wrote the Moonlight Sonata for piano?
+^ Ludwig von Beethoven
+A Ludwig von Beethoven
+B Claude DeBussey
+C Wolfgang Amadeus Mozart
+D Igor Stravinsky
 
 #Q Voyage of the Dawn Treader was written by this author.
 ^ C S Lewis
@@ -47,12 +47,12 @@ B C S Lewis
 C Lewis Carrol
 D Brothers Grimm
 
-#Q This famous anti-war novel by Erik Marie Remarque was banned in Nazi Germany.
-^ All Quiet on the Western Front
-A To Hell and Back
-B 1984
-C Dr. Caligari
-D All Quiet on the Western Front
+#Q Which U.S. writer of detective fiction worked for the famous Pinkerton National Detective Agency?
+^ Dashiell Hammett
+A Mickey Spillane
+B Mary Higgins Clark
+C Dashiell Hammett
+D Louis LAmour
 
 #Q He was the most loyal friend of Al Capone. He was Capones treasurer and financial wizard. Because he was incapable of using a gun or killing a person, Al Capone protected him.
 ^ Jake Gizuk

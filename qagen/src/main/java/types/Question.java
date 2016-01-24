@@ -1,6 +1,6 @@
 
 
-/* First created by JCasGen Tue Jan 19 19:11:02 CET 2016 */
+/* First created by JCasGen Thu Jan 21 09:16:11 CET 2016 */
 package types;
 
 import org.apache.uima.jcas.JCas; 
@@ -11,8 +11,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Tue Jan 19 19:39:14 CET 2016
- * XML source: C:/Users/t-kah_000/Documents/Programming/Java/NLP/nlp4web-qagen/qagen/src/main/resources/desc/types.xml
+ * Updated by JCasGen Thu Jan 21 09:16:11 CET 2016
+ * XML source: C:/Users/t-kah_000/Documents/Programming/Java/NLP/nlp4web-qagen/qagen/src/main/resources/desc/type/question.xml
  * @generated */
 public class Question extends Annotation {
   /** @generated

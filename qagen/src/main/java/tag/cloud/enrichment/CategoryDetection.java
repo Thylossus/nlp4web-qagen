@@ -17,6 +17,11 @@ import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.util.Level;
 
+import config.DBConfig;
+import de.tudarmstadt.ukp.wikipedia.api.Page;
+import de.tudarmstadt.ukp.wikipedia.api.Wikipedia;
+import de.tudarmstadt.ukp.wikipedia.api.exception.WikiApiException;
+import de.tudarmstadt.ukp.wikipedia.api.exception.WikiInitializationException;
 import types.CandidateAnswer;
 import types.CorrectAnswer;
 import util.UimaListHandler;
@@ -70,11 +75,36 @@ public class CategoryDetection extends JCasAnnotator_ImplBase {
 			service.shutdownNow();
 		} else if (searchType == "candidateAnswer") {
 			List<Future<Result>> tasks = new ArrayList<Future<Result>>();
+			String[] keywords = null;
+			List<String> keywordList;
+			Wikipedia wiki;
+			
+			try {
+				wiki = new Wikipedia(DBConfig.getJwplDbConfig());
+			} catch (WikiInitializationException e) {
+				throw new AnalysisEngineProcessException("Cannot establish a connection the Wikiepdia database with the JWPL API.", null);
+			}
 
+			// Find keywords of correct answer (required for category filtering)
+			for (CorrectAnswer ca : JCasUtil.select(jcas, CorrectAnswer.class)) {
+				keywordList = UimaListHandler.listToJavaStringList(ca.getKeywords());
+				keywords = keywordList.toArray(new String[keywordList.size()]);
+			}
+			
+			if (keywords == null) {
+				throw new AnalysisEngineProcessException("Cannot find a correct answer to retrieve keywords from.", null);
+			}
+			
 			for (CandidateAnswer answer : JCasUtil.select(jcas, CandidateAnswer.class)) {
-				String searchTerm = answer.getCoveredText();
-				this.getContext().getLogger().log(Level.INFO, "Search Term: " + searchTerm);
-				tasks.add(service.submit(new CategorySearch(searchTerm)));
+				try {
+					// Look for title of the Wikipedia page as the candidate' name
+					Page searchTermPage = wiki.getPage(answer.getWikipediaPageId());
+					String searchTerm = searchTermPage.getTitle().getPlainTitle();
+					this.getContext().getLogger().log(Level.INFO, "Search Term: " + searchTerm);
+					tasks.add(service.submit(new CategorySearch(searchTerm, keywords)));
+				} catch (WikiApiException e) {
+					throw new AnalysisEngineProcessException("Cannot load Wikipedia article for candidate answer.", new Object[]{answer});
+				}
 			}
 
 			Iterator<Future<Result>> it = tasks.iterator();

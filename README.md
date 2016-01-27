@@ -27,4 +27,17 @@ An updated [pipeline description](https://github.com/Thylossus/nlp4web-qagen/blo
 - [ ] Devlop evaluation formula for tests results
 - [ ] Analyze and summarize test results
 - [ ] Write final report
+  - [ ] Statement of the research problem
+  - [ ] Methodology and used third-party software
+  - [ ] High-level description of the software (including class/component diagram)
+  - [ ] Data sources (how obtained and processed?)
+  - [ ] (Preliminary testing/training)
+  - [ ] What we did to improve the system's performance, and how these ideas worked out
+  - [ ] Final results of the system (i.e. evaluation results)
+  - [ ] Discussion of results
+  - [ ] Future work (e.g. extend system with WordNet, apply it to other types of questions, maybe other use cases)
+  - [ ] Statement indicating what group members did what
 - [ ] Create final presentation
+  - Cover the same content as in the written report
+  - Highlight particlularly interesing results
+  - About ten minutes long

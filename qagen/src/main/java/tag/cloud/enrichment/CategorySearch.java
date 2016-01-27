@@ -1,6 +1,5 @@
 package tag.cloud.enrichment;
 
-import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.Callable;
@@ -19,9 +18,8 @@ public class CategorySearch implements Callable<Result> {
 	int maxSize = 1000;
 
 	private void init() {
-		DBConfig dbConfig = DBConfig.getInstance();
 		try {
-			wiki = new Wikipedia(dbConfig.getJwplDbConfig());
+			wiki = new Wikipedia(DBConfig.getJwplDbConfig());
 		} catch (WikiInitializationException e) {
 			System.err.println("Could not create the wikipedia object. Error: " + e.toString());
 		}

@@ -62,7 +62,7 @@ public class CategoryDetection extends JCasAnnotator_ImplBase {
 						answer.setCategories(
 								UimaListHandler.integerCollectionToList(jcas, categorySet));
 						Set<Integer> answerSet = searchResult.getArticleIds();
-						this.getContext().getLogger().log(Level.INFO, "Answer Set: " + answerSet.size() + "\n");
+						this.getContext().getLogger().log(Level.INFO, "Article Set: " + answerSet.size() + "\n");
 						answer.setArticles(UimaListHandler.integerCollectionToList(jcas, answerSet));
 					} catch (final InterruptedException ex) {
 						ex.printStackTrace();
@@ -120,7 +120,7 @@ public class CategoryDetection extends JCasAnnotator_ImplBase {
 						answer.setCategories(
 								UimaListHandler.integerCollectionToList(jcas, categorySet));
 						Set<Integer> answerSet = searchResult.getArticleIds();
-						this.getContext().getLogger().log(Level.INFO, "Answer Set: " + Arrays.toString(answerSet.toArray()) + "\n");
+						this.getContext().getLogger().log(Level.INFO, "Article Set: " + Arrays.toString(answerSet.toArray()) + "\n");
 						answer.setArticles(UimaListHandler.integerCollectionToList(jcas, answerSet));
 					} catch (final InterruptedException ex) {
 						ex.printStackTrace();

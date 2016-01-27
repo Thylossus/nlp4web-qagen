@@ -31,7 +31,7 @@ An updated [pipeline description](https://github.com/Thylossus/nlp4web-qagen/blo
   - [ ] Methodology and used third-party software
   - [ ] High-level description of the software (including class/component diagram)
   - [ ] Data sources (how obtained and processed?)
-  - [ ] (Preliminary testing/training)
+  - [ ] Preliminary testing/training (if applicable)
   - [ ] What we did to improve the system's performance, and how these ideas worked out
   - [ ] Final results of the system (i.e. evaluation results)
   - [ ] Discussion of results

@@ -114,17 +114,24 @@ public class CategoryDetection extends JCasAnnotator_ImplBase {
 					task = it.next();
 					
 					try {
+					
 						Result searchResult = task.get();
+						
 						Set<Integer> categorySet = searchResult.getCategoryIds();
-						this.getContext().getLogger().log(Level.INFO, "Category Set: " + Arrays.toString(categorySet.toArray()) + "\n");
-						answer.setCategories(
-								UimaListHandler.integerCollectionToList(jcas, categorySet));
 						Set<Integer> answerSet = searchResult.getArticleIds();
+						
+						if (categorySet.isEmpty() && answerSet.isEmpty()) {
+							this.getContext().getLogger().log(Level.WARNING, "Category and article set are empty for candidate answer with wikipedia article id " + answer.getWikipediaPageId());
+							// TODO: maybe remove this candidate because it is of no use
+						}
+						
+						this.getContext().getLogger().log(Level.INFO, "Category Set: " + Arrays.toString(categorySet.toArray()) + "\n");
+						answer.setCategories(UimaListHandler.integerCollectionToList(jcas, categorySet));
+						
 						this.getContext().getLogger().log(Level.INFO, "Article Set: " + Arrays.toString(answerSet.toArray()) + "\n");
 						answer.setArticles(UimaListHandler.integerCollectionToList(jcas, answerSet));
-					} catch (final InterruptedException ex) {
-						ex.printStackTrace();
-					} catch (final ExecutionException ex) {
+
+					} catch (InterruptedException | ExecutionException | IllegalArgumentException ex) {
 						ex.printStackTrace();
 					}
 				}

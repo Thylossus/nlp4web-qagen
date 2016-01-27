@@ -33,6 +33,7 @@ public class TestPipeline {
 		AnalysisEngine correctAnswerCategoryDetection = createEngine(CategoryDetection.class, CategoryDetection.PARAM_SEARCH_TYPE, "correctAnswer");
 		AnalysisEngine categoryRanking = createEngine(CategoryRanking.class, CategoryRanking.PARAM_NUM_CATEGORIES, 3);
 		AnalysisEngine candidateExtraction = createEngine(CandidateExtraction.class);
+		AnalysisEngine candidateAnswerCategoryDetection = createEngine(CategoryDetection.class, CategoryDetection.PARAM_SEARCH_TYPE, "candidateAnswer");
 		
 		SimplePipeline.runPipeline(
 				questionParser,
@@ -43,6 +44,7 @@ public class TestPipeline {
 				correctAnswerCategoryDetection,
 				categoryRanking,
 				candidateExtraction,
+				candidateAnswerCategoryDetection,
 				output
 		);
 	}

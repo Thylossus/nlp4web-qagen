@@ -23,18 +23,16 @@
 7. Candidate extraction
   * Find all articles of the categories listed in the most relevant category list
   * Add an candidate answer annotation for each article
+  * Ensure that each candidate answer is only added ONCE, i.e. there are not duplicate candidate answers
   * Output: annotated document -> candidate answers added
-8. Duplicate detection
-  * Remove all duplicate candidate answer annotations from the index
-  * Output: annotated document -> duplicate candidate answers removed
-9. Synonym resolution
+8. Synonym resolution
   * Remove all candidate answer annotations from the index that are synonymous with the correct answer
   * Output: annotated document -> synonymous candidate answers removed
-10. Category and hypernym detection
+9. Category and hypernym detection
   * Perform category and hypernym search (aka. tag cloud creation) for each candidate answer
   * Output: for each candidate answer the category id list (and article id list) is filled with ids
-11. Similarity detection
+10. Similarity detection
   * Perform a similarity measurement between the correct answer's tag cloud and the candidate answers' tag clouds
   * Output: each candidate answer has a similarity score
-12. Candidate selection
+11. Candidate selection
   * Select the x (e.g. x = 3) candidate answers with the highes similarity score

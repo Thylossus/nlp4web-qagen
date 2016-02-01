@@ -19,7 +19,7 @@ public class CategorySearch implements Callable<Result> {
 
 	private void init() {
 		try {
-			wiki = WikipediaFactory.getWikipedia(); // FIXME: Replaced new Wikipedia(DBConfig.getJwplDbConfig());
+			wiki = WikipediaFactory.getWikipedia();
 		} catch (WikiInitializationException e) {
 			System.err.println("Could not create the wikipedia object. Error: " + e.toString());
 		}

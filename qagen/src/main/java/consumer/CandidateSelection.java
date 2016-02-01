@@ -30,7 +30,7 @@ public class CandidateSelection extends JCasConsumer_ImplBase {
 
 		Wikipedia wiki;
 		try {
-			wiki = WikipediaFactory.getWikipedia(); // FIXME: Replaced new Wikipedia(DBConfig.getJwplDbConfig());
+			wiki = WikipediaFactory.getWikipedia();
 			for (int i = 0; i < 3; i++) {
 				int answerID = scores.get(i).answer.getWikipediaPageId();
 				Page answer = wiki.getPage(answerID);

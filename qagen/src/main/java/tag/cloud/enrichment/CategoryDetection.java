@@ -84,7 +84,7 @@ public class CategoryDetection extends JCasAnnotator_ImplBase {
 			Wikipedia wiki;
 
 			try {
-				wiki = WikipediaFactory.getWikipedia(); // FIXME: Replaced new Wikipedia(DBConfig.getJwplDbConfig());
+				wiki = WikipediaFactory.getWikipedia(); 
 			} catch (WikiInitializationException e) {
 				throw new AnalysisEngineProcessException(
 						"Cannot establish a connection the Wikiepdia database with the JWPL API.", null);
@@ -103,8 +103,7 @@ public class CategoryDetection extends JCasAnnotator_ImplBase {
 
 			for (CandidateAnswer answer : JCasUtil.select(jcas, CandidateAnswer.class)) {
 				try {
-					// Look for title of the Wikipedia page as the candidate'
-					// name
+					// Look for title of the Wikipedia page as the candidate name
 					Page searchTermPage = wiki.getPage(answer.getWikipediaPageId());
 					String searchTerm = searchTermPage.getTitle().getPlainTitle();
 					this.getContext().getLogger().log(Level.INFO, "Search Term: " + searchTerm);

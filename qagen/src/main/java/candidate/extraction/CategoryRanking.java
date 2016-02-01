@@ -16,14 +16,13 @@ import org.apache.uima.jcas.JCas;
 import org.apache.uima.util.Level;
 import org.apache.uima.util.Logger;
 
-import config.DBConfig;
 import de.tudarmstadt.ukp.wikipedia.api.Category;
-import de.tudarmstadt.ukp.wikipedia.api.DatabaseConfiguration;
 import de.tudarmstadt.ukp.wikipedia.api.Wikipedia;
 import de.tudarmstadt.ukp.wikipedia.api.exception.WikiApiException;
 import types.CorrectAnswer;
 import util.PageRankLoader;
 import util.UimaListHandler;
+import util.WikipediaFactory;
 
 public class CategoryRanking extends JCasAnnotator_ImplBase {
 
@@ -39,7 +38,7 @@ public class CategoryRanking extends JCasAnnotator_ImplBase {
 	
 	@Override
 	public void process(JCas jcas) throws AnalysisEngineProcessException {
-		DatabaseConfiguration dbconfig = DBConfig.getJwplDbConfig();
+		//FIXME: Removed DatabaseConfiguration dbconfig = DBConfig.getJwplDbConfig();
 		Wikipedia wiki;
 		Category cat;
 		List<Integer> categories;
@@ -47,7 +46,7 @@ public class CategoryRanking extends JCasAnnotator_ImplBase {
 		List<PageRankTuple> categoryArticleMapping = new LinkedList<>();
 		
 		try {
-			wiki = new Wikipedia(dbconfig);
+			wiki = WikipediaFactory.getWikipedia(); // FIXME: Replaced new Wikipedia(dbconfig);
 			
 			for (CorrectAnswer ca : JCasUtil.select(jcas, CorrectAnswer.class)) {
 				categories = UimaListHandler.listToJavaIntegerList(ca.getCategories());

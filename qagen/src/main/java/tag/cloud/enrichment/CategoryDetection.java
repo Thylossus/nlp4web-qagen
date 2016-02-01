@@ -17,7 +17,6 @@ import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.util.Level;
 
-import config.DBConfig;
 import de.tudarmstadt.ukp.wikipedia.api.Page;
 import de.tudarmstadt.ukp.wikipedia.api.Wikipedia;
 import de.tudarmstadt.ukp.wikipedia.api.exception.WikiApiException;
@@ -25,6 +24,7 @@ import de.tudarmstadt.ukp.wikipedia.api.exception.WikiInitializationException;
 import types.CandidateAnswer;
 import types.CorrectAnswer;
 import util.UimaListHandler;
+import util.WikipediaFactory;
 
 public class CategoryDetection extends JCasAnnotator_ImplBase {
 
@@ -84,7 +84,7 @@ public class CategoryDetection extends JCasAnnotator_ImplBase {
 			Wikipedia wiki;
 
 			try {
-				wiki = new Wikipedia(DBConfig.getJwplDbConfig());
+				wiki = WikipediaFactory.getWikipedia(); // FIXME: Replaced new Wikipedia(DBConfig.getJwplDbConfig());
 			} catch (WikiInitializationException e) {
 				throw new AnalysisEngineProcessException(
 						"Cannot establish a connection the Wikiepdia database with the JWPL API.", null);

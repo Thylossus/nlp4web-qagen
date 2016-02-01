@@ -11,14 +11,13 @@ import org.apache.uima.jcas.JCas;
 import org.apache.uima.util.Level;
 import org.apache.uima.util.Logger;
 
-import config.DBConfig;
 import de.tudarmstadt.ukp.wikipedia.api.Category;
-import de.tudarmstadt.ukp.wikipedia.api.DatabaseConfiguration;
 import de.tudarmstadt.ukp.wikipedia.api.Wikipedia;
 import de.tudarmstadt.ukp.wikipedia.api.exception.WikiApiException;
 import types.CandidateAnswer;
 import types.CorrectAnswer;
 import util.UimaListHandler;
+import util.WikipediaFactory;
 
 public class CandidateExtraction extends JCasAnnotator_ImplBase {
 
@@ -26,7 +25,7 @@ public class CandidateExtraction extends JCasAnnotator_ImplBase {
 	
 	@Override
 	public void process(JCas jcas) throws AnalysisEngineProcessException {
-		DatabaseConfiguration dbconfig = DBConfig.getJwplDbConfig();
+		//FIXME: Removed DatabaseConfiguration dbconfig = DBConfig.getJwplDbConfig();
 		Wikipedia wiki;
 		Category cat;
 		List<Integer> categories;
@@ -36,7 +35,7 @@ public class CandidateExtraction extends JCasAnnotator_ImplBase {
 		StringBuilder sb;
 		
 		try {
-			wiki = new Wikipedia(dbconfig);
+			wiki = WikipediaFactory.getWikipedia(); // FIXME: Replaced  new Wikipedia(dbconfig);
 			
 			for (CorrectAnswer ca : JCasUtil.select(jcas, CorrectAnswer.class)) {
 				categories = UimaListHandler.listToJavaIntegerList(ca.getMostRelevantCategories());

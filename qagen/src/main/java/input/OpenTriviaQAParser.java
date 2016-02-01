@@ -62,12 +62,10 @@ public class OpenTriviaQAParser extends JCasCollectionReader_ImplBase {
 	@Override
 	public void initialize(UimaContext context) throws ResourceInitializationException {
 		super.initialize(context);
-		questions = new LinkedList<ParsedQuestion>();
+		questions = new LinkedList<>();
 		questionCount = 0;
 
-		// FIXME: Mit Java 8 könnte man hier try-with-resources benutzen
-		try {
-			InputStream inStream = getClass().getClassLoader().getResourceAsStream(inputFile);
+		try(InputStream inStream = getClass().getClassLoader().getResourceAsStream(inputFile)) {
 			parse(inStream);
 		} catch (IOException ex) {
 			throw new ResourceInitializationException(new IOException("Could not read OpenTrivia QA input file", ex));
@@ -88,61 +86,74 @@ public class OpenTriviaQAParser extends JCasCollectionReader_ImplBase {
 		// Holds the data for the current question
 		String importQuestionText = null;
 		String importCorrectAnswer = null;
-		List<String> importAnswers = new LinkedList<String>();
+		List<String> importAnswers = new LinkedList<>();
 		
 		// The offset, mainly used to generate useful error messages
 		int offset = 0;
 		
-		// Those booleans define whether the first or last line of a questions has been read
-		boolean questionStarted = false;
-		boolean questionFinished = false;
-		while(!questionFinished) {
-			// Read next line
-			String line = importReader.readLine();
+		// Flag whether the end of the file has been reached
+		boolean fileFinished = false;
+		while(!fileFinished) {
 			
-			// End of file
-			if (line == null) {
-				questionFinished = false;
-				break;
-			}
-
-			offset+=line.length();
-			line = line.trim();
-			if (line.length() > 0) {
-				questionStarted = true;
+			// Those booleans define whether the first or last line of a questions has been read
+			boolean questionStarted = false;
+			boolean questionFinished = false;
+			
+			while(!questionFinished) {
+				// Read next line
+				String line = importReader.readLine();
 				
-				// Check the different line types. They can be separated by the first characters
-				if(line.startsWith("#Q ") && importQuestionText == null) {
-					importQuestionText = line.substring("#Q ".length());
-				} else if (line.startsWith("^ ")) {
-					importCorrectAnswer = line.substring("^ ".length());
-				} else if (line.matches("[A-D] .*")) {
-					importAnswers.add(line.substring(2));
+				// End of file
+				if (line == null) {
+					questionFinished = false;
+					fileFinished = true;
+					break;
 				}
-			} else {
-				// This branch skips leading whitespace. Only if at least one "real" line has been read, the loop will quit
-				if (questionStarted) {
-					questionFinished = true;
+	
+				offset+=line.length();
+				line = line.trim();
+				if (line.length() > 0) {
+					questionStarted = true;
+					
+					// Check the different line types. They can be separated by the first characters
+					if(line.startsWith("#Q ") && importQuestionText == null) {
+						importQuestionText = line.substring("#Q ".length());
+					} else if (line.startsWith("^ ")) {
+						importCorrectAnswer = line.substring("^ ".length());
+					} else if (line.matches("[A-D] .*")) {
+						importAnswers.add(line.substring(2));
+					}
+				} else {
+					// This branch skips leading whitespace. Only if at least one "real" line has been read, the loop will quit
+					if (questionStarted) {
+						questionFinished = true;
+					}
 				}
 			}
-		}
 		
-		if (importQuestionText != null && importCorrectAnswer != null && importAnswers.size() == 4 && importAnswers.contains(importCorrectAnswer)) {
-			
-			importAnswers.remove(importCorrectAnswer);
-			
-			// Add the question to the list
-			ParsedQuestion question = new ParsedQuestion(importQuestionText, importCorrectAnswer);
-			questions.add(question);
-			
-		} else {
-			throw new ParseException("Error parsing question file", offset);
+			if (importQuestionText != null && importCorrectAnswer != null && importAnswers.size() == 4 && importAnswers.contains(importCorrectAnswer)) {
+				
+				importAnswers.remove(importCorrectAnswer);
+				
+				// Add the question to the list
+				ParsedQuestion question = new ParsedQuestion(importQuestionText, importCorrectAnswer);
+				questions.add(question);
+				
+				System.out.println("Question parsed: " + question.getDocumentText());
+				
+				importQuestionText = null;
+				importCorrectAnswer = null;
+				importAnswers = new LinkedList<>();
+				
+			} else {
+				throw new ParseException("Error parsing question file", offset);
+			}
 		}
 			
 		importReader.close();
 	}
 	
-	//FIXME: Erklär mir mal einer, warum das einkommentieren hier Fehler auslöst. Die Deklaration stammt aus dem Interface BaseCollectionReader @Override
+	@Override
 	public Progress[] getProgress() {
 		// The stored question amount can be used to calculate the progress
 		return new Progress[] {
@@ -150,7 +161,7 @@ public class OpenTriviaQAParser extends JCasCollectionReader_ImplBase {
 		};
 	}
 
-	//FIXME: Erklär mir mal einer, warum das einkommentieren hier Fehler auslöst. Die Deklaration stammt aus dem Interface BaseCollectionReader @Override
+	@Override
 	public boolean hasNext() throws IOException, CollectionException {
 		// If the collection is empty, there are no more questions left
 		return !questions.isEmpty();

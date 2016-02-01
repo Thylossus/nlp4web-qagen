@@ -1,10 +1,3 @@
-#Q Chop Suey, a pasta dish consisting of short noodles, was originally made and served in which country?
-^ USA
-A Thailand
-B USA
-C China
-D Vietnam
-
 #Q What was the name of the man who invented logarithms?
 ^ John Napier
 A Rene Descartes
@@ -12,33 +5,12 @@ B John Napier
 C Blaise Pascal
 D Robert Recorde
 
-#Q What celestial formations are considered to be the birthplaces of stars?
-^ Nebulae
-A Galactic halos
-B Nebulae
-C Spiral galaxies
-D Galaxy cluster clouds
-
 #Q Which great 20th century mathematician died because he refused to eat ?
 ^ Kurt Godel
 A Robert Schatten
 B Paul Erdos
 C Kurt Godel
 D Paul Wittenberg
-
-#Q Which of the following states has an official motto In God we trust, which is also the official motto of the United States of America?
-^ Florida
-A Georgia
-B Washington
-C South Dakota
-D Florida
-
-#Q What animal is depicted on the Coat of Arms of Norway?
-^ Lion
-A Lion
-B Bear
-C Deer
-D Wolf
 
 #Q Who is the 16th president of the United States?
 ^ Abraham Lincoln
@@ -54,16 +26,44 @@ B Howie Mandel
 C Bob Dylan
 D Isaac Stern
 
-#Q Trichophilia is an obsessive love of what ?
-^ Hair
-A The dark
-B Pain
-C Hair
-D Insects
+#Q Who starred in Doogie Howser, M.D.?
+^ Neal Patrick Harris
+A George Clooney
+B Neal Patrick Harris
+C Edward Harris
+D Robert Young
 
-#Q According to Scandinavian mythology, the chaos will defeat the guardians of good and this catastrophe will bring the world to an end. What is the name of this final battle between evil and good, in which the gods will be outnumbered?
-^ Ragnarok
-A Heimdall
-B Ragnarok
-C Einherjar
-D Asgard
+#Q What country singer does Adrian Monk idolize on the hit TV show Monk?
+^ Willie Nelson
+A Johnny Cash
+B Keith Urban
+C Merle Haggard
+D Willie Nelson
+
+#Q Which of the actors from Monty Python later starred in the highly successful sitcom Faulty Towers?
+^ John Cleese
+A Graham Chapman
+B Eric Idle
+C Terry Gilliam
+D John Cleese
+
+#Q Which vocalist with a remarkably smooth baritone voice was known for the songs "I Apologize", "Prisoner of Love", and "My Foolish Heart"?
+^ Billy Eckstine
+A Johnny Hammond
+B Jimmy Rushing
+C Mel Torme
+D Billy Eckstine
+
+#Q This famous producer is known for his long-running cooperation with British band Radiohead.
+^ Nigel Godrich
+A Nigel Godrich
+B Norman Whitfield
+C Danger Mouse
+D David Foster
+
+#Q A famous and talented composer was almost bankrupt when he wrote one of his best-known works, Judas Maccabaeus - an oratorio based on a Jewish theme. Who was this classical composer?
+^ Handel
+A Handel
+B Hayden
+C Chopin
+D Mozart

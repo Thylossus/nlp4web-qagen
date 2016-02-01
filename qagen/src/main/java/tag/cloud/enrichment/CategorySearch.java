@@ -4,11 +4,11 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.Callable;
 
-import config.DBConfig;
 import de.tudarmstadt.ukp.wikipedia.api.Category;
 import de.tudarmstadt.ukp.wikipedia.api.Page;
 import de.tudarmstadt.ukp.wikipedia.api.Wikipedia;
 import de.tudarmstadt.ukp.wikipedia.api.exception.WikiInitializationException;
+import util.WikipediaFactory;
 
 public class CategorySearch implements Callable<Result> {
 
@@ -19,7 +19,7 @@ public class CategorySearch implements Callable<Result> {
 
 	private void init() {
 		try {
-			wiki = new Wikipedia(DBConfig.getJwplDbConfig());
+			wiki = WikipediaFactory.getWikipedia(); // FIXME: Replaced new Wikipedia(DBConfig.getJwplDbConfig());
 		} catch (WikiInitializationException e) {
 			System.err.println("Could not create the wikipedia object. Error: " + e.toString());
 		}

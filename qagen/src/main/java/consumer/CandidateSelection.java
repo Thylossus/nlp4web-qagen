@@ -9,12 +9,11 @@ import org.apache.uima.fit.component.JCasConsumer_ImplBase;
 import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
 
-import config.DBConfig;
 import de.tudarmstadt.ukp.wikipedia.api.Page;
 import de.tudarmstadt.ukp.wikipedia.api.Wikipedia;
 import de.tudarmstadt.ukp.wikipedia.api.exception.WikiApiException;
-import de.tudarmstadt.ukp.wikipedia.api.exception.WikiInitializationException;
 import types.CandidateAnswer;
+import util.WikipediaFactory;
 
 public class CandidateSelection extends JCasConsumer_ImplBase {
 
@@ -31,7 +30,7 @@ public class CandidateSelection extends JCasConsumer_ImplBase {
 
 		Wikipedia wiki;
 		try {
-			wiki = new Wikipedia(DBConfig.getJwplDbConfig());
+			wiki = WikipediaFactory.getWikipedia(); // FIXME: Replaced new Wikipedia(DBConfig.getJwplDbConfig());
 			for (int i = 0; i < 3; i++) {
 				int answerID = scores.get(i).answer.getWikipediaPageId();
 				Page answer = wiki.getPage(answerID);

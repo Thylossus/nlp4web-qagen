@@ -59,8 +59,7 @@ public class CategoryDetection extends JCasAnnotator_ImplBase {
 						Result searchResult = task.get();
 						Set<Integer> categorySet = searchResult.getCategoryIds();
 						this.getContext().getLogger().log(Level.INFO, "Category Set: " + categorySet.size() + "\n");
-						answer.setCategories(
-								UimaListHandler.integerCollectionToList(jcas, categorySet));
+						answer.setCategories(UimaListHandler.integerCollectionToList(jcas, categorySet));
 						Set<Integer> answerSet = searchResult.getArticleIds();
 						this.getContext().getLogger().log(Level.INFO, "Article Set: " + answerSet.size() + "\n");
 						answer.setArticles(UimaListHandler.integerCollectionToList(jcas, answerSet));
@@ -78,11 +77,12 @@ public class CategoryDetection extends JCasAnnotator_ImplBase {
 			String[] keywords = null;
 			List<String> keywordList;
 			Wikipedia wiki;
-			
+
 			try {
 				wiki = new Wikipedia(DBConfig.getJwplDbConfig());
 			} catch (WikiInitializationException e) {
-				throw new AnalysisEngineProcessException("Cannot establish a connection the Wikiepdia database with the JWPL API.", null);
+				throw new AnalysisEngineProcessException(
+						"Cannot establish a connection the Wikiepdia database with the JWPL API.", null);
 			}
 
 			// Find keywords of correct answer (required for category filtering)
@@ -90,20 +90,23 @@ public class CategoryDetection extends JCasAnnotator_ImplBase {
 				keywordList = UimaListHandler.listToJavaStringList(ca.getKeywords());
 				keywords = keywordList.toArray(new String[keywordList.size()]);
 			}
-			
+
 			if (keywords == null) {
-				throw new AnalysisEngineProcessException("Cannot find a correct answer to retrieve keywords from.", null);
+				throw new AnalysisEngineProcessException("Cannot find a correct answer to retrieve keywords from.",
+						null);
 			}
-			
+
 			for (CandidateAnswer answer : JCasUtil.select(jcas, CandidateAnswer.class)) {
 				try {
-					// Look for title of the Wikipedia page as the candidate' name
+					// Look for title of the Wikipedia page as the candidate'
+					// name
 					Page searchTermPage = wiki.getPage(answer.getWikipediaPageId());
 					String searchTerm = searchTermPage.getTitle().getPlainTitle();
 					this.getContext().getLogger().log(Level.INFO, "Search Term: " + searchTerm);
 					tasks.add(service.submit(new CategorySearch(searchTerm, keywords)));
 				} catch (WikiApiException e) {
-					throw new AnalysisEngineProcessException("Cannot load Wikipedia article for candidate answer.", new Object[]{answer});
+					throw new AnalysisEngineProcessException("Cannot load Wikipedia article for candidate answer.",
+							new Object[] { answer });
 				}
 			}
 
@@ -112,25 +115,27 @@ public class CategoryDetection extends JCasAnnotator_ImplBase {
 				Future<Result> task = null;
 				if (it.hasNext()) {
 					task = it.next();
-					
+
 					try {
-					
+
 						Result searchResult = task.get();
-						
+
 						Set<Integer> categorySet = searchResult.getCategoryIds();
 						Set<Integer> answerSet = searchResult.getArticleIds();
-						
-						if (categorySet.isEmpty() && answerSet.isEmpty()) {
-							this.getContext().getLogger().log(Level.WARNING, "Category and article set are empty for candidate answer with wikipedia article id " + answer.getWikipediaPageId());
-							// TODO: maybe remove this candidate because it is of no use
-						}
-						
-						this.getContext().getLogger().log(Level.INFO, "Category Set: " + Arrays.toString(categorySet.toArray()) + "\n");
-						answer.setCategories(UimaListHandler.integerCollectionToList(jcas, categorySet));
-						
-						this.getContext().getLogger().log(Level.INFO, "Article Set: " + Arrays.toString(answerSet.toArray()) + "\n");
-						answer.setArticles(UimaListHandler.integerCollectionToList(jcas, answerSet));
 
+						if (categorySet.isEmpty() && answerSet.isEmpty()) {
+							this.getContext().getLogger().log(Level.WARNING,
+									"Category and article set are empty for candidate answer with wikipedia article id "
+											+ answer.getWikipediaPageId());
+						} else {
+							this.getContext().getLogger().log(Level.INFO,
+									"Category Set: " + Arrays.toString(categorySet.toArray()) + "\n");
+							answer.setCategories(UimaListHandler.integerCollectionToList(jcas, categorySet));
+
+							this.getContext().getLogger().log(Level.INFO,
+									"Article Set: " + Arrays.toString(answerSet.toArray()) + "\n");
+							answer.setArticles(UimaListHandler.integerCollectionToList(jcas, answerSet));
+						}
 					} catch (InterruptedException | ExecutionException | IllegalArgumentException ex) {
 						ex.printStackTrace();
 					}

@@ -12,12 +12,14 @@ import org.apache.uima.fit.pipeline.SimplePipeline;
 
 import candidate.extraction.CandidateExtraction;
 import candidate.extraction.CategoryRanking;
+import consumer.CandidateSelection;
 import consumer.DebuggingOutput;
 import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordNamedEntityRecognizer;
 import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordPosTagger;
 import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordSegmenter;
 import input.OpenTriviaQAParser;
 import question.processing.KeywordExtraction;
+import similarity.detection.SimilarityDetection;
 import tag.cloud.enrichment.CategoryDetection;
 
 public class TestPipeline {
@@ -34,6 +36,8 @@ public class TestPipeline {
 		AnalysisEngine categoryRanking = createEngine(CategoryRanking.class, CategoryRanking.PARAM_NUM_CATEGORIES, 3);
 		AnalysisEngine candidateExtraction = createEngine(CandidateExtraction.class);
 		AnalysisEngine candidateAnswerCategoryDetection = createEngine(CategoryDetection.class, CategoryDetection.PARAM_SEARCH_TYPE, "candidateAnswer");
+		AnalysisEngine similarityDetection = createEngine(SimilarityDetection.class);
+		AnalysisEngine candidateSelection = createEngine(CandidateSelection.class);
 		
 		SimplePipeline.runPipeline(
 				questionParser,
@@ -45,6 +49,8 @@ public class TestPipeline {
 				categoryRanking,
 				candidateExtraction,
 				candidateAnswerCategoryDetection,
+				similarityDetection,
+				candidateSelection,
 				output
 		);
 	}

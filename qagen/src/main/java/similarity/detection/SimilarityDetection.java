@@ -16,23 +16,23 @@ public class SimilarityDetection extends JCasAnnotator_ImplBase {
 
 	@Override
 	public void process(JCas jcas) throws AnalysisEngineProcessException {
-		
-		for (CorrectAnswer correctAnswer : JCasUtil.select(jcas, CorrectAnswer.class)) {
-			List<Integer> correctAnswerCategories = UimaListHandler.listToJavaIntegerList(correctAnswer.getCategories());
+		CorrectAnswer correctAnswer = JCasUtil.selectSingle(jcas, CorrectAnswer.class);
 
-			for (CandidateAnswer candidateAnswer : JCasUtil.select(jcas, CandidateAnswer.class)) {
-				List<Integer> candidateAnswerCategories = UimaListHandler.listToJavaIntegerList(candidateAnswer.getCategories());
+		List<Integer> correctAnswerCategories = UimaListHandler.listToJavaIntegerList(correctAnswer.getCategories());
 		
-				int similarity = 0;
-				Iterator<Integer> it = correctAnswerCategories.iterator();
-				while(it.hasNext()){
-					Integer category = it.next();
-					if(candidateAnswerCategories.contains(category)){
-						similarity++;
-					}
+		for (CandidateAnswer candidateAnswer : JCasUtil.select(jcas, CandidateAnswer.class)) {
+			List<Integer> candidateAnswerCategories = UimaListHandler
+					.listToJavaIntegerList(candidateAnswer.getCategories());
+			int similarity = 0;
+			Iterator<Integer> it = correctAnswerCategories.iterator();
+			while (it.hasNext()) {
+				Integer correctAnswerCategory = it.next();
+				if (candidateAnswerCategories.contains(correctAnswerCategory)) {
+					similarity++;
 				}
-				candidateAnswer.setSimilarityScore(similarity);
 			}
-		}	
+			candidateAnswer.setSimilarityScore(similarity);
+		}
+
 	}
 }

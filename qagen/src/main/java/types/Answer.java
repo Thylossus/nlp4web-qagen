@@ -13,8 +13,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Thu Jan 21 09:20:21 CET 2016
- * XML source: C:/Users/t-kah_000/Documents/Programming/Java/NLP/nlp4web-qagen/qagen/src/main/resources/desc/type/candidateAnswer.xml
+ * Updated by JCasGen Tue Feb 02 20:05:10 CET 2016
+ * XML source: /Users/imorril/Seafile/Master Studium/Natural Language Processing and the Web/nlp4web-qagen/qagen/src/main/resources/desc/type/candidateAnswer.xml
  * @generated */
 public class Answer extends Annotation {
   /** @generated

@@ -1,5 +1,9 @@
 package consumer;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -8,17 +12,26 @@ import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.fit.component.JCasConsumer_ImplBase;
 import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
+import org.apache.uima.util.Level;
 
-import de.tudarmstadt.ukp.wikipedia.api.Page;
-import de.tudarmstadt.ukp.wikipedia.api.Wikipedia;
-import de.tudarmstadt.ukp.wikipedia.api.exception.WikiApiException;
 import types.CandidateAnswer;
-import util.WikipediaFactory;
+import types.CorrectAnswer;
+import types.Question;
 
 public class CandidateSelection extends JCasConsumer_ImplBase {
 
 	@Override
 	public void process(JCas jcas) throws AnalysisEngineProcessException {
+		List<String> lines = new ArrayList<>();
+		
+		Question question = JCasUtil.selectSingle(jcas, Question.class);
+		String questionText = question.getCoveredText();
+		CorrectAnswer correctAnswer = JCasUtil.selectSingle(jcas, CorrectAnswer.class);
+		String correctAnswerText = correctAnswer.getCoveredText();
+		
+		lines.add(questionText);
+		lines.add(correctAnswerText);
+		
 		List<Score> scores = new ArrayList<Score>();
 
 		for (CandidateAnswer candidateAnswer : JCasUtil.select(jcas, CandidateAnswer.class)) {
@@ -27,20 +40,20 @@ public class CandidateSelection extends JCasConsumer_ImplBase {
 		}
 
 		Collections.sort(scores);
-
-		Wikipedia wiki;
+		
+		for (int i = 0; i < 3; i++) {
+			String answerTitle = scores.get(i).answer.getTitle();
+			lines.add(answerTitle);
+			System.out.println("Candidate Answer:" + answerTitle);
+		}
+		
+		Path filepath = Paths.get("ressources/results/result.txt");
 		try {
-			wiki = WikipediaFactory.getWikipedia();
-			for (int i = 0; i < 3; i++) {
-				int answerID = scores.get(i).answer.getWikipediaPageId();
-				Page answer = wiki.getPage(answerID);
-				System.out.println("Candidate Answer:" + answer.getTitle());
-			}
-		} catch (WikiApiException e) {
-
+			Files.write(filepath, lines);
+		} catch (IOException e) {
+			this.getContext().getLogger().log(Level.SEVERE, "Could not write output file");
 		}
 	}
-
 }
 
 class Score implements Comparable<Score> {

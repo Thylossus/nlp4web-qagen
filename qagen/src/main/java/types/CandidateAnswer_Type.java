@@ -13,7 +13,7 @@ import org.apache.uima.cas.impl.FeatureImpl;
 import org.apache.uima.cas.Feature;
 
 /** 
- * Updated by JCasGen Thu Jan 21 09:20:21 CET 2016
+ * Updated by JCasGen Tue Feb 02 20:05:10 CET 2016
  * @generated */
 public class CandidateAnswer_Type extends Answer_Type {
   /** @generated 
@@ -92,6 +92,30 @@ public class CandidateAnswer_Type extends Answer_Type {
     ll_cas.ll_setFloatValue(addr, casFeatCode_similarityScore, v);}
     
   
+ 
+  /** @generated */
+  final Feature casFeat_title;
+  /** @generated */
+  final int     casFeatCode_title;
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @return the feature value 
+   */ 
+  public String getTitle(int addr) {
+        if (featOkTst && casFeat_title == null)
+      jcas.throwFeatMissing("title", "types.CandidateAnswer");
+    return ll_cas.ll_getStringValue(addr, casFeatCode_title);
+  }
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @param v value to set 
+   */    
+  public void setTitle(int addr, String v) {
+        if (featOkTst && casFeat_title == null)
+      jcas.throwFeatMissing("title", "types.CandidateAnswer");
+    ll_cas.ll_setStringValue(addr, casFeatCode_title, v);}
+    
+  
 
 
 
@@ -111,6 +135,10 @@ public class CandidateAnswer_Type extends Answer_Type {
  
     casFeat_similarityScore = jcas.getRequiredFeatureDE(casType, "similarityScore", "uima.cas.Float", featOkTst);
     casFeatCode_similarityScore  = (null == casFeat_similarityScore) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_similarityScore).getCode();
+
+ 
+    casFeat_title = jcas.getRequiredFeatureDE(casType, "title", "uima.cas.String", featOkTst);
+    casFeatCode_title  = (null == casFeat_title) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_title).getCode();
 
   }
 }

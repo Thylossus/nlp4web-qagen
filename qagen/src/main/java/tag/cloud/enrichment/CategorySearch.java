@@ -37,7 +37,6 @@ public class CategorySearch implements Callable<Result> {
 	}
 
 	public Result call() throws Exception {
-
 		Page page = wiki.getPage(searchterm);
 
 		Set<Integer> categoryIds = new TreeSet<Integer>();

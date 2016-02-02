@@ -10,8 +10,8 @@ import org.apache.uima.jcas.cas.TOP_Type;
 
 
 /** 
- * Updated by JCasGen Thu Jan 21 09:20:21 CET 2016
- * XML source: C:/Users/t-kah_000/Documents/Programming/Java/NLP/nlp4web-qagen/qagen/src/main/resources/desc/type/candidateAnswer.xml
+ * Updated by JCasGen Tue Feb 02 20:05:10 CET 2016
+ * XML source: /Users/imorril/Seafile/Master Studium/Natural Language Processing and the Web/nlp4web-qagen/qagen/src/main/resources/desc/type/candidateAnswer.xml
  * @generated */
 public class CandidateAnswer extends Answer {
   /** @generated
@@ -117,6 +117,28 @@ public class CandidateAnswer extends Answer {
     if (CandidateAnswer_Type.featOkTst && ((CandidateAnswer_Type)jcasType).casFeat_similarityScore == null)
       jcasType.jcas.throwFeatMissing("similarityScore", "types.CandidateAnswer");
     jcasType.ll_cas.ll_setFloatValue(addr, ((CandidateAnswer_Type)jcasType).casFeatCode_similarityScore, v);}    
+   
+    
+  //*--------------*
+  //* Feature: title
+
+  /** getter for title - gets 
+   * @generated
+   * @return value of the feature 
+   */
+  public String getTitle() {
+    if (CandidateAnswer_Type.featOkTst && ((CandidateAnswer_Type)jcasType).casFeat_title == null)
+      jcasType.jcas.throwFeatMissing("title", "types.CandidateAnswer");
+    return jcasType.ll_cas.ll_getStringValue(addr, ((CandidateAnswer_Type)jcasType).casFeatCode_title);}
+    
+  /** setter for title - sets  
+   * @generated
+   * @param v value to set into the feature 
+   */
+  public void setTitle(String v) {
+    if (CandidateAnswer_Type.featOkTst && ((CandidateAnswer_Type)jcasType).casFeat_title == null)
+      jcasType.jcas.throwFeatMissing("title", "types.CandidateAnswer");
+    jcasType.ll_cas.ll_setStringValue(addr, ((CandidateAnswer_Type)jcasType).casFeatCode_title, v);}    
   }
 
     

@@ -27,7 +27,7 @@ An updated [pipeline description](https://github.com/Thylossus/nlp4web-qagen/blo
 - [ ] Devlop evaluation formula for tests results
 - [ ] Analyze and summarize test results
 - [ ] Write final report
-  - [ ] Statement of the research problem
+  - [x] Statement of the research problem [Tobias K.]
   - [ ] Methodology and used third-party software
   - [ ] High-level description of the software (including class/component diagram)
   - [ ] Data sources (how obtained and processed?)

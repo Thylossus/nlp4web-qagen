@@ -4,14 +4,18 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.fit.component.JCasConsumer_ImplBase;
+import org.apache.uima.fit.descriptor.ConfigurationParameter;
 import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
+import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.util.Level;
 
 import types.CandidateAnswer;
@@ -20,6 +24,34 @@ import types.Question;
 
 public class CandidateSelection extends JCasConsumer_ImplBase {
 
+	/** Defines the path of the output file */
+	public static final String PARAM_OUTPUT_FILE = "outputFile";
+	
+	/** The file the output is written into */
+	@ConfigurationParameter(
+			name = PARAM_OUTPUT_FILE,
+			mandatory = false,
+			description = "The file the output is written into",
+			defaultValue = "src/main/resources/questions/results/result.txt")
+	private String outputFile;
+
+	/** The Path the output is written into. It's deleted in every initialization phase */
+	private Path outputFilePath;
+	
+	@Override
+	public void initialize(UimaContext context) throws ResourceInitializationException {
+		super.initialize(context);
+		
+		outputFilePath = Paths.get(outputFile);
+		
+		try {
+			Files.deleteIfExists(outputFilePath);
+			Files.createFile(outputFilePath);
+		} catch (IOException ex) {
+			throw new ResourceInitializationException(ex);
+		}
+	}
+	
 	@Override
 	public void process(JCas jcas) throws AnalysisEngineProcessException {
 		List<String> lines = new ArrayList<>();
@@ -47,11 +79,10 @@ public class CandidateSelection extends JCasConsumer_ImplBase {
 			System.out.println("Candidate Answer:" + answerTitle);
 		}
 		
-		Path filepath = Paths.get("ressources/results/result.txt");
 		try {
-			Files.write(filepath, lines);
+			Files.write(outputFilePath, lines, StandardOpenOption.APPEND);
 		} catch (IOException e) {
-			this.getContext().getLogger().log(Level.SEVERE, "Could not write output file");
+			this.getContext().getLogger().log(Level.SEVERE, "Could not write output file", e);
 		}
 	}
 }

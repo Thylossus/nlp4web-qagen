@@ -32,7 +32,7 @@ public class LevenshteinSynonymDetector extends PairwiseSynonymDetector {
 	@Override
 	public boolean isSynonym(JCas jcas, Answer candidateA, Answer candidateB) {
 		
-		return calculateDifference(candidateA.getCoveredText().toLowerCase(), candidateB.getCoveredText().toLowerCase()) >= minDifference;
+		return calculateDifference(getAnswerText(candidateA).toLowerCase(), getAnswerText(candidateB).toLowerCase()) < minDifference;
 		
 	}
 	

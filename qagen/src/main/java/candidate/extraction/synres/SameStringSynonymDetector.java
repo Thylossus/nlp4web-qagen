@@ -12,7 +12,7 @@ public class SameStringSynonymDetector extends PairwiseSynonymDetector {
 	@Override
 	public boolean isSynonym(JCas jcas, Answer candidateA, Answer candidateB) {
 		
-		return candidateA.getCoveredText().toLowerCase().equals(candidateB.getCoveredText().toLowerCase());
+		return getAnswerText(candidateA).toLowerCase().equals(getAnswerText(candidateB).toLowerCase());
 	}
 
 }

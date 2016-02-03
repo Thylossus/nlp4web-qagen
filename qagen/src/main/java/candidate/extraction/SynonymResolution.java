@@ -12,6 +12,7 @@ import org.apache.uima.fit.descriptor.ConfigurationParameter;
 import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceInitializationException;
+import org.apache.uima.util.Level;
 
 import candidate.extraction.synres.LevenshteinSynonymDetector;
 import candidate.extraction.synres.PairwiseSynonymDetector;
@@ -56,15 +57,15 @@ public class SynonymResolution extends JCasAnnotator_ImplBase {
 		try {
 			minDist = Integer.parseInt(minDistStr);
 		} catch (NumberFormatException ex) {
-			System.err.println("Could not parse argument for minimum Levenshtein Distance, falling back to default value (" + minDist + ").");
-			ex.printStackTrace();
+			getContext().getLogger().log(Level.SEVERE, "Could not parse argument for minimum Levenshtein "
+					+ "Distance, falling back to default value (" + minDist + ").", ex);
 		}
 		
 		// Use the following detectors to find synonyms. The are ordered from low to high performance impact 
 		appliedDetectors = new LinkedList<>();
 		appliedDetectors.add(new SameStringSynonymDetector());         // Check for String equality
 		appliedDetectors.add(new LevenshteinSynonymDetector(minDist)); // Use the Levenshtein Distance
-		appliedDetectors.add(new WikiRedirectPageSynonymDetector());   // Check for Wikipedia Redirect Pages
+		//appliedDetectors.add(new WikiRedirectPageSynonymDetector());   // Check for Wikipedia Redirect Pages
 		
 	}
 	
@@ -78,14 +79,27 @@ public class SynonymResolution extends JCasAnnotator_ImplBase {
 		// Step 1: Check all AnswerCandidates against the correct Answer. If a synonym is detected here, obviously the candidate has to be discarded
 		for(CandidateAnswer candidateAnswer : candidateAnswers) {
 			if (isSynonym(jcas, correctAnswer, candidateAnswer)) {
-				System.out.println("SYNONYM DETECTED! " + correctAnswer.getCoveredText() + " -- " + candidateAnswer.getCoveredText());
+				candidateAnswer.removeFromIndexes(jcas);
+				getContext().getLogger().log(Level.INFO, "Removed " + candidateAnswer.getTitle() + ", as it is a synonym to " + correctAnswer.getCoveredText());
 			}
 		}
 		
 		// Step 2: Check all remaining AnswerCandidates against each other
+		outer: for(int a = 0; a < candidateAnswers.size(); a++) {
+			CandidateAnswer answerA = candidateAnswers.get(a);
+			for(int b = a+1; b < candidateAnswers.size(); b++) {
+				CandidateAnswer answerB = candidateAnswers.get(b);
+				if(isSynonym(jcas, answerA, answerB)) {
+					candidateAnswers.get(a).removeFromIndexes(jcas);
+					getContext().getLogger().log(Level.INFO, "Removed " + answerA.getTitle() + ", as it is a synonym to " + answerB.getTitle());
+					continue outer;
+				}
+			}
+		}
 		
-		// TODO
-		
+		for(PairwiseSynonymDetector detector : appliedDetectors) {
+			detector.clearContext();
+		}
 	}
 	
 	/**

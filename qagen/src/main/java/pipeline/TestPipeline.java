@@ -12,6 +12,7 @@ import org.apache.uima.fit.pipeline.SimplePipeline;
 
 import candidate.extraction.CandidateExtraction;
 import candidate.extraction.CategoryRanking;
+import candidate.extraction.SynonymResolution;
 import consumer.CandidateSelection;
 import consumer.DebuggingOutput;
 import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordNamedEntityRecognizer;
@@ -25,7 +26,7 @@ import tag.cloud.enrichment.CategoryDetection;
 public class TestPipeline {
 
 	public static void main(String[] args) throws UIMAException, IOException {
-		CollectionReader questionParser = createReader(OpenTriviaQAParser.class, OpenTriviaQAParser.PARAM_INPUT_FILE, "questions/questions-tobiask.txt");
+		CollectionReader questionParser = createReader(OpenTriviaQAParser.class, OpenTriviaQAParser.PARAM_INPUT_FILE, "questions/questions-by-status/working-questions.txt");
 		
 		AnalysisEngine segTagger = createEngine(StanfordSegmenter.class);
 		AnalysisEngine posTagger = createEngine(StanfordPosTagger.class);
@@ -35,6 +36,7 @@ public class TestPipeline {
 		AnalysisEngine correctAnswerCategoryDetection = createEngine(CategoryDetection.class, CategoryDetection.PARAM_SEARCH_TYPE, "correctAnswer");
 		AnalysisEngine categoryRanking = createEngine(CategoryRanking.class, CategoryRanking.PARAM_NUM_CATEGORIES, 3);
 		AnalysisEngine candidateExtraction = createEngine(CandidateExtraction.class);
+		AnalysisEngine synonymResolution = createEngine(SynonymResolution.class);
 		AnalysisEngine candidateAnswerCategoryDetection = createEngine(CategoryDetection.class, CategoryDetection.PARAM_SEARCH_TYPE, "candidateAnswer");
 		AnalysisEngine similarityDetection = createEngine(SimilarityDetection.class);
 		AnalysisEngine candidateSelection = createEngine(CandidateSelection.class);
@@ -48,6 +50,7 @@ public class TestPipeline {
 				correctAnswerCategoryDetection,
 				categoryRanking,
 				candidateExtraction,
+				synonymResolution,
 				candidateAnswerCategoryDetection,
 				similarityDetection,
 				candidateSelection,

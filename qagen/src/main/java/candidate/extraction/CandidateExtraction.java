@@ -25,7 +25,6 @@ public class CandidateExtraction extends JCasAnnotator_ImplBase {
 	
 	@Override
 	public void process(JCas jcas) throws AnalysisEngineProcessException {
-		//FIXME: Removed DatabaseConfiguration dbconfig = DBConfig.getJwplDbConfig();
 		Wikipedia wiki;
 		Category cat;
 		List<Integer> categories;
@@ -35,7 +34,7 @@ public class CandidateExtraction extends JCasAnnotator_ImplBase {
 		StringBuilder sb;
 		
 		try {
-			wiki = WikipediaFactory.getWikipedia(); // FIXME: Replaced  new Wikipedia(dbconfig);
+			wiki = WikipediaFactory.getWikipedia(); 
 			
 			for (CorrectAnswer ca : JCasUtil.select(jcas, CorrectAnswer.class)) {
 				categories = UimaListHandler.listToJavaIntegerList(ca.getMostRelevantCategories());
@@ -61,8 +60,6 @@ public class CandidateExtraction extends JCasAnnotator_ImplBase {
 					candidate.setTitle(wiki.getPage(articleid).getTitle().getPlainTitle());
 				
 					sb.append(articleid);
-					// TODO remove due to performance considerations
-					// sb.append(wiki.getPage(articleid).getTitle());
 					
 					sb.append(LF);
 				}

@@ -58,6 +58,7 @@ public class CandidateExtraction extends JCasAnnotator_ImplBase {
 					candidate.setEnd(ca.getEnd());
 					candidate.setWikipediaPageId(articleid);
 					candidate.addToIndexes();
+					candidate.setTitle(wiki.getPage(articleid).getTitle().getPlainTitle());
 				
 					sb.append(articleid);
 					// TODO remove due to performance considerations

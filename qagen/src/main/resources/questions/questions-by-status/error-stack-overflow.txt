@@ -1,0 +1,41 @@
+#Q Which US General became the Thirty-Fourth US President?
+^ Dwight D. Eisenhower
+A Calvin Coolidge
+B Douglas MacArthur
+C Dwight D. Eisenhower
+D George S. Patton
+
+#Q Which of these was the tallest U.S. President?
+^ Abraham Lincoln
+A Millard Fillmore
+B Abraham Lincoln
+C James Garfield
+D William Henry Harrison
+
+#Q George Washington was related to which other US President?
+^ James Madison
+A John Adams
+B William Henry Harrison
+C Thomas Jefferson
+D James Madison
+
+#Q Who delivered the eulogy at Senator Ted Kennedy funeral?
+^ President Obama
+A Joseph Patrick Kennedy
+B President Obama
+C Caroline Kennedy
+D Christopher Dodd
+
+#Q Which President of the United States wrote, Rules of Civility and Decent Behavior in Company and Conversation?
+^ George Washington
+A John Quincy Adams
+B Chester B. Arthur
+C James Madison
+D George Washington
+
+#Q Who is the 16th president of the United States?
+^ Abraham Lincoln
+A Abraham Lincoln
+B Andrew Johnson
+C James Polk
+D Ulysses P. Grant

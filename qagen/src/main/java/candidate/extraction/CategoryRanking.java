@@ -73,7 +73,20 @@ public class CategoryRanking extends JCasAnnotator_ImplBase {
 	 * @throws WikiApiException
 	 */
 	private Set<Integer> getAllArticles(Category cat) throws WikiApiException {
+		return getAllArticles(cat, new HashSet<>(), 0);
+	}
+
+	/**
+	 * This method works like {@link #getAllArticles(Category)}, but it stores the categories it has seen, thus it prevents StackOverflowErrors if there are cyclic category relations
+	 * @param cat The category 
+	 * @param seenCategoryIDs A set of category page ids the search has already seen
+	 * @return A set of article ids
+	 * @throws WikiApiException if the api fails
+	 */
+	private Set<Integer> getAllArticles(Category cat, Set<Integer> seenCategoryIDs, int depth) throws WikiApiException {
 		Set<Integer> articles = new HashSet<>();
+		
+		int MAXDEPTH = 15;
 		
 		// Add articles of this category
 		articles.addAll(cat.getArticleIds());
@@ -81,11 +94,15 @@ public class CategoryRanking extends JCasAnnotator_ImplBase {
 		// Add articles of all child categories
 		if (cat.getNumberOfChildren() > 0) {
 			for (Category c : cat.getChildren()) {
-				articles.addAll(this.getAllArticles(c));
+				if (!seenCategoryIDs.contains(c.getPageId()) && depth < MAXDEPTH) {
+					seenCategoryIDs.add(c.getPageId());
+					articles.addAll(this.getAllArticles(c, seenCategoryIDs, depth+1));
+				}
 			}
 		}
 		
 		return articles;
+		
 	}
 	
 	/**

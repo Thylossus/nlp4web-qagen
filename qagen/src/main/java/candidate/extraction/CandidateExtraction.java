@@ -14,6 +14,7 @@ import org.apache.uima.util.Logger;
 import de.tudarmstadt.ukp.wikipedia.api.Category;
 import de.tudarmstadt.ukp.wikipedia.api.Wikipedia;
 import de.tudarmstadt.ukp.wikipedia.api.exception.WikiApiException;
+import de.tudarmstadt.ukp.wikipedia.api.exception.WikiTitleParsingException;
 import types.CandidateAnswer;
 import types.CorrectAnswer;
 import util.UimaListHandler;
@@ -25,7 +26,6 @@ public class CandidateExtraction extends JCasAnnotator_ImplBase {
 	
 	@Override
 	public void process(JCas jcas) throws AnalysisEngineProcessException {
-		//FIXME: Removed DatabaseConfiguration dbconfig = DBConfig.getJwplDbConfig();
 		Wikipedia wiki;
 		Category cat;
 		List<Integer> categories;
@@ -35,7 +35,7 @@ public class CandidateExtraction extends JCasAnnotator_ImplBase {
 		StringBuilder sb;
 		
 		try {
-			wiki = WikipediaFactory.getWikipedia(); // FIXME: Replaced  new Wikipedia(dbconfig);
+			wiki = WikipediaFactory.getWikipedia(); 
 			
 			for (CorrectAnswer ca : JCasUtil.select(jcas, CorrectAnswer.class)) {
 				categories = UimaListHandler.listToJavaIntegerList(ca.getMostRelevantCategories());
@@ -57,12 +57,12 @@ public class CandidateExtraction extends JCasAnnotator_ImplBase {
 					candidate.setBegin(ca.getBegin());
 					candidate.setEnd(ca.getEnd());
 					candidate.setWikipediaPageId(articleid);
+					candidate.setTitle(this.getCleanedTitle(wiki, articleid));
 					candidate.addToIndexes();
-					candidate.setTitle(wiki.getPage(articleid).getTitle().getPlainTitle());
 				
 					sb.append(articleid);
-					// TODO remove due to performance considerations
-					// sb.append(wiki.getPage(articleid).getTitle());
+					sb.append(" = ");
+					sb.append(candidate.getTitle());
 					
 					sb.append(LF);
 				}
@@ -96,6 +96,23 @@ public class CandidateExtraction extends JCasAnnotator_ImplBase {
 		}
 		
 		return articles;
+	}
+	
+	/**
+	 * Convert a Wikipedia title into a form that is suitable for using it as a answer candidate.
+	 * This is achieved by removing the disambiguation information from the title. 
+	 * @param wiki A reference to the Wikipedia API instance.
+	 * @param articleid The ID of the candidate answer's Wikipedia article
+	 * @return The cleaned title.
+	 * @throws WikiTitleParsingException
+	 * @throws WikiApiException
+	 */
+	private String getCleanedTitle(Wikipedia wiki, int articleid) throws WikiTitleParsingException, WikiApiException {
+		String title = wiki.getPage(articleid).getTitle().getPlainTitle();
+		
+		title = title.replaceAll("\\s*\\([^\\)]+\\)\\s*$", "");
+		
+		return title;
 	}
 
 }

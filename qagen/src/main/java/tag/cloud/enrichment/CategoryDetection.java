@@ -106,7 +106,7 @@ public class CategoryDetection extends JCasAnnotator_ImplBase {
 					// Look for title of the Wikipedia page as the candidate name
 					Page searchTermPage = wiki.getPage(answer.getWikipediaPageId());
 					String searchTerm = searchTermPage.getTitle().getPlainTitle();
-					answer.setTitle(searchTerm);
+					// FIXME: answer.setTitle(searchTerm); // removed because the title is already set in the candidate extraction
 					this.getContext().getLogger().log(Level.INFO, "Search Term: " + searchTerm);
 					tasks.add(service.submit(new CategorySearch(searchTerm, keywords)));
 				} catch (WikiApiException e) {

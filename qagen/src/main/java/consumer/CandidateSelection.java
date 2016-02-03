@@ -45,6 +45,12 @@ public class CandidateSelection extends JCasConsumer_ImplBase {
 		outputFilePath = Paths.get(outputFile);
 		
 		try {
+			// Check if directory exists
+			Path parentDir = outputFilePath.getParent();
+			if (!Files.exists(parentDir)) {
+				Files.createDirectories(parentDir);
+			}
+			
 			Files.deleteIfExists(outputFilePath);
 			Files.createFile(outputFilePath);
 		} catch (IOException ex) {

@@ -2,6 +2,7 @@
 *.properties
 *.default.properties
 .recommenders/
+/qagen/src/main/resources/questions/results/*
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/

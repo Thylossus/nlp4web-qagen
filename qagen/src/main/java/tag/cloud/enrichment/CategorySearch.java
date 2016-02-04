@@ -7,10 +7,15 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.Callable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.commons.lang.StringUtils;
 
 import de.tudarmstadt.ukp.wikipedia.api.Category;
 import de.tudarmstadt.ukp.wikipedia.api.Page;
 import de.tudarmstadt.ukp.wikipedia.api.Wikipedia;
+import de.tudarmstadt.ukp.wikipedia.api.exception.WikiApiException;
 import de.tudarmstadt.ukp.wikipedia.api.exception.WikiInitializationException;
 import edu.stanford.nlp.util.Pair;
 import util.WikipediaFactory;
@@ -49,7 +54,14 @@ public class CategorySearch implements Callable<Result> {
 
 		List<Pair<Integer, Integer>> categoryRatings = new ArrayList<Pair<Integer, Integer>>();
 
-		for (Category category : page.getCategories()) {
+		Set<Category> categories = page.getCategories();
+		
+		if (this.isDisambiguationPage(page)) {
+			System.out.println("Found a disambiguation page (" + this.searchterm + ")");
+			categories = this.findCategoriesOfCorrectPage(page);
+		}
+		
+		for (Category category : categories) {
 			int size = category.getNumberOfPages();
 			if (size <= MAX_CATEGORY_SIZE) {
 				int rating = 0;
@@ -89,5 +101,50 @@ public class CategorySearch implements Callable<Result> {
 		}
 
 		return new Result(categoryIds, articleIds);
+	}
+	
+	/**
+	 * Check if the provided page is a disambiguation page because the JWPL API is unreliable in this regard.
+	 * @param page The page to check.
+	 * @return
+	 */
+	private boolean isDisambiguationPage(Page page) {
+		Pattern patternDisamb = Pattern.compile("\\{\\{[^\\}]*([dD]isambiguation|[Hh]ndis|[gG]eodis|\\-dis)[^\\}]*\\}\\}");
+		Matcher m = patternDisamb.matcher(page.getText());
+		return m.find();
+	}
+	
+	/**
+	 * From a disambiguation page find the most likely page based on the questions keywords.
+	 * @param disambiguationPage The disambiguation page.
+	 * @return The categories for the found page.
+	 * @throws WikiApiException
+	 */
+	private Set<Category> findCategoriesOfCorrectPage(Page disambiguationPage) throws WikiApiException {
+		Set<Page> outlinks = disambiguationPage.getOutlinks();
+		String pagePlainText;
+		int score;
+		Page maxPage = null;
+		int maxScore = -1;
+		
+		for (Page candidate : outlinks) {
+			pagePlainText = candidate.getPlainText();
+			score = 0;
+			
+			for(String keyword : this.keywords) {
+				score += StringUtils.countMatches(pagePlainText, keyword);
+			}
+			
+			if (score > maxScore) {
+				maxScore = score;
+				maxPage = candidate;
+			}
+			
+			System.out.println("Disambiguation candidate '" + candidate.getTitle().getPlainTitle() + "' has score of " + score);
+		}
+		
+		System.out.println("Candidate with the highest score is " + maxPage.getTitle().getPlainTitle() + " with a score of " + maxScore);
+		
+		return maxPage.getCategories();
 	}
 }

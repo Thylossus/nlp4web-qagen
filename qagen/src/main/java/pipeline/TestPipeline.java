@@ -10,8 +10,10 @@ import org.apache.uima.analysis_engine.AnalysisEngine;
 import org.apache.uima.collection.CollectionReader;
 import org.apache.uima.fit.pipeline.SimplePipeline;
 
+import candidate.extraction.BlacklistFilter;
 import candidate.extraction.CandidateExtraction;
 import candidate.extraction.CategoryRanking;
+import candidate.extraction.DuplicateTitleDetection;
 import candidate.extraction.SynonymResolution;
 import consumer.CandidateSelection;
 import consumer.DebuggingOutput;
@@ -36,6 +38,8 @@ public class TestPipeline {
 		AnalysisEngine correctAnswerCategoryDetection = createEngine(CategoryDetection.class, CategoryDetection.PARAM_SEARCH_TYPE, "correctAnswer");
 		AnalysisEngine categoryRanking = createEngine(CategoryRanking.class, CategoryRanking.PARAM_NUM_CATEGORIES, 3);
 		AnalysisEngine candidateExtraction = createEngine(CandidateExtraction.class);
+		AnalysisEngine duplicateTitleDetection = createEngine(DuplicateTitleDetection.class);
+		AnalysisEngine blacklistFilter = createEngine(BlacklistFilter.class);
 		AnalysisEngine synonymResolution = createEngine(SynonymResolution.class);
 		AnalysisEngine candidateAnswerCategoryDetection = createEngine(CategoryDetection.class, CategoryDetection.PARAM_SEARCH_TYPE, "candidateAnswer");
 		AnalysisEngine similarityDetection = createEngine(SimilarityDetection.class);
@@ -50,6 +54,8 @@ public class TestPipeline {
 				correctAnswerCategoryDetection,
 				categoryRanking,
 				candidateExtraction,
+				duplicateTitleDetection,
+				blacklistFilter,
 				synonymResolution,
 				candidateAnswerCategoryDetection,
 				similarityDetection,

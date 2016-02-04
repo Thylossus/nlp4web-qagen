@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.fit.component.JCasAnnotator_ImplBase;
+import org.apache.uima.fit.descriptor.ConfigurationParameter;
 import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.util.Level;
@@ -22,6 +23,16 @@ import util.WikipediaFactory;
 
 public class CandidateExtraction extends JCasAnnotator_ImplBase {
 
+	/** Max depth for sub-category search */
+	public static final String PARAM_CATEGORY_DEPTH = "categoryDepth";
+	
+	/** Max depth for sub-category search */
+	@ConfigurationParameter(
+			name = PARAM_CATEGORY_DEPTH,
+			defaultValue = "15",
+			description = "Max depth for sub-category search")
+	private int categoryDepth;
+	
 	private static final String LF = System.getProperty("line.separator");
 	
 	@Override
@@ -83,7 +94,11 @@ public class CandidateExtraction extends JCasAnnotator_ImplBase {
 	 * @throws WikiApiException
 	 */
 	private Set<Integer> getAllArticles(Category cat) throws WikiApiException {
-		Set<Integer> articles = new HashSet<Integer>();
+		return getAllArticles(cat, new HashSet<>(), 0);
+	}
+	
+	private Set<Integer> getAllArticles(Category cat, Set<Integer> seenCategoryIDs, int depth) throws WikiApiException {
+		Set<Integer> articles = new HashSet<>();
 		
 		// Add articles of this category
 		articles.addAll(cat.getArticleIds());
@@ -91,11 +106,15 @@ public class CandidateExtraction extends JCasAnnotator_ImplBase {
 		// Add articles of all child categories
 		if (cat.getNumberOfChildren() > 0) {
 			for (Category c : cat.getChildren()) {
-				articles.addAll(this.getAllArticles(c));
+				if (!seenCategoryIDs.contains(c.getPageId()) && depth < categoryDepth) {
+					seenCategoryIDs.add(c.getPageId());
+					articles.addAll(this.getAllArticles(c, seenCategoryIDs, depth+1));
+				}
 			}
 		}
 		
 		return articles;
+		
 	}
 	
 	/**

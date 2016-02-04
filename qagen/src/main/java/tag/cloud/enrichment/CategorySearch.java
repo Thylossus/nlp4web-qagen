@@ -109,7 +109,7 @@ public class CategorySearch implements Callable<Result> {
 	 * @return
 	 */
 	private boolean isDisambiguationPage(Page page) {
-		Pattern patternDisamb = Pattern.compile("\\{\\{[^\\}]*([dD]isambiguation|[Hh]ndis|[gG]eodis|\\-dis)[^\\}]*\\}\\}");
+		Pattern patternDisamb = Pattern.compile("\\{\\{[^\\}]*([dD]isambiguation|[Hh]ndis|[gG]eodis|\\-dis)(\\|[^\\}]+){0,1}\\}\\}");
 		Matcher m = patternDisamb.matcher(page.getText());
 		return m.find();
 	}

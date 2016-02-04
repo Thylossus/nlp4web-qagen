@@ -2,8 +2,10 @@ package candidate.extraction;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
@@ -17,7 +19,6 @@ import org.apache.uima.util.Level;
 import candidate.extraction.synres.LevenshteinSynonymDetector;
 import candidate.extraction.synres.PairwiseSynonymDetector;
 import candidate.extraction.synres.SameStringSynonymDetector;
-import candidate.extraction.synres.WikiRedirectPageSynonymDetector;
 import types.Answer;
 import types.CandidateAnswer;
 import types.CorrectAnswer;
@@ -76,10 +77,12 @@ public class SynonymResolution extends JCasAnnotator_ImplBase {
 		CorrectAnswer correctAnswer = getCorrectAnswer(jcas);
 		List<CandidateAnswer> candidateAnswers = new ArrayList<>(JCasUtil.select(jcas, CandidateAnswer.class));
 		
+		Set<CandidateAnswer> annotationsToRemove = new HashSet<>();
+		
 		// Step 1: Check all AnswerCandidates against the correct Answer. If a synonym is detected here, obviously the candidate has to be discarded
 		for(CandidateAnswer candidateAnswer : candidateAnswers) {
 			if (isSynonym(jcas, correctAnswer, candidateAnswer)) {
-				candidateAnswer.removeFromIndexes(jcas);
+				annotationsToRemove.add(candidateAnswer);
 				getContext().getLogger().log(Level.INFO, "Removed " + candidateAnswer.getTitle() + ", as it is a synonym to " + correctAnswer.getCoveredText());
 			}
 		}
@@ -90,13 +93,19 @@ public class SynonymResolution extends JCasAnnotator_ImplBase {
 			for(int b = a+1; b < candidateAnswers.size(); b++) {
 				CandidateAnswer answerB = candidateAnswers.get(b);
 				if(isSynonym(jcas, answerA, answerB)) {
-					candidateAnswers.get(a).removeFromIndexes(jcas);
+					annotationsToRemove.add(answerA);
 					getContext().getLogger().log(Level.INFO, "Removed " + answerA.getTitle() + ", as it is a synonym to " + answerB.getTitle());
 					continue outer;
 				}
 			}
 		}
 		
+		// Remove the stored Annotations from the CAS
+		for(CandidateAnswer annotation : annotationsToRemove) {
+			annotation.removeFromIndexes(jcas);
+		}
+		
+		// Clear for next run
 		for(PairwiseSynonymDetector detector : appliedDetectors) {
 			detector.clearContext();
 		}

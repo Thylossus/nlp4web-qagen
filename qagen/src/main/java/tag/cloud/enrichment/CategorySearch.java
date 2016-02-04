@@ -20,6 +20,8 @@ public class CategorySearch implements Callable<Result> {
 	Wikipedia wiki;
 	String searchterm;
 	String[] keywords;
+	private final int MAX_CATEGORY_SIZE = 1000;
+	private final double CATEGORY_SPLIT = 0.2;
 
 	private void init() {
 		try {
@@ -48,20 +50,23 @@ public class CategorySearch implements Callable<Result> {
 		List<Pair<Integer, Integer>> categoryRatings = new ArrayList<Pair<Integer, Integer>>();
 
 		for (Category category : page.getCategories()) {
-			int rating = 0;
-			String categoryTitle = category.getTitle().getPlainTitle().toLowerCase();
+			int size = category.getNumberOfPages();
+			if (size <= MAX_CATEGORY_SIZE) {
+				int rating = 0;
+				String categoryTitle = category.getTitle().getPlainTitle().toLowerCase();
 
-			for (String keyword : keywords) {
-				if (categoryTitle.contains(keyword.toLowerCase())) {
-					rating++;
+				for (String keyword : keywords) {
+					if (categoryTitle.contains(keyword.toLowerCase())) {
+						rating++;
+					}
 				}
-			}
 
-			if (rating == 0) {
-				rating = -category.getNumberOfPages();
-			}
+				if (rating == 0) {
+					rating = -size;
+				}
 
-			categoryRatings.add(new Pair<Integer, Integer>(category.getPageId(), rating));
+				categoryRatings.add(new Pair<Integer, Integer>(category.getPageId(), rating));
+			}
 		}
 
 		Comparator<Pair<Integer, Integer>> c = new Comparator<Pair<Integer, Integer>>() {
@@ -75,14 +80,14 @@ public class CategorySearch implements Callable<Result> {
 		Iterator<Pair<Integer, Integer>> it = categoryRatings.iterator();
 		while (it.hasNext()) {
 			Pair<Integer, Integer> pair = it.next();
-			if (pair.second() > 0 || (categoryIds.size() <= Math.floor(categoryRatings.size() * 0.2))) {
+			if (pair.second() > 0 || (categoryIds.size() <= Math.floor(categoryRatings.size() * CATEGORY_SPLIT))) {
 				Category category = wiki.getCategory(pair.first());
 				categoryIds.add(pair.first());
 				articleIds.addAll(category.getArticleIds());
 				System.out.println(category.getTitle().getPlainTitle());
 			}
 		}
-		
+
 		return new Result(categoryIds, articleIds);
 	}
 }

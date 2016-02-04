@@ -29,6 +29,17 @@ public class CategoryRanking extends JCasAnnotator_ImplBase {
 	/** Parameter name for the number of relevant categories to extract */
 	public static final String PARAM_NUM_CATEGORIES = "Number of relevant categories";
 	
+
+	/** Max depth for sub-category search */
+	public static final String PARAM_CATEGORY_DEPTH = "categoryDepth";
+	
+	/** Max depth for sub-category search */
+	@ConfigurationParameter(
+			name = PARAM_CATEGORY_DEPTH,
+			defaultValue = "15",
+			description = "Max depth for sub-category search")
+	private int categoryDepth;
+	
 	/** Stores the name of the file that the questions are read from */
 	@ConfigurationParameter(
 			name = PARAM_NUM_CATEGORIES,
@@ -85,15 +96,13 @@ public class CategoryRanking extends JCasAnnotator_ImplBase {
 	private Set<Integer> getAllArticles(Category cat, Set<Integer> seenCategoryIDs, int depth) throws WikiApiException {
 		Set<Integer> articles = new HashSet<>();
 		
-		int MAXDEPTH = 15;
-		
 		// Add articles of this category
 		articles.addAll(cat.getArticleIds());
 		
 		// Add articles of all child categories
 		if (cat.getNumberOfChildren() > 0) {
 			for (Category c : cat.getChildren()) {
-				if (!seenCategoryIDs.contains(c.getPageId()) && depth < MAXDEPTH) {
+				if (!seenCategoryIDs.contains(c.getPageId()) && depth < categoryDepth) {
 					seenCategoryIDs.add(c.getPageId());
 					articles.addAll(this.getAllArticles(c, seenCategoryIDs, depth+1));
 				}
@@ -134,7 +143,7 @@ public class CategoryRanking extends JCasAnnotator_ImplBase {
 		prl.closeConnection();
 		
 		// Select the first n (n = this.numCategories) category IDs
-		for (int i = 0; i < this.numCategories; i++) {
+		for (int i = 0; i < this.numCategories && i < categories.size(); i++) {
 			mostRelevantCategories.add(categories.get(i).getCategoryId());
 		}
 		

@@ -36,7 +36,7 @@ An updated [pipeline description](https://github.com/Thylossus/nlp4web-qagen/blo
   - [ ] Final results of the system (i.e. evaluation results)
   - [ ] Discussion of results
   - [ ] Future work (e.g. extend system with WordNet, apply it to other types of questions, maybe other use cases)
-  - [ ] Statement indicating what group members did what
+  - [x] Statement indicating what group members did what
 - [ ] Create final presentation
   - Cover the same content as in the written report
   - Highlight particlularly interesing results

@@ -121,7 +121,10 @@ public class CategoryRanking extends JCasAnnotator_ImplBase {
 	 * @param categories A list of category tuples.
 	 * @return The IDs of the most relevant categories according to the measure in {@link PageRankTuple#getScore(PageRankLoader)}.
 	 */
-	private List<Integer> getMostRelevantCategories(List<PageRankTuple> categories) {
+	private List<Integer> getMostRelevantCategories(List<PageRankTuple> categories) throws WikiApiException {
+		
+		Wikipedia wiki = WikipediaFactory.getWikipedia();
+		
 		List<Integer> mostRelevantCategories = new ArrayList<>(this.numCategories);
 		final PageRankLoader prl = new PageRankLoader();
 		
@@ -142,9 +145,26 @@ public class CategoryRanking extends JCasAnnotator_ImplBase {
 		
 		prl.closeConnection();
 		
+		// If numCategories is set to very low values, and the mostRelevantCategories are very small categories
+		// we might get into trouble to be able to find at least 4 different answer candidates. To assure that
+		// at least 4 answer candidates are found, we ignore the limit of numCategories in this case. To be able
+		// to do so, we have to track the articles in each category.
+		
+		Set<Integer> candidateIDs = new HashSet<>();
+		
 		// Select the first n (n = this.numCategories) category IDs
-		for (int i = 0; i < this.numCategories && i < categories.size(); i++) {
-			mostRelevantCategories.add(categories.get(i).getCategoryId());
+		for (int i = 0; (i < this.numCategories || candidateIDs.size() < 4) && i < categories.size(); i++) {
+			int categoryId = categories.get(i).getCategoryId();
+			mostRelevantCategories.add(categoryId);
+			
+			Category category = wiki.getCategory(categoryId);
+			candidateIDs.addAll(category.getArticleIds());
+		}
+		
+		if (mostRelevantCategories.size() > numCategories) {
+			getContext().getLogger().log(Level.WARNING, "The amount of articles in the " + numCategories + " most relevant categories "
+					+ "does not suffice to fetch at least 4 articles. NUM_CATEGORIES has been increased to " + mostRelevantCategories.size()
+					+ " temporarily. Now, " + candidateIDs.size() + " articles have been found.");
 		}
 		
 		return mostRelevantCategories;

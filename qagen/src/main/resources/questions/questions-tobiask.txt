@@ -55,11 +55,11 @@ C Dashiell Hammett
 D Louis LAmour
 
 #Q He was the most loyal friend of Al Capone. He was Capones treasurer and financial wizard. Because he was incapable of using a gun or killing a person, Al Capone protected him.
-^ Jake Gizuk
+^ Jake Guzik
 A Ralph Capone
 B Meyer Lansky
 C Jimmy Hoffa
-D Jake Gizuk
+D Jake Guzik
 
 #Q Which German soccer star was voted European Soccer Player of the Year in both 1972 and 1976?
 ^ Franz Beckenbauer

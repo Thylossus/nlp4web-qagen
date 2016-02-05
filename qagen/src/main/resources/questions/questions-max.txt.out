@@ -1,0 +1,56 @@
+! Started on Fri Feb 05 02:56:40 CET 2016
+! Input file:  /home/frank/git/nlp4web-qagen/qagen/src/main/resources/questions/questions-max.txt
+! Output file: /home/frank/git/nlp4web-qagen/qagen/src/main/resources/questions/questions-max.txt.out
+! numCat:      2
+! catDepth:    3
+
+Which US General became the Thirty-Fourth US President?
+Dwight D. Eisenhower
+Haile Selassie
+George H. W. Bush
+Chester A. Arthur
+Which of these was the tallest U.S. President?
+Abraham Lincoln
+George H. W. Bush
+Chester A. Arthur
+John F. Kennedy
+George Washington was related to which other US President?
+James Madison
+Charles Cotesworth Pinckney
+George Clinton
+John Quincy Adams
+Who delivered the eulogy at Senator Ted Kennedy funeral?
+President Obama
+Adlai Stevenson II
+Alton B. Parker
+Samuel J. Tilden
+Who portrayed Jesse James in the 2007 movie The Assassination of Jesse James by the Coward Bob Ford?
+Brad Pitt
+The Truman Show
+Richard Attenborough
+Eddie Murphy
+The travels of what famous sailor are described in a 13th century travel book known as The Million?
+Marco Polo
+Muhammad al-Idrisi
+Eldad ha-Dani
+Ahmad ibn Rustah
+What European director created the 1984 movie Paris, Texas which was named after a US city of the same name?
+Wim Wenders
+Jean-Pierre Jeunet
+John Schlesinger
+Bob Fosse
+Which President of the United States wrote, Rules of Civility and Decent Behavior in Company and Conversation?
+George Washington
+Aaron Burr
+Thomas Jefferson
+Franklin D. Roosevelt
+He won the Triple Crown in 2006 and was traded after the next season.
+Johan Santana
+Cy Young
+Hal Newhouser
+Justin Verlander
+He was the first World Series Most Valuable Player.
+Johnny Podres
+Reggie Jackson
+Whitey Ford
+World Series Most Valuable Player Award

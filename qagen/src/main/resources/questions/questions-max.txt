@@ -1,4 +1,4 @@
-﻿#Q Which US General became the Thirty-Fourth US President?
+#Q Which US General became the Thirty-Fourth US President?
 ^ Dwight D. Eisenhower
 A Calvin Coolidge
 B Douglas MacArthur

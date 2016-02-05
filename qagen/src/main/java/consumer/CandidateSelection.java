@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.uima.UimaContext;
@@ -26,6 +27,17 @@ public class CandidateSelection extends JCasConsumer_ImplBase {
 
 	/** Defines the path of the output file */
 	public static final String PARAM_OUTPUT_FILE = "outputFile";
+	
+	/** Add additional Header Messages to the Output file */
+	public static final String PARAM_LOG = "logmsg";
+	
+	/** The file the output is written into */
+	@ConfigurationParameter(
+			name = PARAM_LOG,
+			mandatory = false,
+			description = "Add additional Header Messages to the Output file",
+			defaultValue = "")
+	private String logmsg;
 	
 	/** The file the output is written into */
 	@ConfigurationParameter(
@@ -53,6 +65,16 @@ public class CandidateSelection extends JCasConsumer_ImplBase {
 			
 			Files.deleteIfExists(outputFilePath);
 			Files.createFile(outputFilePath);
+			
+			// If configured, add a header to the output
+			List<String> header = new LinkedList<>();
+			if (logmsg.trim().length() > 0) {
+				String[] headerLines = logmsg.split("\n");
+				for(String line : headerLines) header.add("! " + line);
+				header.add("");
+			}
+			
+			Files.write(outputFilePath, header, StandardOpenOption.APPEND);
 		} catch (IOException ex) {
 			throw new ResourceInitializationException(ex);
 		}

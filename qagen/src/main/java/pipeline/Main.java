@@ -7,6 +7,7 @@ import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngine;
 import static org.apache.uima.fit.factory.CollectionReaderFactory.createReader;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -60,6 +61,14 @@ public class Main {
 	 */
 	public void processPipeline(String inFile, String outFile) throws UIMAException, IOException {
 		
+		String logmessages = "Started on " + new Date() + "\n"
+				+ "Input file:  " + inFile + "\n"
+				+ "Output file: " + outFile + "\n"
+				+ "numCat:      " + numCats + "\n"
+				+ "catDepth:    " + catDepth;
+		
+		System.out.println(logmessages);
+		
 		// Collection reader
 		CollectionReader questionParser = createReader(OpenTriviaQAParser.class, OpenTriviaQAParser.PARAM_INPUT_FILE, inFile);
 
@@ -90,7 +99,8 @@ public class Main {
 		
 		// Final selection and output
 		AnalysisEngine candidateSelection = createEngine(CandidateSelection.class,
-				CandidateSelection.PARAM_OUTPUT_FILE, outFile);
+				CandidateSelection.PARAM_OUTPUT_FILE, outFile,
+				CandidateSelection.PARAM_LOG, logmessages);
 				
 		SimplePipeline.runPipeline(
 				questionParser,
@@ -120,13 +130,16 @@ public class Main {
 	public static void main(String[] args) throws UIMAException, IOException {
 		Main main = new Main();
 		
+		int n = 2;
+		int d = 3;
+		
 		List<String> inputFiles = new LinkedList<>();
 		
 		for(String arg : args) {
 			if (arg.startsWith("-catDepth=")) {
-				main.setCatDepth(Integer.parseInt(arg.substring("-catDepth=".length())));
+				d = Integer.parseInt(arg.substring("-catDepth=".length()));
 			} else if (arg.startsWith("-numCats=")) {
-				main.setCatDepth(Integer.parseInt(arg.substring("-numCats=".length())));
+				n = Integer.parseInt(arg.substring("-numCats=".length()));
 			} else {
 				inputFiles.add(arg);
 			}
@@ -149,12 +162,15 @@ public class Main {
 
 			Object catDepth = JOptionPane.showInputDialog(null, "Select depth for category search", "Parameter",
 					JOptionPane.QUESTION_MESSAGE, null, new Integer[]{1,2,3,4,5,6,7,8,9,10}, 3);
-			if (catDepth != null) main.setCatDepth((Integer)catDepth); else System.exit(0);
+			if (catDepth != null) d = (Integer)catDepth; else System.exit(0);
 
 			Object numCat = JOptionPane.showInputDialog(null, "Select number of relevant categories", "Parameter",
 					JOptionPane.QUESTION_MESSAGE, null, new Integer[]{1,2,3,4,5}, 2);
-			if (numCat != null) main.setNumCats((Integer)numCat); else System.exit(0);
+			if (numCat != null) n = (Integer)numCat; else System.exit(0);
 		}
+		
+		main.setCatDepth(d);
+		main.setNumCats(n);
 		
 		for(String inputFile : inputFiles) {
 			String outputFile = inputFile + ".out";

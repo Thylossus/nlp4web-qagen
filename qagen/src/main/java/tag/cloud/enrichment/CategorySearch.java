@@ -2,6 +2,7 @@ package tag.cloud.enrichment;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -9,8 +10,6 @@ import java.util.TreeSet;
 import java.util.concurrent.Callable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.apache.commons.lang.StringUtils;
 
 import de.tudarmstadt.ukp.wikipedia.api.Category;
 import de.tudarmstadt.ukp.wikipedia.api.Page;
@@ -25,6 +24,10 @@ public class CategorySearch implements Callable<Result> {
 	Wikipedia wiki;
 	String searchterm;
 	String[] keywords;
+	
+	// Question Text, used for decision if the page is a disambiguation page
+	private String question;
+	
 	private final int MAX_CATEGORY_SIZE = 1000;
 	private final double CATEGORY_SPLIT = 0.2;
 
@@ -36,15 +39,11 @@ public class CategorySearch implements Callable<Result> {
 		}
 	}
 
-	public CategorySearch(String searchterm, String[] keywords) {
+	public CategorySearch(String searchterm, String[] keywords, String question) {
 		init();
 		this.searchterm = searchterm;
 		this.keywords = keywords;
-	}
-
-	public CategorySearch(String searchterm) {
-		init();
-		this.searchterm = searchterm;
+		this.question = question;
 	}
 
 	public Result call() throws Exception {
@@ -121,30 +120,52 @@ public class CategorySearch implements Callable<Result> {
 	 * @throws WikiApiException
 	 */
 	private Set<Category> findCategoriesOfCorrectPage(Page disambiguationPage) throws WikiApiException {
-		Set<Page> outlinks = disambiguationPage.getOutlinks();
-		String pagePlainText;
-		int score;
-		Page maxPage = null;
+		Pattern linkPattern = Pattern.compile("(.*\\[\\[([^\\]]+)\\]\\].*)");
+		Pattern simpleWordPattern = Pattern.compile("\\W*(\\w+)\\W*");
+		int score = 0;
 		int maxScore = -1;
+		String maxPage = "";
 		
-		for (Page candidate : outlinks) {
-			pagePlainText = candidate.getPlainText();
-			score = 0;
-			
-			for(String keyword : this.keywords) {
-				score += StringUtils.countMatches(pagePlainText, keyword);
-			}
-			
-			if (score > maxScore) {
-				maxScore = score;
-				maxPage = candidate;
-			}
-			
-			System.out.println("Disambiguation candidate '" + candidate.getTitle().getPlainTitle() + "' has score of " + score);
+		Matcher linkMatcher = linkPattern.matcher(disambiguationPage.getText());
+		
+		// Get the unique question words using the same pattern that will be applied to the disambiguation line
+		Set<String> questionWords = new HashSet<>();
+		Matcher questionWordMatcher = simpleWordPattern.matcher(question);
+		while(questionWordMatcher.find()) {
+			questionWords.add(questionWordMatcher.group(1).toLowerCase());
 		}
 		
-		System.out.println("Candidate with the highest score is " + maxPage.getTitle().getPlainTitle() + " with a score of " + maxScore);
+		// Iterate over the disambiguation lines
+		while(linkMatcher.find()) {
+			
+			// link will contain the target page title, e.g. "John Smith (musician)"
+			String link = linkMatcher.group(2);
+			
+			// The keywordMatcher gets words from the disambiguation line (group 1 matches the hole line of the linkMatcher)
+			Matcher keywordMatcher = simpleWordPattern.matcher(linkMatcher.group(1));
+
+			// Find common words in question and disambiguation line
+			score = 0;
+			while(keywordMatcher.find()) {
+				String word = keywordMatcher.group(1).toLowerCase();
+				score += word.length() * (questionWords.contains(word) ? 1 : 0);
+			}
 		
-		return maxPage.getCategories();
+			// Calculate max Score (= most common words)
+			if (score > maxScore) {
+				maxScore = score;
+				maxPage = link;
+			}
+		
+			System.out.println("Disambiguation candidate '" + link + "' has score of " + score);
+			
+		}
+		
+		// Out approach will be to take the page with the correspnding disambiguation line that has the most words in common with the question
+		Page result = wiki.getPage(maxPage);
+		System.out.println("The disambiguation has been resolved to '" + maxPage + "'");
+		
+		return result.getCategories();
+		
 	}
 }

@@ -18,7 +18,7 @@ public class Experiments {
         Future<Result>  task;
 
         service = Executors.newFixedThreadPool(1);        
-        task    = service.submit(new CategorySearch(searchterm, keywords));
+        task    = service.submit(new CategorySearch(searchterm, keywords, "chancellor germany woman"));
 
         try {
            Result searchResult = task.get();

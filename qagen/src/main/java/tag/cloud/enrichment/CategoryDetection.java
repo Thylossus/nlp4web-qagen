@@ -23,6 +23,7 @@ import de.tudarmstadt.ukp.wikipedia.api.exception.WikiApiException;
 import de.tudarmstadt.ukp.wikipedia.api.exception.WikiInitializationException;
 import types.CandidateAnswer;
 import types.CorrectAnswer;
+import types.Question;
 import util.UimaListHandler;
 import util.WikipediaFactory;
 
@@ -37,6 +38,8 @@ public class CategoryDetection extends JCasAnnotator_ImplBase {
 	public void process(JCas jcas) throws AnalysisEngineProcessException {
 		ExecutorService service = Executors.newFixedThreadPool(4);
 
+		Question question = JCasUtil.selectSingle(jcas, Question.class);
+		
 		if (searchType == "correctAnswer") {
 			List<Future<Result>> tasks = new ArrayList<Future<Result>>();
 
@@ -46,7 +49,7 @@ public class CategoryDetection extends JCasAnnotator_ImplBase {
 				List<String> keywordList = UimaListHandler.listToJavaStringList(answer.getKeywords());
 				String[] keywords = keywordList.toArray(new String[0]);
 				this.getContext().getLogger().log(Level.INFO, "Keywords: " + Arrays.toString(keywords));
-				tasks.add(service.submit(new CategorySearch(searchTerm, keywords)));
+				tasks.add(service.submit(new CategorySearch(searchTerm, keywords, question.getCoveredText())));
 			}
 
 			Iterator<Future<Result>> it = tasks.iterator();
@@ -108,7 +111,7 @@ public class CategoryDetection extends JCasAnnotator_ImplBase {
 					String searchTerm = searchTermPage.getTitle().getPlainTitle();
 					// FIXME: answer.setTitle(searchTerm); // removed because the title is already set in the candidate extraction
 					this.getContext().getLogger().log(Level.INFO, "Search Term: " + searchTerm);
-					tasks.add(service.submit(new CategorySearch(searchTerm, keywords)));
+					tasks.add(service.submit(new CategorySearch(searchTerm, keywords, question.getCoveredText())));
 				} catch (WikiApiException e) {
 					throw new AnalysisEngineProcessException("Cannot load Wikipedia article for candidate answer.",
 							new Object[] { answer });

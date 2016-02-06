@@ -1,6 +1,8 @@
 package input;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -65,7 +67,9 @@ public class OpenTriviaQAParser extends JCasCollectionReader_ImplBase {
 		questions = new LinkedList<>();
 		questionCount = 0;
 
-		try(InputStream inStream = getClass().getClassLoader().getResourceAsStream(inputFile)) {
+		try(InputStream inStream = (new File(inputFile)).exists() 
+				? new FileInputStream(inputFile)
+				: getClass().getClassLoader().getResourceAsStream(inputFile)) {
 			parse(inStream);
 		} catch (IOException ex) {
 			throw new ResourceInitializationException(new IOException("Could not read OpenTrivia QA input file", ex));

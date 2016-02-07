@@ -1,0 +1,44 @@
+<server description="nlp-evaluation-server">
+
+    <!-- Enable features -->
+    <featureManager>
+        <feature>localConnector-1.0</feature>
+        <feature>appSecurity-2.0</feature>
+    	<feature>webProfile-7.0</feature>
+		<feature>jdbc-4.1</feature>
+	</featureManager>
+
+    <!-- To access this server from a remote client add a host attribute to the following element, e.g. host="*" -->
+    <applicationMonitor updateTrigger="mbean"/>
+    <httpEndpoint httpPort="9080" httpsPort="9443" id="defaultHttpEndpoint"/>
+    <dataSource commitOrRollbackOnCleanup="rollback" id="mysql-ds" jndiName="jdbc/nlpweb" type="javax.sql.DataSource">
+        <jdbcDriver>
+            <library>
+                <fileset dir="${shared.resource.dir}/lib/mysql-connector" includes="*.jar"/>
+            </library>
+        </jdbcDriver>
+        <connectionManager maxPoolSize="10" minPoolSize="0"/>
+        <properties autoReconnect="true" databaseName="nlpweb" password="insert-db-password-here" portNumber="3306" serverName="localhost" user="nlpweb"/>
+    </dataSource>
+    <cdiContainer com.ibm.ws.jsf.delayManagedBeanPostConstruct="true"/>
+    <basicRegistry>
+    	<user name="admin" password="insert-admin-password-here"/>
+    	<group name="ADMINS">
+    		<member name="admin"/>
+    	</group>
+    </basicRegistry>
+    <webAppSecurity httpOnlyCookies="false" logoutOnHttpSessionExpire="true"/>
+    <keyStore password="insert-keystore-passwod-here"/>
+
+    <enterpriseApplication id="nlp-evaluation-ear" location="nlp-evaluation-ear.ear" name="nlp-evaluation-ear">
+    
+    	<application-bnd>
+    		<security-role name="ADMIN">
+    			<group name="ADMINS"></group>
+    		</security-role>
+    		<security-role name="USER">
+    			<special-subject type="EVERYONE"></special-subject>
+    		</security-role>
+    	</application-bnd>
+    </enterpriseApplication>
+</server>

@@ -20,24 +20,24 @@ An updated [pipeline description](https://github.com/Thylossus/nlp4web-qagen/blo
     - [ ] ~~[Hypernym search](https://github.com/Thylossus/nlp4web-qagen/blob/master/qagen/src/main/java/tag/cloud/enrichment/HypernymSearch.java) using [JWI](https://projects.csail.mit.edu/jwi/)~~
   - [x] [Category ranking](https://github.com/Thylossus/nlp4web-qagen/blob/master/qagen/src/main/java/candidate/extraction/CategoryRanking.java) [Tobias K.] 
   - [x] [Candidate extraction](https://github.com/Thylossus/nlp4web-qagen/blob/master/qagen/src/main/java/candidate/extraction/CandidateExtraction.java) [Tobias K.]
-  - [ ] [Synonym resolution](https://github.com/Thylossus/nlp4web-qagen/blob/master/qagen/src/main/java/candidate/extraction/SynonymResolution.java) [Frank]
-  - [ ] [Similarity detection](https://github.com/Thylossus/nlp4web-qagen/blob/master/qagen/src/main/java/similarity/detection/SimilarityDetection.java) [Tobias R.]
-  - [ ] [Candidate selection](https://github.com/Thylossus/nlp4web-qagen/blob/master/qagen/src/main/java/consumer/CandidateSelection.java) [Tobias R.]
-  - [ ] The pipeline
-- [ ] Devlop evaluation formula for tests results
-- [ ] Analyze and summarize test results
-- [ ] Write final report
+  - [x] [Synonym resolution](https://github.com/Thylossus/nlp4web-qagen/blob/master/qagen/src/main/java/candidate/extraction/SynonymResolution.java) [Frank]
+  - [x] [Similarity detection](https://github.com/Thylossus/nlp4web-qagen/blob/master/qagen/src/main/java/similarity/detection/SimilarityDetection.java) [Tobias R.]
+  - [x] [Candidate selection](https://github.com/Thylossus/nlp4web-qagen/blob/master/qagen/src/main/java/consumer/CandidateSelection.java) [Tobias R.]
+  - [x] The pipeline
+- [x] Devlop evaluation formula for tests results
+- [x] Analyze and summarize test results
+- [x] Write final report
   - [x] Statement of the research problem [Tobias K.]
   - [x] Methodology and used third-party software
   - [x] High-level description of the software (including class/component diagram) [Tobias K.]
   - [x] Data sources (how obtained and processed?)
-  - [ ] ~~Preliminary testing/training (if applicable)~~
-  - [ ] What we did to improve the system's performance, and how these ideas worked out
-  - [ ] Final results of the system (i.e. evaluation results)
-  - [ ] Discussion of results
-  - [ ] Future work (e.g. extend system with WordNet, apply it to other types of questions, maybe other use cases)
+  - [x] ~~Preliminary testing/training (if applicable)~~
+  - [x] What we did to improve the system's performance, and how these ideas worked out
+  - [x] Final results of the system (i.e. evaluation results)
+  - [x] Discussion of results
+  - [x] Future work (e.g. extend system with WordNet, apply it to other types of questions, maybe other use cases)
   - [x] Statement indicating what group members did what
-- [ ] Create final presentation
+- [x] Create final presentation
   - Cover the same content as in the written report
   - Highlight particlularly interesing results
   - About ten minutes long
